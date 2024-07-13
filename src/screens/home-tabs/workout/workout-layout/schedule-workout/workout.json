@@ -1,0 +1,228 @@
+{
+  "isFinished": false,
+  "activeWeek": 4,
+  "plan": {
+    "_id": "656dfd9724ec39b51b0ceae6",
+    "title": "Тренировочная программа",
+    "description": "dasdsadas",
+    "price": 0,
+    "gender": "MALE",
+    "level": "EXPERIENCED",
+    "week": 8,
+    "creatorUser": "64b24149895500848740068e",
+    "workouts": [
+      [
+        {
+          "exercise": {
+            "_id": "65464fa5441688100b1d09f7",
+            "title": "Упражнение 1",
+            "image": "https://sport-center.by/upload/iblock/f7f/jdxx2yu6r46y4lj5p6qozyfwg5lms2bn.jpg",
+            "video": "https://www.youtube.com/shorts/2WhQu0ZAvq4",
+            "description": "Какие мышцы работают при жиме гантелей?\nЖим гантелей от груди | Железный дровосек\nКакие мышцы работают при жиме гантелей\n\nОсновные мышцы: большая и малая грудные. Дополнительные мышцы: передние дельты, трицепс.",
+            "metadescription": "Какие мышцы работают при жиме гантелей?\nЖим гантелей от груди | Железный дровосек\nКакие мышцы работают при жиме гантелей\n\nОсновные мышцы: большая и малая грудные. Дополнительные мышцы: передние дельты, трицепс.",
+            "category": "65464f20441688100b1d0928",
+            "createdAt": "2023-11-04T14:05:25.990Z",
+            "updatedAt": "2023-11-04T14:05:25.990Z",
+            "__v": 0
+          },
+          "approach": 1,
+          "repetitions": "20",
+          "_id": "656dfd9724ec39b51b0ceae7"
+        },
+        {
+          "exercise": {
+            "_id": "65465184441688100b1d0b9c",
+            "title": "Упражнение 2",
+            "image": "https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/49067/article_full%401x.png",
+            "video": "https://www.youtube.com/shorts/2WhQu0ZAvq4",
+            "description": "dadsadadsadasd\n\ndsadsadas\ndsa\nd\nasd\nas\ndas\nd\nas\n",
+            "metadescription": "dasdsadsads\ndsad\nsa\ndsa\nd\nas\nds\na",
+            "category": "65464f20441688100b1d0928",
+            "createdAt": "2023-11-04T14:13:24.471Z",
+            "updatedAt": "2023-11-04T14:13:24.471Z",
+            "__v": 0
+          },
+          "approach": 2,
+          "repetitions": "2",
+          "_id": "656dfd9724ec39b51b0ceae8"
+        }
+      ]
+    ],
+    "createdAt": "2023-12-04T16:25:59.940Z",
+    "updatedAt": "2023-12-04T16:25:59.940Z",
+    "__v": 0
+  },
+  "results": [
+    [
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb81"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb82"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb83"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb84"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb85"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb86"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb87"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb88"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb89"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb8a"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb8b"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb8c"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb8d"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb8e"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb8f"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb90"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb91"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb92"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb93"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb94"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb95"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb96"
+          }
+        ],
+        [
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb97"
+          },
+          {
+            "weight": 0,
+            "repeat": 0,
+            "_id": "656dfda124ec39b51b0ceb98"
+          }
+        ]
+      ]
+    ]
+  ],
+  "_id": "656dfda124ec39b51b0ceb80"
+}
