@@ -45,6 +45,20 @@ export const WorkoutResultsHooks = () => {
     effect();
   }, [user]);
 
+  const getRecordWight = (
+    workoutIndex: number,
+    weekIndex: number,
+    workout: number
+  ): number => {
+    const weight: number[] = [];
+    data?.results[workoutIndex].forEach((first) =>
+      first[workout].forEach((third) => weight.push(third.weight))
+    );
+
+    weight.sort((a, b) => a - b);
+    return weight[weight.length - 1];
+  };
+
   useEffect(() => {
     if (weight) {
       setWeight(weight.replace(/[^\d.-]+/g, ""));
@@ -138,5 +152,6 @@ export const WorkoutResultsHooks = () => {
     onHide,
     onSubmit,
     i18n,
+    getRecordWight,
   };
 };

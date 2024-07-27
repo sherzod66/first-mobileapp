@@ -4,25 +4,47 @@ import { useDispatch } from "react-redux";
 import { MAIN } from "../../../../navigation/ROUTES";
 import { ApiService } from "../../../../services";
 import { ROLES, Trainer } from "../../../../types";
+const { ApiUrl } = Env;
 import EventEmitter from "../../../../utils/EventEmitter";
+import {
+  Asset,
+  ImageLibraryOptions,
+  launchImageLibrary,
+} from "react-native-image-picker";
+import { Env } from "../../../../../env";
 
 export const CreateTrainerHook = () => {
   const [trainer, setTrainer] = useState<Partial<Trainer>>({});
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const [selectImage, setSelectImage] = useState<Asset>();
 
   const onChange = (key: keyof Trainer) => (value: any) => {
     setTrainer({ ...trainer, [key]: value });
   };
 
   const onTrainerSubmit = async () => {
-    console.log(trainer.name, trainer.phoneNumber);
     if (trainer.name && trainer.phoneNumber && trainer.email) {
+      let imagePath = "";
       try {
+        if (selectImage) {
+          const bodyFormData = new FormData();
+          bodyFormData.append("image", {
+            uri: selectImage.uri,
+            type: selectImage.type,
+            name: selectImage.fileName,
+          });
+          const res = await fetch(`${ApiUrl}/uploads/image`, {
+            method: "post",
+            body: bodyFormData,
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+          const data = await res.json();
+          imagePath = data.src;
+        }
         const current = {
           aboutMe: trainer.aboutMe ? trainer.aboutMe : " ",
           age: trainer.age ? trainer.age : 18,
-          avatar: trainer.avatar ? trainer.avatar : " ",
+          avatar: imagePath.length > 0 ? imagePath : " ",
           city: trainer.city ? trainer.city : " ",
           education: trainer.education ? trainer.education : " ",
           email: trainer.email ? trainer.email : " ",
@@ -45,10 +67,20 @@ export const CreateTrainerHook = () => {
       }
     }
   };
+  const ImagePicker = () => {
+    let option: ImageLibraryOptions = {
+      mediaType: "photo",
+    };
+    launchImageLibrary(option, (response) => {
+      if (response.assets) setSelectImage(response.assets[0]);
+    });
+  };
 
   return {
     onChange,
     onTrainerSubmit,
     trainer,
+    selectImage,
+    ImagePicker,
   };
 };

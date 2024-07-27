@@ -11,6 +11,8 @@ export const Assets = {
     profile1: require("../assets/icons/profile1.png"),
     arrow: require("../assets/icons/arrow.png"),
     arrow1: require("../assets/icons/arrow1.png"),
+    arrowBottom: require("../assets/icons/arrowBottom.png"),
+    arrowTop: require("../assets/icons/arrowTop.png"),
     close: require("../assets/icons/close.png"),
   },
   images: {

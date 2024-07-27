@@ -33,6 +33,7 @@ const WorkoutResultsView = () => {
     onHide,
     onSubmit,
     i18n,
+    getRecordWight,
   } = WorkoutResultsHooks();
 
   return (
@@ -85,13 +86,8 @@ const WorkoutResultsView = () => {
                   </ScrollView>
                 </View>
                 <Text style={styles.textLast}>
-                  Рекордный вес:{" "}
-                  {
-                    data.results[workoutIndex][
-                      weekIndex > 0 ? weekIndex - 1 : weekIndex
-                    ][i][data.results[workoutIndex][weekIndex][i].length - 1]
-                      .weight
-                  }
+                  Рекордный вес:
+                  {getRecordWight(workoutIndex, weekIndex, i)}
                 </Text>
                 <View style={styles.main}>
                   <View style={styles.mainLeft}>

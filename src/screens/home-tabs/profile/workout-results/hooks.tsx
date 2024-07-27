@@ -7,6 +7,7 @@ import { ApiService } from "../../../../services";
 import { useRedux } from "../../../../store/hooks";
 import { selectUser, setUser } from "../../../../store/slices/appSlice";
 import { Response, ScheduleWorkout, User } from "../../../../types";
+import { useTranslation } from "react-i18next";
 
 export type WorkoutResultsScreenNavigationProp = NativeStackNavigationProp<
   ProfileStackParamList,
@@ -27,6 +28,7 @@ export const WorkoutResultsHooks = () => {
   const [approachIndex, setApproachIndex] = useState<number | undefined>();
   const [modalError, setModalError] = useState("");
   const [data, setData] = useState<ScheduleWorkout | null>(null);
+  const { i18n } = useTranslation();
 
   const [user, dispatch] = useRedux(selectUser);
 
@@ -136,5 +138,6 @@ export const WorkoutResultsHooks = () => {
     onShow,
     onHide,
     onSubmit,
+    i18n,
   };
 };

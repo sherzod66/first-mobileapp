@@ -90,6 +90,7 @@ const CustomModal = ({
                   disablePlaceholder
                   inputStyle={styles.modalInput}
                   containerStyle={styles.modalInputCont}
+                  keyboardType="number-pad"
                   onChange={(t) =>
                     setState1(normalizeOnlyNumbers(t).toString())
                   }
@@ -135,6 +136,7 @@ const CustomModal = ({
                 value={state}
                 inputStyle={styles.modalInput}
                 containerStyle={styles.modalInputCont}
+                keyboardType="number-pad"
                 onChange={(t) => setState(normalizeOnlyNumbers(t).toString())}
               />
               <Text style={styles.modalText1}>

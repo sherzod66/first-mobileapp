@@ -117,6 +117,7 @@ const UpdatePartPlanView = () => {
                       containerStyle={styles.inputCont}
                       onChange={(t) => onChangeP(t, i, ii)}
                       inputStyle={[styles.text4, styles.input]}
+                      keyboardType="number-pad"
                       value={((amountsP[i] && amountsP[i][ii]) || 0).toString()}
                     />
                   </View>

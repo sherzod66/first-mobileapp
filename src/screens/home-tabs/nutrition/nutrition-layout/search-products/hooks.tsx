@@ -17,8 +17,10 @@ export const SearchHooks = () => {
   const searchProduct = (value: string) => {
     if (value.length > 1)
       setFindProduct([
-        ...allProducts.filter((elem) =>
-          elem.name.ru.toLowerCase().includes(value.toLowerCase())
+        ...allProducts.filter(
+          (elem) =>
+            elem.name.ru.toLowerCase().includes(value.toLowerCase()) &&
+            !elem.userProduct
         ),
       ]);
     else setFindProduct([]);

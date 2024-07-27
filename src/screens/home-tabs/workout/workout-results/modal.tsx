@@ -54,6 +54,7 @@ const CustomModal = ({
               onChange={(s) => setWeight(normalizeOnlyNumbers(s).toString())}
               disablePlaceholder
               inputStyle={styles.modalInput}
+              keyboardType="number-pad"
               containerStyle={styles.modalInputCont}
             />
           </View>
@@ -64,6 +65,7 @@ const CustomModal = ({
               onChange={(s) => setRepeat(normalizeOnlyNumbers(s).toString())}
               disablePlaceholder
               inputStyle={styles.modalInput}
+              keyboardType="number-pad"
               containerStyle={styles.modalInputCont}
             />
           </View>

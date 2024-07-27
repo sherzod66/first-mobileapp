@@ -5,6 +5,7 @@ import { Icon } from "./common";
 import { Assets } from "../utils/requireAssets";
 import { COLORS } from "../constants/COLORS";
 import { MONTHS, WEEK_DAYS } from "../constants/CALENDAR";
+import { useState } from "react";
 
 export type IActiveDayProps = {
   weekIndex: number;
@@ -40,6 +41,7 @@ const CustomCalendar = ({
   setActiveMonth,
   setActiveYear,
 }: IProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [user] = useRedux(selectUser);
 
   const incrementMonth = () => {
@@ -75,9 +77,7 @@ const CustomCalendar = ({
   const onSelectDay = ({ weekIndex, dayIndex }: IActiveDayProps) => {
     const day = data[weekIndex][dayIndex];
 
-    if (day && !day.past) {
-      setActiveDay({ weekIndex, dayIndex });
-    }
+    setActiveDay({ weekIndex, dayIndex });
   };
 
   return (
@@ -87,81 +87,108 @@ const CustomCalendar = ({
           style={styles.title}
         >{`${MONTHS[activeMonth]} ${activeYear}`}</Text>
         <View style={styles.controls}>
-          <TouchableOpacity onPress={decrementMonth}>
-            <Icon
-              width={15}
-              height={15}
-              tintColor={COLORS.GREY6}
-              source={Assets.icons.arrow1}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={incrementMonth}>
-            <Icon
-              width={15}
-              height={15}
-              tintColor={COLORS.GREY6}
-              source={Assets.icons.arrow1}
-              style={{ marginLeft: 15, transform: [{ rotate: "180deg" }] }}
-            />
-          </TouchableOpacity>
+          {isOpen ? (
+            <>
+              <TouchableOpacity onPress={decrementMonth}>
+                <Icon
+                  width={15}
+                  height={15}
+                  tintColor={COLORS.GREY6}
+                  source={Assets.icons.arrow1}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={incrementMonth}>
+                <Icon
+                  width={15}
+                  height={15}
+                  tintColor={COLORS.GREY6}
+                  source={Assets.icons.arrow1}
+                  style={{ marginLeft: 15, transform: [{ rotate: "180deg" }] }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
+                <Icon
+                  width={15}
+                  height={15}
+                  tintColor={COLORS.GREY6}
+                  source={Assets.icons.arrowTop}
+                  style={{ marginLeft: 15 }}
+                />
+              </TouchableOpacity>
+            </>
+          ) : (
+            <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
+              <Icon
+                width={15}
+                height={15}
+                tintColor={COLORS.GREY6}
+                source={Assets.icons.arrowBottom}
+                style={{ marginLeft: 15 }}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
-      <View style={styles.main}>
-        <View style={styles.weekRow}>
-          {WEEK_DAYS.map((d, di) => (
-            <Text style={styles.weekText} key={di}>
-              {d}
-            </Text>
-          ))}
-        </View>
-        {data.map((sub, subI) => (
-          <View style={[styles.row, !!subI && { marginTop: 10 }]} key={subI}>
-            {sub.map((a, ai) => (
-              <TouchableOpacity
-                onPress={() => onSelectDay({ weekIndex: subI, dayIndex: ai })}
-                key={ai}
-              >
-                <View style={[styles.col]}>
-                  {activeDay &&
-                  activeDay.weekIndex === subI &&
-                  activeDay.dayIndex === ai ? (
-                    <View style={styles.border}>
-                      <Text
-                        style={[
-                          styles.text2,
-                          a &&
-                            a.day.toString().length === 1 && {
-                              paddingHorizontal: 4,
-                            },
-                        ]}
-                      >
-                        {a && a.day}
-                      </Text>
-                    </View>
-                  ) : (
-                    <Text
-                      style={[
-                        styles.text,
-                        a && a.planned && { color: COLORS.YELLOW2 },
-                        a && !a.value && { textAlignVertical: "center" },
-                      ]}
-                    >
-                      {!a ? "" : a.day}
-                    </Text>
-                  )}
-                  {!(
-                    activeDay &&
-                    activeDay.weekIndex === subI &&
-                    activeDay.dayIndex === ai
-                  ) && (
-                    <Text style={styles.text1}>{!a ? "" : a.value ?? ""}</Text>
-                  )}
-                </View>
-              </TouchableOpacity>
+      {isOpen && (
+        <View style={styles.main}>
+          <View style={styles.weekRow}>
+            {WEEK_DAYS.map((d, di) => (
+              <Text style={styles.weekText} key={di}>
+                {d}
+              </Text>
             ))}
           </View>
-        ))}
-      </View>
+          {data.map((sub, subI) => (
+            <View style={[styles.row, !!subI && { marginTop: 10 }]} key={subI}>
+              {sub.map((a, ai) => (
+                <TouchableOpacity
+                  onPress={() => onSelectDay({ weekIndex: subI, dayIndex: ai })}
+                  key={ai}
+                >
+                  <View style={[styles.col]}>
+                    {activeDay &&
+                    activeDay.weekIndex === subI &&
+                    activeDay.dayIndex === ai ? (
+                      <View style={styles.border}>
+                        <Text
+                          style={[
+                            styles.text2,
+                            a &&
+                              a.day.toString().length === 1 && {
+                                paddingHorizontal: 4,
+                              },
+                          ]}
+                        >
+                          {a && a.day}
+                        </Text>
+                      </View>
+                    ) : (
+                      <Text
+                        style={[
+                          styles.text,
+                          a && a.planned && { color: COLORS.YELLOW2 },
+                          a && !a.value && { textAlignVertical: "center" },
+                        ]}
+                      >
+                        {!a ? "" : a.day}
+                      </Text>
+                    )}
+                    {!(
+                      activeDay &&
+                      activeDay.weekIndex === subI &&
+                      activeDay.dayIndex === ai
+                    ) && (
+                      <Text style={styles.text1}>
+                        {!a ? "" : a.value && a.value > 0 ? a.value : "" ?? ""}
+                      </Text>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -173,6 +200,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     backgroundColor: COLORS.GREY2,
+    marginTop: 20,
   },
   titleRow: {
     flexDirection: "row",

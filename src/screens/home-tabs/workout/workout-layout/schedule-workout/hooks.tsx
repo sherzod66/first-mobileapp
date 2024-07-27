@@ -5,7 +5,12 @@ import { WORKOUT } from "../../../../../navigation/ROUTES";
 import { ApiService } from "../../../../../services";
 import { useRedux } from "../../../../../store/hooks";
 import { selectUser, setUser } from "../../../../../store/slices/appSlice";
-import { Response, ScheduleWorkout, User } from "../../../../../types";
+import {
+  Exercise,
+  Response,
+  ScheduleWorkout,
+  User,
+} from "../../../../../types";
 import { useTranslation } from "react-i18next";
 
 export type ScheduleWorkoutScreenNavigationProp = NavigationProp<
@@ -66,7 +71,11 @@ export const ScheduleWorkoutHooks = () => {
       });
     }
   };
-  console.log(show);
+  const onPressExercise = (exercise: Exercise) => {
+    navigation.navigate(WORKOUT.EXERCISE, {
+      exercise,
+    });
+  };
 
   return {
     data,
@@ -80,5 +89,6 @@ export const ScheduleWorkoutHooks = () => {
     onHide,
     onFinish,
     i18n,
+    onPressExercise,
   };
 };

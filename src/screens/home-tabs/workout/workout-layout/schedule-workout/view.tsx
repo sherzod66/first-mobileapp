@@ -1,4 +1,10 @@
-import { View, Text, ScrollView, TouchableWithoutFeedback } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from "react-native";
 import {
   ButtonPrimary,
   EmptyComponent,
@@ -6,11 +12,43 @@ import {
 } from "../../../../../components/common";
 import Modal from "./modal";
 import { COLORS } from "../../../../../constants/COLORS";
-import { Workout } from "../../../../../types";
+import { ScheduleWorkout } from "../../../../../types";
 import { Assets } from "../../../../../utils/requireAssets";
 import { ScheduleWorkoutHooks } from "./hooks";
 import { styles } from "./style";
 import tempData from "./workout.json";
+
+const getIsFinish = (
+  scheduleWorkout: ScheduleWorkout | null,
+  workoutIndex: number,
+  i: number
+) => {
+  const repeatAndWeight: string[] = [];
+  if (scheduleWorkout) {
+    scheduleWorkout.plan.workouts[workoutIndex].forEach((w, iii) => {
+      const { repeat, weight } =
+        scheduleWorkout.results[workoutIndex][scheduleWorkout.activeWeek + i][
+          iii
+        ][
+          scheduleWorkout.results[workoutIndex][scheduleWorkout.activeWeek + i][
+            iii
+          ].length - 1
+        ];
+      if (repeat && weight) {
+        repeatAndWeight.push(`${weight}/${repeat}`);
+      } else {
+        repeatAndWeight.push("-");
+      }
+    });
+  }
+  const isLine = repeatAndWeight.some((item) => item.includes("-"));
+  console.log(repeatAndWeight);
+  if (!isLine) {
+    return {
+      color: COLORS.GREEN,
+    };
+  }
+};
 
 const ScheduleWorkoutView = () => {
   const {
@@ -24,6 +62,7 @@ const ScheduleWorkoutView = () => {
     onHide,
     onFinish,
     i18n,
+    onPressExercise,
   } = ScheduleWorkoutHooks();
   let showData = !data ? tempData : data;
   return (
@@ -61,13 +100,14 @@ const ScheduleWorkoutView = () => {
                   {show[ii] && (
                     <>
                       {ww.map((w, i) => (
-                        <View
+                        <TouchableOpacity
                           key={`${ii}/${w.exercise?._id}`}
                           style={[
                             styles.column,
                             styles.itemsStart,
                             !i && { borderTopWidth: 0 },
                           ]}
+                          onPress={() => onPressExercise(w.exercise)}
                         >
                           <Text numberOfLines={1} style={styles.textEllipsis}>
                             {
@@ -76,7 +116,7 @@ const ScheduleWorkoutView = () => {
                               ]
                             }
                           </Text>
-                        </View>
+                        </TouchableOpacity>
                       ))}
                     </>
                   )}
@@ -108,9 +148,9 @@ const ScheduleWorkoutView = () => {
                         <View style={styles.weekStake}>
                           {!showData.isFinished && (
                             <View style={styles.titleColumn}>
-                              <Text style={styles.text}>{`Неделя ${
-                                showData.activeWeek + i + 1
-                              }`}</Text>
+                              <Text
+                                style={[styles.text, getIsFinish(data, ii, i)]}
+                              >{`Неделя ${showData.activeWeek + i + 1}`}</Text>
                             </View>
                           )}
                           {show[ii] && (

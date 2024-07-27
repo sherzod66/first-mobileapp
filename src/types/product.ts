@@ -12,4 +12,6 @@ export type Product = BaseData & {
   category: Category;
   creatorTrainer?: Trainer;
   creatorUser?: User;
+  isAdmin: boolean;
+  userProduct: boolean;
 };

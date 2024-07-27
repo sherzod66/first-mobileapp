@@ -59,25 +59,27 @@ const MyNutritionView = ({ apprenticeId = "" }) => {
               {`${activeTog ? "Профицитная" : "Дефицитная"} норма Ккал`}
             </Text>
             <View style={styles.col3}>
-              <Text style={styles.text}>{activeCalories || ""}</Text>
+              <Text style={styles.text}>
+                {Math.round(activeCalories) || ""}
+              </Text>
             </View>
           </View>
           <View style={styles.box}>
             <Text style={styles.rowTitle}>{"Б"}</Text>
             <View style={styles.col1}>
-              <Text style={styles.text}>{activeProtein || ""}</Text>
+              <Text style={styles.text}>{Math.round(activeProtein) || ""}</Text>
             </View>
           </View>
           <View style={styles.box}>
             <Text style={styles.rowTitle}>{"Ж"}</Text>
             <View style={styles.col1}>
-              <Text style={styles.text}>{activeOil || ""}</Text>
+              <Text style={styles.text}>{Math.round(activeOil) || ""}</Text>
             </View>
           </View>
           <View style={styles.box}>
             <Text style={styles.rowTitle}>{"У"}</Text>
             <View style={styles.col1}>
-              <Text style={styles.text}>{activeCarb || ""}</Text>
+              <Text style={styles.text}>{Math.round(activeCarb) || ""}</Text>
             </View>
           </View>
         </View>
@@ -86,25 +88,25 @@ const MyNutritionView = ({ apprenticeId = "" }) => {
           <View style={styles.box}>
             <Text style={styles.rowTitle}>{"Фактические Ккал"}</Text>
             <View style={[styles.col3, styles.bgGrey]}>
-              <Text style={styles.text}>{calories || ""}</Text>
+              <Text style={styles.text}>{Math.round(calories) || ""}</Text>
             </View>
           </View>
           <View style={styles.box}>
             <Text style={styles.rowTitle}>{"Б"}</Text>
             <View style={[styles.col1, styles.bgGrey]}>
-              <Text style={styles.text}>{protein || ""}</Text>
+              <Text style={styles.text}>{Math.round(protein) || ""}</Text>
             </View>
           </View>
           <View style={styles.box}>
             <Text style={styles.rowTitle}>{"Ж"}</Text>
             <View style={[styles.col1, styles.bgGrey]}>
-              <Text style={styles.text}>{oil || ""}</Text>
+              <Text style={styles.text}>{Math.round(oil) || ""}</Text>
             </View>
           </View>
           <View style={styles.box}>
             <Text style={styles.rowTitle}>{"У"}</Text>
             <View style={[styles.col1, styles.bgGrey]}>
-              <Text style={styles.text}>{carb || ""}</Text>
+              <Text style={styles.text}>{Math.round(carb) || ""}</Text>
             </View>
           </View>
         </View>

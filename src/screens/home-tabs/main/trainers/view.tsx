@@ -15,6 +15,7 @@ import {
 import { COLORS } from "../../../../constants/COLORS";
 import { TrainersHooks } from "./hooks";
 import { styles } from "./style";
+import { imageLink } from "../../../../utils/imageLink";
 
 const TrainersView = () => {
   const {
@@ -83,7 +84,7 @@ const TrainersView = () => {
               style={{ marginBottom: 10 }}
             >
               <TrainerBox
-                avatar={{ uri: trainer.avatar }}
+                avatar={{ uri: imageLink(trainer.avatar) }}
                 name={trainer.name}
                 speciality={trainer.speciality}
                 age={trainer.age}

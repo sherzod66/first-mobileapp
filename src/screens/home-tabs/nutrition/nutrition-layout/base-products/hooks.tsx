@@ -36,7 +36,9 @@ export const BaseProductsHooks = () => {
           ? allProducts
               .filter((e) => e.name?.ru?.indexOf(search) !== -1)
               .filter(
-                (p) => p.category?._id === productCategories[activeTab]?._id
+                (p) =>
+                  p.category?._id === productCategories[activeTab]?._id &&
+                  !p.userProduct
               )
           : []
       );

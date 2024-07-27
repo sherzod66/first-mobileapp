@@ -30,6 +30,7 @@ const WorkoutResultsView = () => {
     onShow,
     onHide,
     onSubmit,
+    i18n,
   } = WorkoutResultsHooks();
 
   return (
@@ -59,7 +60,7 @@ const WorkoutResultsView = () => {
                     showsHorizontalScrollIndicator={false}
                   >
                     <Text style={styles.text}>{`${i + 1}. ${
-                      a.exercise.title
+                      a.exercise.title[i18n.language as "ru"]
                     }`}</Text>
                     <ButtonSecondary
                       onPress={() => {}}

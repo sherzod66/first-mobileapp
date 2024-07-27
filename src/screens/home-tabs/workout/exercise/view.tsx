@@ -1,9 +1,10 @@
-import { View, Text, SafeAreaView } from "react-native";
-import { Header } from "../../../../components/common";
-import { WorkoutExerciseHooks } from "./hooks";
+import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { styles } from "./style";
+import { Header } from "../../../../components/common";
+// import YouTube from "react-native-youtube";
 
 import Youtube from "react-native-youtube-iframe";
+import { WorkoutExerciseHooks } from "./hooks";
 
 function youtube_parser(url: string | undefined) {
   var regExp =
@@ -12,33 +13,45 @@ function youtube_parser(url: string | undefined) {
   return match ? match[1] : "";
 }
 
-const WorkoutExerciseView = () => {
+const ExerciseView = () => {
   const { exercise, i18n } = WorkoutExerciseHooks();
 
   return (
     <View style={styles.container}>
       <SafeAreaView />
       <View style={{ marginHorizontal: 20, marginBottom: 20 }}>
-        <Header title={exercise.title[i18n.language as "ru" | "uz" | "en"]} />
+        <Header title={exercise.title[i18n.language as "ru" | "en" | "uz"]} />
       </View>
-      <View>
-        <Youtube
-          key={exercise.video}
-          height={300}
-          videoId={youtube_parser(exercise.video)}
-          initialPlayerParams={{
-            modestbranding: true,
-            rel: false,
-          }}
-          play={true}
-        />
-        <Text style={styles.text}>
-          {exercise.description[i18n.language as "ru" | "uz" | "en"]}
-        </Text>
-        {/* <Text style={styles.text}>{exercise.metadescription}</Text> */}
-      </View>
+      <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+        <View>
+          <Youtube
+            key={exercise.video}
+            height={300}
+            videoId={youtube_parser(exercise.video)}
+            initialPlayerParams={{
+              modestbranding: true,
+              rel: false,
+            }}
+            play={true}
+          />
+          <Text style={styles.text}>
+            {exercise.description[i18n.language as "ru" | "en" | "uz"]}
+          </Text>
+          {/* <Text style={styles.text}>{exercise.metadescription}</Text> */}
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
-export default WorkoutExerciseView;
+const youtubeStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  youtubePlayer: {
+    alignSelf: "stretch",
+    height: 200,
+  },
+});
+
+export default ExerciseView;

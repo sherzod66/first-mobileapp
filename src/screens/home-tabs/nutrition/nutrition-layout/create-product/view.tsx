@@ -78,6 +78,7 @@ const CreateProductView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
+          keyboardType="number-pad"
           onChange={onChange("calories")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Белки</Text>
@@ -85,6 +86,7 @@ const CreateProductView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
+          keyboardType="number-pad"
           onChange={onChange("protein")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Жиры</Text>
@@ -92,6 +94,7 @@ const CreateProductView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
+          keyboardType="number-pad"
           onChange={onChange("oil")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Углеводы</Text>
@@ -99,6 +102,7 @@ const CreateProductView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
+          keyboardType="number-pad"
           onChange={onChange("carb")}
         />
 
@@ -165,7 +169,7 @@ const CreateProductView = () => {
               marginVertical: 20,
               paddingVertical: 15,
             }}
-            text="Save"
+            text="Создать"
             onPress={onCategorySubmit}
           />
         </View>

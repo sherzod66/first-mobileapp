@@ -17,12 +17,7 @@ import {
 import { ApiService } from "../../../../../services";
 import { NUTRITION } from "../../../../../navigation/ROUTES";
 import { selectUser } from "../../../../../store/slices/appSlice";
-import {
-  addProduct,
-  selectProducts,
-  setProducts,
-} from "../../../../../store/slices/productSlice";
-import { useRedux } from "../../../../../store/hooks";
+import { addProduct } from "../../../../../store/slices/productSlice";
 
 type CustomCategory = Partial<
   Omit<Product, "category"> & {
@@ -138,6 +133,7 @@ export const CreateProductHook = () => {
           protein: product.protein ? product.protein : 0,
           category: product.category?.value,
           creator: user?._id,
+          userProduct: false,
         };
         await ApiService.post("/products", current);
         const res = await ApiService.get("/products");

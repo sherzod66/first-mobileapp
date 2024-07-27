@@ -192,6 +192,7 @@ const CreateNutritionView = () => {
               value={price}
               onChange={(t) => setPrice(t)}
               placeholder=""
+              keyboardType="number-pad"
               containerStyle={styles.input}
               inputStyle={styles.inputInner}
             />

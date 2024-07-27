@@ -9,8 +9,14 @@ import {
   selectUser,
   setUser,
 } from "../../../../../store/slices/appSlice";
-import { Response, ScheduleWorkout, User } from "../../../../../types";
+import {
+  Exercise,
+  Response,
+  ScheduleWorkout,
+  User,
+} from "../../../../../types";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export type MyWorkoutScreenNavigationProp = NavigationProp<
   ProfileStackParamList,
@@ -24,6 +30,7 @@ export const MyWorkoutHooks = (apprenticeId = "") => {
   const [modalLoading, setModalLoading] = useState(false);
   const trainer = useSelector(selectTrainer);
   let [user, dispatch] = useRedux(selectUser);
+  const { i18n } = useTranslation();
   if (!!apprenticeId) {
     console.log({ apprenticeId });
     user = trainer?.disciples.find((e) => e._id === apprenticeId);
@@ -65,6 +72,11 @@ export const MyWorkoutHooks = (apprenticeId = "") => {
       setShowModal(false);
     }
   };
+  const exercisePress = (exercise: Exercise) => {
+    navigation.navigate(PROFILE.EXERCISE, {
+      exercise,
+    });
+  };
 
   const onPress = (workoutIndex: number, weekIndex: number) => {
     if (data) {
@@ -89,5 +101,7 @@ export const MyWorkoutHooks = (apprenticeId = "") => {
     onPress,
     onHide,
     onFinish,
+    i18n,
+    exercisePress,
   };
 };

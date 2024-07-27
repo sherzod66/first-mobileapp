@@ -92,9 +92,8 @@ export const AddProductsHooks = () => {
           arr = [...user.products];
         }
       } else {
-        arr = [...allProducts];
+        arr = [...allProducts.filter((elem) => !elem.userProduct)];
       }
-
       setProducts(
         arr.filter((p) => p.category?._id === categories[activeCategory]?._id)
       );

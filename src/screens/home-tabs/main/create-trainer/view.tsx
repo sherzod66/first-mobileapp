@@ -12,7 +12,8 @@ import { styles } from "./style";
 import { GENDER } from "../../../../types";
 
 const CreateTrainerView = () => {
-  const { onChange, onTrainerSubmit, trainer } = CreateTrainerHook();
+  const { onChange, onTrainerSubmit, trainer, selectImage, ImagePicker } =
+    CreateTrainerHook();
 
   return (
     <View style={styles.container}>
@@ -34,6 +35,7 @@ const CreateTrainerView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
+          keyboardType="number-pad"
           onChange={onChange("phoneNumber")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Почта</Text>
@@ -42,6 +44,7 @@ const CreateTrainerView = () => {
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
           onChange={onChange("email")}
+          keyboardType="email-address"
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Возраст </Text>
         <InputPrimary
@@ -58,12 +61,22 @@ const CreateTrainerView = () => {
           onChange={onChange("city")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Аватар </Text>
-        <InputPrimary
-          disablePlaceholder
-          inputStyle={styles.input}
-          containerStyle={styles.inputCont}
-          onChange={onChange("avatar")}
-        />
+        {selectImage && (
+          <Image
+            style={{
+              width: "100%",
+              height: 150,
+              marginTop: 15,
+              borderRadius: 5,
+            }}
+            source={{ uri: selectImage.uri }}
+          />
+        )}
+        <TouchableOpacity style={styles.imageSelect} onPress={ImagePicker}>
+          <Text style={[styles.textOne, { marginVertical: 10 }]}>
+            Выберите фото
+          </Text>
+        </TouchableOpacity>
         <Text style={[styles.textOne, { marginVertical: 10 }]}>
           Специализация{" "}
         </Text>

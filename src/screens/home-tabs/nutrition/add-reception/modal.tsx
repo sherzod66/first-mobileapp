@@ -40,6 +40,7 @@ const CustomModal = ({ show, value, setValue, onSave, onCancel }: IProps) => {
           disablePlaceholder
           inputStyle={styles.modalInput}
           containerStyle={styles.modalInputCont}
+          keyboardType="number-pad"
           onChange={(v) => setValue(normalizeOnlyNumbers(v).toString())}
         />
         <ButtonPrimary

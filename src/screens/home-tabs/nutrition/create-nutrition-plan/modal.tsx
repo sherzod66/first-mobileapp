@@ -84,6 +84,7 @@ const CustomModal = ({
               containerStyle={styles.modalInputCont1}
               value={calories ? calories.toString() : ""}
               inputStyle={[styles.modalInput1, styles.modalText]}
+              keyboardType="number-pad"
               onChange={(c) => setCalories(normalizeOnlyNumbers(c))}
             />
             <ButtonPrimary
@@ -114,6 +115,7 @@ const CustomModal = ({
                 containerStyle={styles.modalInputCont2}
                 inputStyle={[styles.modalInput2, styles.modalText]}
                 value={value}
+                keyboardType="number-pad"
                 onChange={setValue}
               />
             </View>

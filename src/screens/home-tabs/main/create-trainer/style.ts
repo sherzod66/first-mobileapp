@@ -31,6 +31,15 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.RED,
     borderWidth: 2,
   },
+  imageSelect: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    borderColor: COLORS.RED,
+    borderWidth: 2,
+    marginTop: 20,
+  },
   plusIcon: {
     width: 20,
     height: 20,

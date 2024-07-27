@@ -1,4 +1,10 @@
-import { View, Text, ScrollView, TouchableWithoutFeedback } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from "react-native";
 import {
   ButtonPrimary,
   EmptyComponent,
@@ -22,6 +28,8 @@ const MyWorkoutView = ({ apprenticeId = "" }) => {
     onPress,
     onHide,
     onFinish,
+    i18n,
+    exercisePress,
   } = MyWorkoutHooks(apprenticeId);
 
   return (
@@ -74,7 +82,8 @@ const MyWorkoutView = ({ apprenticeId = "" }) => {
                     {show[ii] && (
                       <>
                         {ww.map((w, i) => (
-                          <View
+                          <TouchableOpacity
+                            onPress={() => exercisePress(w.exercise)}
                             key={`${ii}/${w.exercise?._id}`}
                             style={[
                               styles.column,
@@ -83,9 +92,9 @@ const MyWorkoutView = ({ apprenticeId = "" }) => {
                             ]}
                           >
                             <Text style={styles.text2}>
-                              {w.exercise?.title}
+                              {w.exercise?.title[i18n.language as "ru"]}
                             </Text>
-                          </View>
+                          </TouchableOpacity>
                         ))}
                       </>
                     )}

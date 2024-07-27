@@ -125,7 +125,7 @@ export const MyProductsHooks = () => {
   };
 
   const onPress = () => {
-    navigation.navigate(NUTRITION.RECOMMENDATION);
+    navigation.navigate(NUTRITION.RECOMMENDATION, { value: "createProduct" });
     setShow(false);
   };
 
@@ -146,8 +146,9 @@ export const MyProductsHooks = () => {
           carb,
           category: productCategories[activeTab]._id,
           creator: user._id,
+          userProduct: true,
         });
-
+        console.log(JSON.stringify(res.data, null, 4));
         dispatch(
           setUser({
             ...user,
