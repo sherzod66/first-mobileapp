@@ -50,6 +50,10 @@ export const BaseProductsHooks = () => {
   }, [activeTab, user]);
 
   useEffect(() => {
+    getProducts();
+  }, [allProducts]);
+
+  useEffect(() => {
     if (search.length > 1)
       setProducts([
         ...allProducts.filter((e) =>

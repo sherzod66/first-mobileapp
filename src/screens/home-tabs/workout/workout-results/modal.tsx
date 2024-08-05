@@ -51,10 +51,10 @@ const CustomModal = ({
             <Text style={styles.modalTitle}>{"Вес"}</Text>
             <InputPrimary
               value={weight}
-              onChange={(s) => setWeight(normalizeOnlyNumbers(s).toString())}
+              onChange={(s) => setWeight(s)}
               disablePlaceholder
               inputStyle={styles.modalInput}
-              keyboardType="number-pad"
+              keyboardType="phone-pad"
               containerStyle={styles.modalInputCont}
             />
           </View>
@@ -62,10 +62,10 @@ const CustomModal = ({
             <Text style={styles.modalTitle}>{"Повтор"}</Text>
             <InputPrimary
               value={repeat}
-              onChange={(s) => setRepeat(normalizeOnlyNumbers(s).toString())}
+              onChange={(s) => setRepeat(s)}
               disablePlaceholder
               inputStyle={styles.modalInput}
-              keyboardType="number-pad"
+              keyboardType="phone-pad"
               containerStyle={styles.modalInputCont}
             />
           </View>

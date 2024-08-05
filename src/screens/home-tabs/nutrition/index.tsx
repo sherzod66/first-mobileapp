@@ -28,6 +28,7 @@ import SearchMyProductsScreen from "./nutrition-layout/search-my-products";
 import AddProductsSearchScreen from "./add-products-search";
 import { TRecommendationContent } from "./recommendation/hooks";
 import AddOnlySearchScreen from "./add-only-search";
+import UpdateDish from "./update-dish";
 
 export type NutritionStackParamList = {
   [NUTRITION.NUTRITION_LAYOUT]: undefined;
@@ -64,6 +65,7 @@ export type NutritionStackParamList = {
   };
   [NUTRITION.MEASUREMENTS]: { tab: number };
   [NUTRITION.CREATE_DISH]: undefined;
+  [NUTRITION.UPDATE_DISH]: { data: Product };
   [NUTRITION.NUTRITION_PLAN]: {
     plan: NutritionPlan;
   };
@@ -152,6 +154,11 @@ const NutritionStack = () => {
       <Stack.Screen
         name={NUTRITION.CREATE_DISH}
         component={CreateDishScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={NUTRITION.UPDATE_DISH}
+        component={UpdateDish}
         options={{ headerShown: false }}
       />
       <Stack.Screen

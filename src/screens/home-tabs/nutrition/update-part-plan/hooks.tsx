@@ -9,6 +9,7 @@ import { normalizeOnlyNumbers } from "../../../../utils/normalizeOnlyNumbers";
 import { getSumValues } from "../../../../utils/getSumValues";
 import EventEmitter from "../../../../utils/EventEmitter";
 import { Product, Reception } from "../../../../types";
+import { convertDishToProduct } from "../../../../utils/convertDishToProduct";
 
 export type UpdatePartPlanScreenNavigationProp = NativeStackNavigationProp<
   NutritionStackParamList,
@@ -32,8 +33,9 @@ export const UpdatePartPlanHooks = () => {
     topProtein,
     topOil,
     topCarb,
-    receptions: receptionss,
+    receptions: defaultReceptions,
   } = route.params ?? {};
+  const [receptions, setReceptions] = useState<(Reception | null)[]>([null]);
 
   const [calories, setCalories] = useState(0);
   const [protein, setProtein] = useState(0);
@@ -43,17 +45,10 @@ export const UpdatePartPlanHooks = () => {
   const [amountsD, setAmountsD] = useState<number[][]>([]);
 
   useEffect(() => {
-    let arrP: number[][] = [];
-    let arrD: number[][] = [];
-
-    receptionss.map((r) => {
-      arrP.push([...r.amountsP]);
-      arrD.push([...r.amountsD]);
-    });
-
-    setAmountsP([...arrP]);
-    setAmountsD([...arrD]);
-  }, [receptionss]);
+    if (defaultReceptions.length) {
+      setReceptions(defaultReceptions);
+    }
+  }, []);
 
   useEffect(() => {
     let tCalories = 0;
@@ -61,7 +56,48 @@ export const UpdatePartPlanHooks = () => {
     let tOil = 0;
     let tCarb = 0;
 
-    receptionss.map(({ products, dishes }, i) => {
+    receptions.map((reception) => {
+      if (reception) {
+        const { products, dishes, amountsP, amountsD } = reception;
+        const tProducts = [
+          ...products,
+          ...dishes.map((d) => convertDishToProduct(d)),
+        ];
+        const tAmounts = [...amountsP, ...amountsD];
+
+        tCalories += getSumValues(tProducts, tAmounts, "calories");
+        tProtein += getSumValues(tProducts, tAmounts, "protein");
+        tOil += getSumValues(tProducts, tAmounts, "oil");
+        tCarb += getSumValues(tProducts, tAmounts, "carb");
+      }
+    });
+
+    setCalories(tCalories);
+    setProtein(tProtein);
+    setOil(tOil);
+    setCarb(tCarb);
+  }, [receptions]);
+
+  useEffect(() => {
+    let arrP: number[][] = [];
+    let arrD: number[][] = [];
+
+    defaultReceptions.map((r) => {
+      arrP.push([...r.amountsP]);
+      arrD.push([...r.amountsD]);
+    });
+
+    setAmountsP([...arrP]);
+    setAmountsD([...arrD]);
+  }, [defaultReceptions]);
+
+  useEffect(() => {
+    let tCalories = 0;
+    let tProtein = 0;
+    let tOil = 0;
+    let tCarb = 0;
+
+    defaultReceptions.map(({ products, dishes }, i) => {
       // @ts-ignore
       const tProducts: Product[] = [...products, ...dishes];
       let tAmounts: number[] = [];
@@ -96,10 +132,36 @@ export const UpdatePartPlanHooks = () => {
     setAmountsD([...arr]);
   };
 
+  const setToReceptions = ({ obj, i }: { obj: Reception; i: number }) => {
+    console.log("setToReceptions::", obj);
+    let arr1 = [...receptions];
+    arr1[i] = { ...obj };
+    const amountP = [...amountsP];
+    const amountD = [...amountsD];
+    amountP.splice(i, 1, obj.amountsP);
+    amountD.splice(i, 1, obj.amountsD);
+
+    setReceptions(arr1);
+    setAmountsP(amountP);
+    setAmountsD(amountD);
+  };
+
+  const updateReceptions = (arr: Reception[]) => setReceptions(arr);
+
+  useEffect(() => {
+    EventEmitter.addListener("onSetReceptions", setToReceptions);
+    EventEmitter.addListener("onUpdateReceptions", updateReceptions);
+
+    return () => {
+      EventEmitter.removeListener("onSetReceptions", setToReceptions);
+      EventEmitter.removeListener("onUpdateReceptions", updateReceptions);
+    };
+  }, [receptions]);
+
   const onPress = () => {
     EventEmitter.notify(
       "onUpdateReceptions",
-      receptionss.map((r, i) => ({
+      defaultReceptions.map((r, i) => ({
         ...r,
         amountsP: amountsP[i],
         amountsD: amountsD[i],
@@ -125,7 +187,7 @@ export const UpdatePartPlanHooks = () => {
     protein,
     oil,
     carb,
-    receptionss,
+    receptions,
     amountsP,
     amountsD,
     language,

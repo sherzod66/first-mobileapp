@@ -12,6 +12,12 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: COLORS.GREY2,
   },
+  inputContMy: {
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: COLORS.GREY2,
+    color: COLORS.WHITE,
+  },
   input: {
     color: COLORS.WHITE,
     backgroundColor: COLORS.GREY2,

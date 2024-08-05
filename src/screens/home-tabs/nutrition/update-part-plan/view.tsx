@@ -26,7 +26,7 @@ const UpdatePartPlanView = () => {
     oil,
     carb,
     language,
-    receptionss,
+    receptions,
     amountsP,
     amountsD,
     onChangeP,
@@ -99,49 +99,63 @@ const UpdatePartPlanView = () => {
 
       <View style={styles.scroll}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {receptionss.map((r, i) => (
-            <View key={i} style={styles.scrollBox}>
-              <View style={styles.header}>
-                <View style={styles.headerBox}>
-                  <Text style={styles.text2}>{`${i + 1}-й Приём`}</Text>
+          {receptions &&
+            receptions.map((r, i) => (
+              <View key={i} style={styles.scrollBox}>
+                <View style={styles.header}>
+                  <View style={styles.headerBox}>
+                    <Text style={styles.text2}>{`${i + 1}-й Приём`}</Text>
+                  </View>
+                  {r && (
+                    <TouchableOpacity onPress={() => onAddReception(i, r)}>
+                      <Text style={styles.text3}>{"Изменить"}</Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
-                <TouchableOpacity onPress={() => onAddReception(i, r)}>
-                  <Text style={styles.text3}>{"Изменить"}</Text>
-                </TouchableOpacity>
+                <View style={styles.main}>
+                  {r &&
+                    r.products.map((p, ii) => (
+                      <View
+                        key={ii}
+                        style={[styles.mainRow, !!ii && styles.mt5]}
+                      >
+                        <Text style={styles.text4}>{p.name[language]}</Text>
+                        <InputPrimary
+                          containerStyle={styles.inputCont}
+                          onChange={(t) => onChangeP(t, i, ii)}
+                          inputStyle={[styles.text4, styles.input]}
+                          keyboardType="number-pad"
+                          value={(
+                            (amountsP[i] && amountsP[i][ii]) ||
+                            0
+                          ).toString()}
+                        />
+                      </View>
+                    ))}
+                  {r &&
+                    r.dishes.map((d, ii) => (
+                      <View
+                        key={ii}
+                        style={[
+                          styles.mainRow,
+                          (!!r.products.length || !!ii) && styles.mt5,
+                        ]}
+                      >
+                        <Text style={styles.text4}>{d.name}</Text>
+                        <InputPrimary
+                          containerStyle={styles.inputCont}
+                          onChange={(t) => onChangeD(t, i, ii)}
+                          inputStyle={[styles.text4, styles.input]}
+                          value={(
+                            (amountsD[i] && amountsD[i][ii]) ||
+                            0
+                          ).toString()}
+                        />
+                      </View>
+                    ))}
+                </View>
               </View>
-              <View style={styles.main}>
-                {r.products.map((p, ii) => (
-                  <View key={ii} style={[styles.mainRow, !!ii && styles.mt5]}>
-                    <Text style={styles.text4}>{p.name[language]}</Text>
-                    <InputPrimary
-                      containerStyle={styles.inputCont}
-                      onChange={(t) => onChangeP(t, i, ii)}
-                      inputStyle={[styles.text4, styles.input]}
-                      keyboardType="number-pad"
-                      value={((amountsP[i] && amountsP[i][ii]) || 0).toString()}
-                    />
-                  </View>
-                ))}
-                {r.dishes.map((d, ii) => (
-                  <View
-                    key={ii}
-                    style={[
-                      styles.mainRow,
-                      (!!r.products.length || !!ii) && styles.mt5,
-                    ]}
-                  >
-                    <Text style={styles.text4}>{d.name}</Text>
-                    <InputPrimary
-                      containerStyle={styles.inputCont}
-                      onChange={(t) => onChangeD(t, i, ii)}
-                      inputStyle={[styles.text4, styles.input]}
-                      value={((amountsD[i] && amountsD[i][ii]) || 0).toString()}
-                    />
-                  </View>
-                ))}
-              </View>
-            </View>
-          ))}
+            ))}
 
           <View style={styles.line} />
 

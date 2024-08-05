@@ -21,6 +21,7 @@ const CreateProductView = () => {
     onCategorySubmit,
     onExerciseSubmit,
     onCategoryRemove,
+    product,
   } = CreateProductHook();
   return (
     <View style={styles.container}>
@@ -74,13 +75,9 @@ const CreateProductView = () => {
           onChange={onChange("name.en")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Каллории</Text>
-        <InputPrimary
-          disablePlaceholder
-          inputStyle={styles.input}
-          containerStyle={styles.inputCont}
-          keyboardType="number-pad"
-          onChange={onChange("calories")}
-        />
+        <Text style={styles.inputContMy}>
+          {product?.calories ? product.calories : 0}
+        </Text>
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Белки</Text>
         <InputPrimary
           disablePlaceholder
@@ -112,7 +109,7 @@ const CreateProductView = () => {
             marginVertical: 20,
             paddingVertical: 15,
           }}
-          text="Save"
+          text="Создать"
           onPress={onExerciseSubmit}
         />
       </ScrollView>

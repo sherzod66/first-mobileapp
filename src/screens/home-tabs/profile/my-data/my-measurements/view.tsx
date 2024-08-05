@@ -5,7 +5,6 @@ import { COLORS } from "../../../../../constants/COLORS";
 import { MeasurementsHooks } from "./hooks";
 import Modal from "./modal";
 import { styles } from "./style";
-import ReactNativeModal from "react-native-modal";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 const MyMeasurementsView = ({ apprenticeId = "" }) => {

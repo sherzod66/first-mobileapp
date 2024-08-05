@@ -17,7 +17,11 @@ import {
 import { ApiService } from "../../../../../services";
 import { NUTRITION } from "../../../../../navigation/ROUTES";
 import { selectUser } from "../../../../../store/slices/appSlice";
-import { addProduct } from "../../../../../store/slices/productSlice";
+import {
+  addProduct,
+  setProducts,
+} from "../../../../../store/slices/productSlice";
+import { countCalories } from "../../../../../utils/countCalories";
 
 type CustomCategory = Partial<
   Omit<Product, "category"> & {
@@ -33,6 +37,20 @@ export const CreateProductHook = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+
+  useEffect(() => {
+    if (product && product.protein && product.oil && product.carb) {
+      console.log("work");
+      setProduct((prev) => ({
+        ...prev,
+        calories: countCalories(
+          String(product.protein),
+          String(product.oil),
+          String(product.carb)
+        ),
+      }));
+    }
+  }, [product.protein, product.oil, product.carb]);
 
   const fetchCategories = async () => {
     const resCategories = await ApiService.get<Response<Category[]>>(
@@ -136,8 +154,10 @@ export const CreateProductHook = () => {
           userProduct: false,
         };
         await ApiService.post("/products", current);
-        const res = await ApiService.get("/products");
-        dispatch(addProduct(res.data));
+        const resProducts = await ApiService.get<Response<Product[]>>(
+          "/products"
+        );
+        dispatch(setProducts(resProducts.data));
       } catch (error: any) {
         console.log(JSON.stringify(error.response?.data));
       }
@@ -160,5 +180,6 @@ export const CreateProductHook = () => {
     onCategorySubmit,
     onExerciseSubmit,
     onCategoryRemove,
+    product,
   };
 };

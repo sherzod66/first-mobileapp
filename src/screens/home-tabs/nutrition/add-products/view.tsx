@@ -22,10 +22,11 @@ import { styles } from "./style";
 import { Assets } from "../../../../utils/requireAssets";
 import ButtonTabsMy from "../../../../components/common/ButtonTabsMy";
 
+const navAll = ["База продуктов", "Мои продукты", "Мои блюда"];
+const navMin = ["База продуктов", "Мои продукты"];
+
 const AddProductsView = () => {
   const {
-    searchValue,
-    setSearchValue,
     activeTab,
     setActiveTab,
     activeCategory,
@@ -40,6 +41,7 @@ const AddProductsView = () => {
     language,
     categories,
     navigateSearch,
+    goBackNavigation,
   } = AddProductsHooks();
 
   return (
@@ -64,7 +66,7 @@ const AddProductsView = () => {
         active={activeTab}
         setActive={setActiveTab}
         containerStyle={styles.tab1Cont}
-        titles={["База продуктов", "Мои продукты", "Мои блюда"]}
+        titles={goBackNavigation === "ADD_RECEPTION" ? navMin : navAll}
       />
 
       <View style={styles.scrollCont}>
@@ -98,7 +100,7 @@ const AddProductsView = () => {
           let carb = p.carb;
           let calories = p.calories;
 
-          if (p.category.type === "PRODUCT") {
+          if (p.category?.type === "PRODUCT") {
             amount = PRODUCT_AMOUNT;
           } else {
             // @ts-ignore

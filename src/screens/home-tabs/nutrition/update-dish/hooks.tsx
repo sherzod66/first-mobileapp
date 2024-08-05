@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useRedux } from "../../../../store/hooks";
 import {
   selectLanguage,
@@ -22,12 +22,18 @@ export type CreateDishScreenNavigationProp = NativeStackNavigationProp<
   NUTRITION.CREATE_DISH
 >;
 
-export const CreateDishHooks = () => {
+type ExerciseScreenRouteProp = RouteProp<
+  NutritionStackParamList,
+  NUTRITION.UPDATE_DISH
+>;
+
+export const UpdateDishHooks = () => {
   const navigation = useNavigation<CreateDishScreenNavigationProp>();
   const [language] = useRedux(selectLanguage);
   const [user, dispatch] = useRedux(selectUser);
   const [dishCategories] = useRedux(selectDishCategories);
 
+  const RouteProp = useRoute<ExerciseScreenRouteProp>();
   const [name, setName] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [products, setProducts] = useState<Product[]>([]);
@@ -41,11 +47,16 @@ export const CreateDishHooks = () => {
   const [modalValue, setModalValue] = useState("");
 
   useEffect(() => {
+    // console.log(JSON.stringify(RouteProp.params.data, null, 4));
+    setProducts(RouteProp.params.data.products);
+    setName(RouteProp.params.data.name.ru);
+  }, [RouteProp]);
+  useEffect(() => {
     let arr: number[] = [];
 
     for (let i = 0; i < products.length; i++) {
-      if (amounts[i]) {
-        arr.push(amounts[i]);
+      if (RouteProp.params.data.amounts[i]) {
+        arr.push(RouteProp.params.data.amounts[i]);
       } else {
         arr.push(PRODUCT_AMOUNT);
       }
@@ -82,16 +93,22 @@ export const CreateDishHooks = () => {
     if (user) {
       setLoading(true);
       try {
-        const res = await ApiService.post<Response<Dish>>("/dishes", {
-          name,
-          products: products.map((p) => p._id),
-          amounts,
-          creator: user._id,
-        });
+        const res = await ApiService.put<Response<Dish>>(
+          `/dishes/${RouteProp.params.data._id}`,
+          {
+            name,
+            products: products.map((p) => p._id),
+            amounts,
+            creator: user._id,
+          }
+        );
         dispatch(
           setUser({
             ...user,
-            dishes: [...user.dishes, res.data],
+            dishes: [
+              ...user.dishes.filter((elem) => elem._id !== res.data._id),
+              res.data,
+            ],
           })
         );
         const resUser = await ApiService.get<Response<User>>("/users/me");

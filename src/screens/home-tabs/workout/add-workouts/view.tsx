@@ -3,9 +3,9 @@ import {
   Text,
   ScrollView,
   Dimensions,
-  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Modal from "react-native-modal";
 import { styles } from "./style";
 import {
@@ -61,7 +61,7 @@ const AddWorkoutView = () => {
       <View style={{ flex: 1, justifyContent: "center", marginBottom: 160 }}>
         <GestureHandlerRootView>
           <DraxProvider>
-            <SafeAreaView>
+            <SafeAreaView edges={["top", "left", "right"]}>
               <DraxList
                 data={workouts}
                 ref={listRef}
@@ -131,6 +131,7 @@ const AddWorkoutView = () => {
                   </View>
                 )}
                 onItemDragStart={({ index, item }) => {
+                  console.log(item);
                   console.log(`Item #${index} (${item}) drag start`);
                 }}
                 onItemDragPositionChange={({

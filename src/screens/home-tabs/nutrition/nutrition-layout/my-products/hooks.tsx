@@ -5,7 +5,7 @@ import {
   selectUser,
   setUser,
 } from "../../../../../store/slices/appSlice";
-import { Product, Response } from "../../../../../types";
+import { Product, Response, User } from "../../../../../types";
 import { convertDishToProduct } from "../../../../../utils/convertDishToProduct";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { NutritionStackParamList } from "../..";
@@ -13,6 +13,8 @@ import { NUTRITION } from "../../../../../navigation/ROUTES";
 import { useNavigation } from "@react-navigation/native";
 import { selectProductCategories } from "../../../../../store/slices/categorySlice";
 import { ApiService } from "../../../../../services";
+import { TRecommendationContent } from "../../recommendation/hooks";
+import EventEmitter from "../../../../../utils/EventEmitter";
 
 export type MyProductsScreenNavigationProp = NativeStackNavigationProp<
   NutritionStackParamList,
@@ -32,13 +34,27 @@ export const MyProductsHooks = () => {
   const [oil, setOil] = useState("");
   const [carb, setCarb] = useState("");
   const [editId, setEditId] = useState<string>("");
-  const [search, setSearch] = useState<string>("");
+  const [whatModel, setWhatModel] =
+    useState<keyof TRecommendationContent>("createProduct");
 
   const [language] = useRedux(selectLanguage);
   const [productCategories] = useRedux(selectProductCategories);
   const [user, dispatch] = useRedux(selectUser);
 
   const navigation = useNavigation<MyProductsScreenNavigationProp>();
+
+  const event = () => setShow(true);
+
+  useEffect(() => {
+    if (user) {
+      setProducts([...user.dishes.map((dish) => convertDishToProduct(dish))]);
+    }
+  }, []);
+
+  useEffect(() => {
+    EventEmitter.addListener(whatModel, () => event());
+    return () => EventEmitter.removeListener(whatModel, event);
+  }, [whatModel]);
 
   const effect = () => {
     if (user) {
@@ -58,23 +74,6 @@ export const MyProductsHooks = () => {
     effect();
   }, [activeTab, user]);
 
-  useEffect(() => {
-    if (search.length > 1) {
-      if (user)
-        setProducts([
-          ...user.products.filter((e) =>
-            e.name.ru.toLowerCase().includes(search.toLowerCase())
-          ),
-        ]);
-    } else {
-      setProducts([
-        ...user.products.filter(
-          (p) => p.category?._id === productCategories[activeTab]?._id
-        ),
-      ]);
-    }
-  }, [search]);
-
   const onCreate = () => {
     navigation.navigate(NUTRITION.CREATE_DISH as never);
   };
@@ -82,19 +81,31 @@ export const MyProductsHooks = () => {
   const onRemove = async (product: Product) => {
     if (user) {
       setLoading(product);
+      if (activeTab === null) {
+        try {
+          await ApiService.delete(`/dishes/${product._id}`);
 
-      try {
-        await ApiService.patch(`/users/remove-product/${user._id}`, {
-          productId: product._id,
-        });
+          dispatch(
+            setUser({
+              ...user,
+              dishes: [...user.dishes.filter((p) => p._id !== product._id)],
+            })
+          );
+        } catch (e) {}
+      } else {
+        try {
+          await ApiService.patch(`/users/remove-product/${user._id}`, {
+            productId: product._id,
+          });
 
-        dispatch(
-          setUser({
-            ...user,
-            products: [...user.products.filter((p) => p._id !== product._id)],
-          })
-        );
-      } catch (e) {}
+          dispatch(
+            setUser({
+              ...user,
+              products: [...user.products.filter((p) => p._id !== product._id)],
+            })
+          );
+        } catch (e) {}
+      }
 
       setLoading(null);
     }
@@ -102,9 +113,14 @@ export const MyProductsHooks = () => {
 
   const onShow = () => {
     setShow(true);
+    setWhatModel("createProduct");
   };
   const navigateSearch = () => {
     navigation.navigate(NUTRITION.SEARCH_MY_PRODUCT as never);
+  };
+
+  const navigateUpdateDish = (props: Product) => {
+    navigation.navigate(NUTRITION.UPDATE_DISH, { data: props });
   };
 
   const onHide = () => {
@@ -125,8 +141,8 @@ export const MyProductsHooks = () => {
   };
 
   const onPress = () => {
-    navigation.navigate(NUTRITION.RECOMMENDATION, { value: "createProduct" });
     setShow(false);
+    navigation.navigate(NUTRITION.RECOMMENDATION, { value: "createProduct" });
   };
 
   const onAdd = async () => {
@@ -148,14 +164,18 @@ export const MyProductsHooks = () => {
           creator: user._id,
           userProduct: true,
         });
-        console.log(JSON.stringify(res.data, null, 4));
+
+        const resProducts = await ApiService.get<Response<Product[]>>(
+          "/products"
+        );
+
         dispatch(
           setUser({
             ...user,
             products: [...user.products, res.data],
           })
         );
-
+        dispatch(setProducts(resProducts.data));
         setModalLoading(false);
         setShow(false);
       } catch (e) {
@@ -186,15 +206,8 @@ export const MyProductsHooks = () => {
         );
         res.data;
 
-        const findProduct = user.products.findIndex((el) => el._id === editId);
-        const productsUser = [...user.products];
-        productsUser.splice(findProduct, 1);
-        dispatch(
-          setUser({
-            ...user,
-            products: [...productsUser, res.data],
-          })
-        );
+        const resUser = await ApiService.get<Response<User>>("/users/me");
+        dispatch(setUser(resUser.data));
 
         setModalLoading(false);
         setShowEdit(false);
@@ -239,8 +252,7 @@ export const MyProductsHooks = () => {
     editId,
     setEditId,
     onEdit,
-    search,
-    setSearch,
     navigateSearch,
+    navigateUpdateDish,
   };
 };

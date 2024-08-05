@@ -79,13 +79,14 @@ const CustomCalendar = ({
 
     setActiveDay({ weekIndex, dayIndex });
   };
+  const today = new Date().getDate();
 
   return (
     <View style={styles.container}>
       <View style={styles.titleRow}>
         <Text
           style={styles.title}
-        >{`${MONTHS[activeMonth]} ${activeYear}`}</Text>
+        >{`${today} ${MONTHS[activeMonth]} ${activeYear}`}</Text>
         <View style={styles.controls}>
           {isOpen ? (
             <>

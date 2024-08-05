@@ -1,14 +1,11 @@
 import React from "react";
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import {
-  Header,
-  ButtonTabs,
-  ButtonPrimary,
-} from "../../../../components/common";
+import { Header, ButtonPrimary } from "../../../../components/common";
 import { convertDishToProduct } from "../../../../utils/convertDishToProduct";
 import { getSumValues } from "../../../../utils/getSumValues";
 import { NutritionPlanHooks } from "./hooks";
 import { styles } from "./style";
+import ButtonTabsMy from "../../../../components/common/ButtonTabsMy";
 
 const NutritionPlanView = () => {
   const {
@@ -33,10 +30,6 @@ const NutritionPlanView = () => {
 
       <View style={styles.scrollCont}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.calories}>{`${plan.calories} ккал`}</Text>
-          <Text
-            style={styles.compositionText1}
-          >{`${plan.proteinPercent}%`}</Text>
           <View style={styles.compositionRow}>
             <View style={styles.compositionCol}>
               <Text style={styles.compositionTitle}>{"Белки"}</Text>
@@ -92,7 +85,7 @@ const NutritionPlanView = () => {
 
           <View style={styles.planTabsCont}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <ButtonTabs
+              <ButtonTabsMy
                 secondary
                 marginLeft={20}
                 active={activePlan}
@@ -107,7 +100,7 @@ const NutritionPlanView = () => {
 
           <View style={styles.receptTabsCont}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <ButtonTabs
+              <ButtonTabsMy
                 marginLeft={15}
                 active={activeReception}
                 setActive={setActiveReception}

@@ -67,6 +67,7 @@ export const AddPartPlanHooks = () => {
   }, []);
 
   const setToReceptions = ({ obj, i }: { obj: Reception; i: number }) => {
+    console.log("setToReceptions Main::", obj);
     let arr1 = [...receptions];
     arr1[i] = { ...obj };
     setReceptions(arr1);

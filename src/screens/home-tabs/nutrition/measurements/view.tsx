@@ -6,6 +6,7 @@ import Modal from "./modal";
 import { MeasurementsHooks } from "./hooks";
 import { styles } from "./style";
 import { COLORS } from "../../../../constants/COLORS";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const MeasurementsView = () => {
   const {
@@ -32,6 +33,11 @@ const MeasurementsView = () => {
     onRemoveRow,
     onRemind,
     onClose,
+    date,
+    setDate,
+    pickerState,
+    setPickerState,
+    user,
     tab,
   } = MeasurementsHooks();
 
@@ -104,6 +110,18 @@ const MeasurementsView = () => {
         onRemoveRow={onRemoveRow}
         onClose={onClose}
       />
+      {/* <ReactNativeModal>
+      </ReactNativeModal> */}
+      {!!pickerState && (
+        <DateTimePicker
+          mode={pickerState}
+          value={date}
+          onChange={(e) => {
+            setPickerState(pickerState === "time" ? "date" : null);
+            setDate(new Date(e.nativeEvent.timestamp));
+          }}
+        />
+      )}
     </View>
   );
 };

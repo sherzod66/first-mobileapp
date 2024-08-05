@@ -36,6 +36,7 @@ export const AddReceptionHooks = () => {
 
   useEffect(() => {
     if (reception) {
+      setAmounts([...reception.amountsD, ...reception.amountsP]);
       setProducts(reception.products);
       setRecommendation(reception.recommendation ?? "");
     }
@@ -43,10 +44,12 @@ export const AddReceptionHooks = () => {
 
   useEffect(() => {
     let arr: number[] = [];
-
     for (let i = 0; i < products.length; i++) {
-      if (products[i].category.type === CategoryType.PRODUCT) {
-        if (reception?.amountsP[i]) {
+      if (products[i].category) {
+        if (
+          reception?.amountsP[i] &&
+          reception.products[i].name.ru === products[i].name.ru
+        ) {
           arr.push(
             reception?.amountsP[i] === PRODUCT_AMOUNT
               ? PRODUCT_AMOUNT
@@ -56,13 +59,29 @@ export const AddReceptionHooks = () => {
           arr.push(PRODUCT_AMOUNT);
         }
       } else {
-        arr.push(
-          // @ts-ignore
-          (reception?.amountsD[i] as number[]).reduce(
-            (acc, val) => acc + val,
-            0
-          )
-        );
+        if (
+          reception?.amountsP[i] &&
+          reception.products[i].name.ru === products[i].name.ru
+        ) {
+          arr.push(
+            reception?.amountsP[i] === PRODUCT_AMOUNT
+              ? PRODUCT_AMOUNT
+              : reception?.amountsD[i]
+          );
+        } else {
+          //TODO: Решить с добовлением блюд!
+          // if (products[i].amounts) {
+          //   let num = 0;
+          //   products[i].amounts.forEach((elem) => {
+          //     num += +elem;
+          //   });
+          //   arr.push(
+          //     reception?.amountsP[i] === PRODUCT_AMOUNT ? PRODUCT_AMOUNT : num
+          //   );
+          // } else {
+          //   arr.push(PRODUCT_AMOUNT);
+          // }
+        }
       }
     }
 
@@ -84,7 +103,6 @@ export const AddReceptionHooks = () => {
   }, [amounts]);
 
   const addProducts = (ps: Product[]) => setProducts(ps);
-
   useEffect(() => {
     EventEmitter.addListener("onAddProducts", addProducts);
 
@@ -130,6 +148,9 @@ export const AddReceptionHooks = () => {
   };
 
   const onRemoveByIndex = (index: number) => {
+    const amountsCopy = [...amounts];
+    amountsCopy.slice(index, 1);
+    setAmounts(amountsCopy);
     setProducts(products.filter((p, i) => i !== index));
   };
 

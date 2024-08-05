@@ -47,6 +47,7 @@ export const AddProductsHooks = () => {
   const [dishCategories] = useRedux(selectDishCategories);
   const [allProducts] = useRedux(selectProducts);
   const [allDishes] = useRedux(selectDishes);
+  //console.log(allDishes);
 
   const [searchValue, setSearchValue] = useState("");
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -80,23 +81,27 @@ export const AddProductsHooks = () => {
   useEffect(() => {
     getCategories();
   }, [activeTab]);
-
   const getProducts = async () => {
     if (categories.length && user) {
       let arr: Product[] = [];
 
       if (activeTab) {
         if (activeTab === 2) {
-          arr = [...allDishes.map((dish) => convertDishToProduct(dish))];
+          console.log(activeTab);
+          arr = [...user.dishes.map((dish) => convertDishToProduct(dish))];
         } else {
           arr = [...user.products];
         }
       } else {
         arr = [...allProducts.filter((elem) => !elem.userProduct)];
       }
-      setProducts(
-        arr.filter((p) => p.category?._id === categories[activeCategory]?._id)
-      );
+      if (activeTab === 2) {
+        setProducts([...arr]);
+      } else {
+        setProducts(
+          arr.filter((p) => p.category?._id === categories[activeCategory]?._id)
+        );
+      }
     }
   };
 
@@ -134,10 +139,13 @@ export const AddProductsHooks = () => {
       let amountsD: number[] = [...schemaNutrition.amountsD];
 
       selected.map((s) => {
-        if (s.category.type === CategoryType.PRODUCT) {
-          arr1.push(s?._id);
-          amountsP.push(PRODUCT_AMOUNT);
+        if (s.category?.type) {
+          if (s.category.type === CategoryType.PRODUCT) {
+            arr1.push(s?._id);
+            amountsP.push(PRODUCT_AMOUNT);
+          }
         } else {
+          console.log("WORK SELETC DISH");
           arr2.push(s?._id);
           amountsD.push(
             // @ts-ignore
@@ -167,7 +175,6 @@ export const AddProductsHooks = () => {
         amountsP,
         amountsD,
       };
-
       try {
         await saveSchemaNutrition(obj);
       } catch (e) {
@@ -205,6 +212,7 @@ export const AddProductsHooks = () => {
   return {
     searchValue,
     setSearchValue,
+    goBackNavigation,
     activeTab,
     setActiveTab,
     activeCategory,

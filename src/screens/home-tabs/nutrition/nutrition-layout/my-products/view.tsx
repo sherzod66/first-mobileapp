@@ -12,6 +12,8 @@ import { styles } from "./style";
 import EditModal from "./modalEdit";
 import { COLORS } from "../../../../../constants/COLORS";
 import { Assets } from "../../../../../utils/requireAssets";
+import ButtonTabsMy from "../../../../../components/common/ButtonTabsMy";
+import { addProduct } from "../../../../../store/slices/productSlice";
 
 const MyProductsView = () => {
   const {
@@ -46,9 +48,8 @@ const MyProductsView = () => {
     editId,
     setEditId,
     onEdit,
-    search,
-    setSearch,
     navigateSearch,
+    navigateUpdateDish,
   } = MyProductsHooks();
   console.log(name);
 
@@ -87,7 +88,7 @@ const MyProductsView = () => {
             {activeTab === null && <View style={styles.greenLine} />}
           </TouchableOpacity>
 
-          <ButtonTabs
+          <ButtonTabsMy
             marginLeft={10}
             // @ts-ignore
             active={activeTab}
@@ -105,7 +106,7 @@ const MyProductsView = () => {
             fill
             onPress={onCreate}
             style={styles.button}
-            text="Сделать новое блюдо!"
+            text="Сделать новое блюдо"
             textStyle={styles.buttonText}
           />
         )}
@@ -123,7 +124,9 @@ const MyProductsView = () => {
             <View style={styles.header}>
               <View>
                 <Text style={styles.text1}>{a.name.ru}</Text>
-                <Text style={styles.text2}>{"на 100гр. продукта"}</Text>
+                {activeTab !== null && (
+                  <Text style={styles.text2}>{"на 100гр. продукта"}</Text>
+                )}
               </View>
               <View>
                 <ButtonPrimary
@@ -135,13 +138,17 @@ const MyProductsView = () => {
                 />
                 <Text
                   onPress={() => {
-                    setEditId(a._id);
-                    setName(a.name[language]);
-                    setCalories(String(a.calories));
-                    setProtein(String(a.protein));
-                    setOil(String(a.oil));
-                    setCarb(String(a.carb));
-                    setShowEdit(!showEdit);
+                    if (activeTab === null) {
+                      navigateUpdateDish(a);
+                    } else {
+                      setEditId(a._id);
+                      setName(a.name[language]);
+                      setCalories(String(a.calories));
+                      setProtein(String(a.protein));
+                      setOil(String(a.oil));
+                      setCarb(String(a.carb));
+                      setShowEdit(!showEdit);
+                    }
                   }}
                   style={styles.editBtn}
                 >
