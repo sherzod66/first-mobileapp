@@ -5,16 +5,25 @@ import MyWorkout from "./my-workout";
 import MyMeasurements from "./my-measurements";
 import { MyDataHooks } from "./hooks";
 import { styles } from "./style";
+import { NUTRITION_TYPE } from "../../../../types";
 
 const MyDataView = () => {
-  const { active, setActive, apprenticeId } = MyDataHooks();
+  const { active, setActive, apprenticeId, nType } = MyDataHooks();
 
   return (
     <View style={styles.container}>
       <SafeAreaView />
 
       <View style={styles.mh25}>
-        <Header title="Мои данные" bottom={active === 2} />
+        <Header
+          title="Мои данные"
+          bottom={active === 2}
+          recommendation={
+            nType === NUTRITION_TYPE.FAT
+              ? "dynamicsAndAnalysisOil"
+              : "dynamicsAndAnalysisMass"
+          }
+        />
 
         <View style={styles.mt18}>
           <ButtonTabs

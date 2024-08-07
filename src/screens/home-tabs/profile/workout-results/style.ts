@@ -53,6 +53,15 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     color: COLORS.WHITE,
   },
+  textLast: {
+    width: "100%",
+    fontSize: 15,
+    lineHeight: 21,
+    fontWeight: "600",
+    marginTop: 10,
+    color: COLORS.GREEN,
+    textAlign: "center",
+  },
   modalBtn: {
     paddingVertical: 10,
     paddingHorizontal: 40,

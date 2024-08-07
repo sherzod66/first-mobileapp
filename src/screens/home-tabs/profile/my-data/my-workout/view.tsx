@@ -12,10 +12,42 @@ import {
 } from "../../../../../components/common";
 import Modal from "./modal";
 import { COLORS } from "../../../../../constants/COLORS";
-import { Workout } from "../../../../../types";
+import { ScheduleWorkout, Workout } from "../../../../../types";
 import { Assets } from "../../../../../utils/requireAssets";
 import { MyWorkoutHooks } from "./hooks";
 import { styles } from "./style";
+
+const getIsFinish = (
+  scheduleWorkout: ScheduleWorkout | null,
+  workoutIndex: number,
+  i: number
+) => {
+  const repeatAndWeight: string[] = [];
+  if (scheduleWorkout) {
+    scheduleWorkout.plan.workouts[workoutIndex].forEach((w, iii) => {
+      const { repeat, weight } =
+        scheduleWorkout.results[workoutIndex][scheduleWorkout.activeWeek + i][
+          iii
+        ][
+          scheduleWorkout.results[workoutIndex][scheduleWorkout.activeWeek + i][
+            iii
+          ].length - 1
+        ];
+      if (repeat && weight) {
+        repeatAndWeight.push(`${weight}/${repeat}`);
+      } else {
+        repeatAndWeight.push("-");
+      }
+    });
+  }
+  const isLine = repeatAndWeight.some((item) => item.includes("-"));
+  console.log(repeatAndWeight);
+  if (!isLine) {
+    return {
+      color: COLORS.GREEN,
+    };
+  }
+};
 
 const MyWorkoutView = ({ apprenticeId = "" }) => {
   const {
@@ -107,9 +139,9 @@ const MyWorkoutView = ({ apprenticeId = "" }) => {
                     >
                       <View style={styles.weekStake}>
                         <View style={styles.titleColumn}>
-                          <Text style={styles.text}>{`Неделя ${
-                            data.activeWeek + i + 1
-                          }`}</Text>
+                          <Text
+                            style={[styles.text, getIsFinish(data, ii, i)]}
+                          >{`Неделя ${data.activeWeek + i + 1}`}</Text>
                         </View>
                         {show[ii] && (
                           <>

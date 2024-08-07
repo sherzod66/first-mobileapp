@@ -22,6 +22,7 @@ import AdsScreen from "./ads/view";
 import UserView from "./user/view";
 import StudentInfo from "./my-data/StudentInfo";
 import TrainerStatistic from "./trainer-statistic/TrainerStatistic";
+import { TRecommendationContent } from "../nutrition/recommendation/hooks";
 
 export type ProfileStackParamList = {
   [PROFILE.HOME]: undefined;
@@ -36,7 +37,9 @@ export type ProfileStackParamList = {
   [PROFILE.ADS]: undefined;
   [PROFILE.SETTINGS]: undefined;
   [PROFILE.USERS]: { isTrainer?: boolean };
-  [PROFILE.RECOMMENDATION]: undefined;
+  [PROFILE.RECOMMENDATION]: {
+    value: keyof TRecommendationContent;
+  };
   [PROFILE.WORKOUT_RESULTS]: {
     schedule: ScheduleWorkout;
     workoutIndex: number;

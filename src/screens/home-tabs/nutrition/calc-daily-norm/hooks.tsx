@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRedux } from "../../../../store/hooks";
+import { selectSchemaNutritions } from "../../../../store/slices/appSlice";
+import { NUTRITION_TYPE } from "../../../../types";
 
 const maleItems = [
   { text: "Сидячий образ жизни. Мало хожу пешком", value: 23 },
@@ -44,6 +47,14 @@ export const CalcDailyNormHooks = () => {
   const [selected, setSelected] = useState<number | undefined>();
   const [calculated, setCalculated] = useState(0);
   const [items, setItems] = useState<{ text: string; value: number }[]>([]);
+  const [schemaNutritions] = useRedux(selectSchemaNutritions);
+  const nType = useMemo(() => {
+    if (schemaNutritions) {
+      return schemaNutritions[schemaNutritions.length - 1].data.nType;
+    } else {
+      return NUTRITION_TYPE.FAT;
+    }
+  }, [schemaNutritions]);
 
   useEffect(() => {
     setItems(gender === 0 ? maleItems : femaleItems);
@@ -101,5 +112,6 @@ export const CalcDailyNormHooks = () => {
     selected,
     onSelect,
     items,
+    nType,
   };
 };

@@ -22,23 +22,21 @@ const ExerciseView = () => {
       <View style={{ marginHorizontal: 20, marginBottom: 20 }}>
         <Header title={exercise.title[i18n.language as "ru" | "en" | "uz"]} />
       </View>
-      <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
-        <View>
-          <Youtube
-            key={exercise.video}
-            height={300}
-            videoId={youtube_parser(exercise.video)}
-            initialPlayerParams={{
-              modestbranding: true,
-              rel: false,
-            }}
-            play={true}
-          />
-          <Text style={styles.text}>
-            {exercise.description[i18n.language as "ru" | "en" | "uz"]}
-          </Text>
-          {/* <Text style={styles.text}>{exercise.metadescription}</Text> */}
-        </View>
+      <Youtube
+        key={exercise.video}
+        height={300}
+        videoId={youtube_parser(exercise.video)}
+        initialPlayerParams={{
+          modestbranding: true,
+          rel: false,
+        }}
+        play={true}
+      />
+      <ScrollView contentContainerStyle={{ paddingBottom: 460 }}>
+        <Text style={styles.text}>
+          {exercise.description[i18n.language as "ru" | "en" | "uz"]}
+        </Text>
+        {/* <Text style={styles.text}>{exercise.metadescription}</Text> */}
       </ScrollView>
     </View>
   );

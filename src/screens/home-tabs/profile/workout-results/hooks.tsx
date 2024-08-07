@@ -79,6 +79,20 @@ export const WorkoutResultsHooks = () => {
     setShow(false);
   };
 
+  const getRecordWight = (
+    workoutIndex: number,
+    weekIndex: number,
+    workout: number
+  ): number => {
+    const weight: number[] = [];
+    data?.results[workoutIndex].forEach((first) =>
+      first[workout].forEach((third) => weight.push(third.weight))
+    );
+
+    weight.sort((a, b) => a - b);
+    return weight[weight.length - 1];
+  };
+
   const onSubmit = async () => {
     if (!repeat || !weight) {
       if (!weight) {
@@ -137,6 +151,7 @@ export const WorkoutResultsHooks = () => {
     onPress,
     onShow,
     onHide,
+    getRecordWight,
     onSubmit,
     i18n,
   };

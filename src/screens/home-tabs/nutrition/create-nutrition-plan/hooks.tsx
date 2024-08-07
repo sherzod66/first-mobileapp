@@ -9,6 +9,7 @@ import {
   ROLES,
   Reception,
   Response,
+  User,
 } from "../../../../types";
 import EventEmitter from "../../../../utils/EventEmitter";
 import { ApiService } from "../../../../services";
@@ -164,16 +165,9 @@ export const CreateNutritionHooks = () => {
           "/nutrition-plans",
           obj
         );
-        const res2 = await ApiService.get<Response<NutritionPlan>>(
-          `/nutrition-plans/${res1.data._id}`
-        );
+        const resUser = await ApiService.get<Response<User>>("/users/me");
 
-        dispatch(
-          setUser({
-            ...user,
-            nutritionPlans: [...user.nutritionPlans, res2.data],
-          })
-        );
+        dispatch(setUser(resUser.data));
 
         setLoading(false);
         navigation.goBack();

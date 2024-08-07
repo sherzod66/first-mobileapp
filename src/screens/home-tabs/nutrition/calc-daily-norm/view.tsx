@@ -19,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MAIN, NUTRITION, ROUTES } from "../../../../navigation/ROUTES";
 import { COLORS } from "../../../../constants/COLORS";
 import { NutritionStackParamList } from "..";
+import { NUTRITION_TYPE } from "../../../../types";
 
 export type DailyScreenRouteProp = RouteProp<
   NutritionStackParamList,
@@ -26,6 +27,9 @@ export type DailyScreenRouteProp = RouteProp<
 >;
 const text =
   "Расчёт вашей суточной нормы калорий, т.е. тех калорий, которые нужны для поддержания того веса, который вы имеете на данный момент. Из этих калорий будет вычитаться то количество калорий (количество дефицита), которое вы укажите далее";
+
+const textThin =
+  "Расчёт вашей суточной нормы калорий, т.е. тех калорий, которые нужны для поддержания того веса, который вы имеете на данный момент. К этим калориям будет добавлено то количество калорий (количество профицита), которое вы укажите далее";
 
 const CalcDailyNormView = () => {
   const {
@@ -37,6 +41,7 @@ const CalcDailyNormView = () => {
     onSelect,
     calculated,
     items,
+    nType,
   } = CalcDailyNormHooks();
 
   const route = useRoute<DailyScreenRouteProp>();
@@ -63,7 +68,9 @@ const CalcDailyNormView = () => {
         <Text style={styles.title}>
           {"Расчет вашей суточной нормы калорий"}
         </Text>
-        <Text style={styles.text1}>{text}</Text>
+        <Text style={styles.text1}>
+          {nType === NUTRITION_TYPE.FAT ? text : textThin}
+        </Text>
 
         <View style={styles.mid}>
           <View style={styles.left}>

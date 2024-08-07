@@ -7,10 +7,15 @@ import Icon from "./Icon";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { NutritionStackParamList } from "../../screens/home-tabs/nutrition";
 import { TRecommendationContent } from "../../screens/home-tabs/nutrition/recommendation/hooks";
+import { ProfileStackParamList } from "../../screens/home-tabs/profile";
 
-export type NutritionScreenNavigationProp = NativeStackNavigationProp<
+type NutritionScreenNavigationProp = NativeStackNavigationProp<
   NutritionStackParamList,
   NUTRITION.RECOMMENDATION
+>;
+type ProfileScreenNavigationProp = NativeStackNavigationProp<
+  ProfileStackParamList,
+  PROFILE.RECOMMENDATION
 >;
 
 const Header = ({
@@ -26,7 +31,9 @@ const Header = ({
   recommendation?: keyof TRecommendationContent;
   onBackPress?: () => void;
 }) => {
-  const navigation = useNavigation<NutritionScreenNavigationProp>();
+  const navigation = useNavigation<
+    NutritionScreenNavigationProp & ProfileScreenNavigationProp
+  >();
 
   const onPress = async () => {
     try {
@@ -46,7 +53,9 @@ const Header = ({
   };
 
   const onBottomPress = () => {
-    navigation.navigate(PROFILE.RECOMMENDATION as never);
+    navigation.navigate(PROFILE.RECOMMENDATION, {
+      value: recommendation ? recommendation : "amountOfDeficitOil",
+    });
   };
 
   return (

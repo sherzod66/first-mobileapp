@@ -27,7 +27,7 @@ const RecommendationView: FC = () => {
   const { recommendationContent } = RecommendationHooks();
   const route = useRoute<AddOnlyProductsScreenRouteProp>();
   const { value } = route.params;
-  console.log(route);
+
   return (
     <View style={styles.container}>
       <SafeAreaView />
