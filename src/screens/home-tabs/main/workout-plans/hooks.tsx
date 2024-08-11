@@ -5,10 +5,11 @@ import { MainStackParamList } from "..";
 import { MAIN } from "../../../../navigation/ROUTES";
 import { ApiService } from "../../../../services";
 import { useRedux } from "../../../../store/hooks";
-import { selectUser } from "../../../../store/slices/appSlice";
-import { GENDER, LEVEL, Response, WorkoutPlan } from "../../../../types";
+import { selectUser, setUser } from "../../../../store/slices/appSlice";
+import { GENDER, LEVEL, Response, User, WorkoutPlan } from "../../../../types";
 import EventEmitter from "../../../../utils/EventEmitter";
 import { getNewData } from "../../../../utils/getNewData";
+import { showSuccessToast } from "../../../../utils/showToast";
 
 export type WorkoutPlansScreenNavigationProp = NativeStackNavigationProp<
   MainStackParamList,
@@ -19,8 +20,10 @@ export const WorkoutPlansHooks = () => {
   const [activeGender, setActiveGender] = useState(0);
   const [activeLevel, setActiveLevel] = useState(0);
   const [workoutPlans, setWorkoutPlans] = useState<WorkoutPlan[]>([]);
+  const [loading, setLoading] = useState<any>();
+  const [show, setShow] = useState<any>();
 
-  const [user] = useRedux(selectUser);
+  const [user, dispatch] = useRedux(selectUser);
   const { workoutPlans: userWorkoutPlans } = user ?? {};
 
   const navigation = useNavigation<WorkoutPlansScreenNavigationProp>();
@@ -64,6 +67,23 @@ export const WorkoutPlansHooks = () => {
     navigation.navigate(MAIN.TRAINERS, { individual: true, workout: true });
   };
 
+  const onRemove = async (id: string, index: number) => {
+    try {
+      setLoading({ [index]: !(loading && loading[index]) });
+
+      await ApiService.delete(`/workout-plans/${id}`);
+
+      const res = await ApiService.get<Response<User>>("/users/me");
+      getWorkoutPlans();
+      dispatch(setUser(res.data));
+      showSuccessToast("Успешно удалено!");
+      setLoading(undefined);
+      setShow(undefined);
+    } catch (e) {
+      console.log("e: ", e);
+    }
+  };
+
   return {
     activeGender,
     setActiveGender,
@@ -72,5 +92,10 @@ export const WorkoutPlansHooks = () => {
     workoutPlans,
     onPress,
     onIndividualPress,
+    loading,
+    setLoading,
+    show,
+    setShow,
+    onRemove,
   };
 };

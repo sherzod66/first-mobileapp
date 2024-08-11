@@ -31,6 +31,10 @@ const WorkoutPlansView = () => {
     workoutPlans,
     onPress,
     onIndividualPress,
+    loading,
+    setShow,
+    show,
+    onRemove,
   } = WorkoutPlansHooks();
 
   return (
@@ -68,9 +72,14 @@ const WorkoutPlansView = () => {
               onPress={() => onPress(i)}
             >
               <Box
+                dots
+                dotsLoading={loading && loading[i]}
+                show={show && show[i]}
+                setShow={() => setShow({ [i]: !(show && show[i]) })}
                 cover={Assets.images.cover1}
                 title={workoutPlan.title}
                 text={workoutPlan.creator.name}
+                onRemove={() => onRemove(workoutPlan._id, i)}
                 containerStyle={{ marginTop: 15 }}
                 right={
                   workoutPlan.price
