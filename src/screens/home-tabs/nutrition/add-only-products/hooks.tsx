@@ -44,7 +44,7 @@ export const AddProductsHooks = () => {
     let arr: Product[] = [];
 
     if (activeTab) {
-      arr = [...allProducts];
+      arr = [...allProducts.filter((elem) => !elem.userProduct)];
     } else {
       arr = [...(user?.products ?? [])];
     }

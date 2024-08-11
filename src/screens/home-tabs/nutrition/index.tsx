@@ -29,6 +29,7 @@ import AddProductsSearchScreen from "./add-products-search";
 import { TRecommendationContent } from "./recommendation/hooks";
 import AddOnlySearchScreen from "./add-only-search";
 import UpdateDish from "./update-dish";
+import MealPlansSearchView from "./meal-plans-search";
 
 export type NutritionStackParamList = {
   [NUTRITION.NUTRITION_LAYOUT]: undefined;
@@ -53,6 +54,14 @@ export type NutritionStackParamList = {
     reception?: Reception | null;
   };
   [NUTRITION.ADD_PRODUCTS_SEARCH]: {
+    products: Product[];
+    schemaNutrition?: SchemaNutrition;
+    activeType?: number;
+    goBackNavigation: "CONSUME_CALENDAR" | "ADD_RECEPTION";
+    index?: number;
+    reception?: Reception | null;
+  };
+  [NUTRITION.MEAL_PLANS_SEARCH]: {
     products: Product[];
     schemaNutrition?: SchemaNutrition;
     activeType?: number;
@@ -134,6 +143,11 @@ const NutritionStack = () => {
       <Stack.Screen
         name={NUTRITION.ADD_PRODUCTS_SEARCH}
         component={AddProductsSearchScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={NUTRITION.MEAL_PLANS_SEARCH}
+        component={MealPlansSearchView}
         options={{ headerShown: false }}
       />
       <Stack.Screen

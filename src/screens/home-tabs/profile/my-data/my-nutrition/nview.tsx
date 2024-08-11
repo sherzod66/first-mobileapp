@@ -118,6 +118,7 @@ const MyNutritionView = ({ apprenticeId = "" }) => {
             amounts={amounts}
             products={products}
             onShow={onShow}
+            isButton={true}
             onRemove={onRemove}
             onRemoveByIndex={onRemoveByIndex}
             navigateAddProducts={navigateAddProducts}

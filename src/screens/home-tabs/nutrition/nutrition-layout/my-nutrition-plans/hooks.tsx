@@ -48,7 +48,7 @@ export const MyNutritionPlansHooks = () => {
 
   useEffect(() => {
     effect();
-  }, [activeTab, subCategory]);
+  }, [activeTab, subCategory, user]);
 
   const onPlanPress = (index: number) => {
     navigation.navigate(NUTRITION.NUTRITION_PLAN, {

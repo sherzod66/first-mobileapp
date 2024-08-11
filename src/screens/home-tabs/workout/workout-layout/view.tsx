@@ -22,7 +22,7 @@ const WorkoutLayoutView = () => {
         buttonStyle={styles.btn}
         textStyle={styles.btnText}
         scroll={false}
-        inActiveTextStyle={{ fontSize: 11,  }}
+        inActiveTextStyle={{ fontSize: 11 }}
       />
 
       <View style={styles.main}>

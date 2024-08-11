@@ -210,7 +210,7 @@ const ScheduleWorkoutView = () => {
               </View>
             ))}
 
-          {!!data && (
+          {/* {!!data && (
             <View style={styles.btnRow}>
               <ScrollView horizontal>
                 {new Array(Math.round(showData.plan.week / 4))
@@ -241,7 +241,7 @@ const ScheduleWorkoutView = () => {
               textStyle={styles.btnText3}
               onPress={() => setShowModal(true)}
             />
-          )}
+          )} */}
           {!data ? <EmptyComponent /> : <></>}
         </ScrollView>
       </View>

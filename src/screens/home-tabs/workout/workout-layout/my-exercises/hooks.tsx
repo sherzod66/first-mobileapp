@@ -75,7 +75,7 @@ export const MyExercisesHooks = () => {
 
   useEffect(() => {
     getExercises();
-  }, [isFavorite, activeCategory, activeSubCategory]);
+  }, [isFavorite, activeCategory, activeSubCategory, user]);
 
   const onRemove = async (i: number) => {
     setLoading({ [i]: !(loading && loading[i]) });
@@ -148,8 +148,8 @@ export const MyExercisesHooks = () => {
       };
 
       // @ts-ignore
-      dispatch(setUser({ ...obj }));
-      setExercises([...exercises]);
+      const resUser = await ApiService.get<Response<User>>("/users/me");
+      dispatch(setUser(resUser.data));
       showSuccessToast("Успешно добавлено!");
       setLoadingSelect(false);
     } catch (e) {

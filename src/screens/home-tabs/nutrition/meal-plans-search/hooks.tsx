@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {
+  Category,
   CategoryType,
+  NUTRITION_TYPE,
   Product,
   Response,
   SchemaNutrition1,
@@ -18,19 +20,17 @@ import EventEmitter from "../../../../utils/EventEmitter";
 import { NutritionStackParamList } from "..";
 import { NUTRITION } from "../../../../navigation/ROUTES";
 import { SchemaNutritionScreenNavigationProp } from "../nutrition-layout/schema-nutrition/hooks";
-import { convertDishToProduct } from "../../../../utils/convertDishToProduct";
 
 export type AddProductsScreenRouteProp = RouteProp<
   NutritionStackParamList,
   NUTRITION.ADD_PRODUCTS_SEARCH
 >;
 
-export const SearchHooks = () => {
+export const MealPlansSearchHooks = () => {
   const navigation = useNavigation<SchemaNutritionScreenNavigationProp>();
   const [allProducts] = useRedux(selectProducts);
   const route = useRoute<AddProductsScreenRouteProp>();
   const [user, dispatch] = useRedux(selectUser);
-  const [dish, setDish] = useState<Product[]>([]);
   //const [language] = useRedux(selectLanguage);
   const [searchValue, setSearchValue] = useState<string>("");
   const [selected, setSelected] = useState<Product[]>([]);
@@ -38,23 +38,18 @@ export const SearchHooks = () => {
   const [foundProduct, setFoundProduct] = useState<Product[]>([]);
 
   useEffect(() => {
-    if (user) {
-      if (searchValue.length > 1)
-        setFoundProduct([
-          ...allProducts.filter((elem) =>
-            elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
-          ),
-          ...user.products.filter((elem) =>
-            elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
-          ),
-          ...dish.filter((item) =>
-            item.name.ru.toLowerCase().includes(searchValue.toLowerCase())
-          ),
-        ]);
-      else setFoundProduct([]);
-      setDish([...user.dishes.map((item) => convertDishToProduct(item))]);
-    }
-  }, [searchValue]);
+    console.log(route.params);
+    if (searchValue.length > 1)
+      setFoundProduct([
+        ...allProducts.filter((elem) => {
+          if (!elem.userProduct)
+            return elem.name.ru
+              .toLowerCase()
+              .includes(searchValue.toLowerCase());
+        }),
+      ]);
+    else setFoundProduct([]);
+  }, [searchValue, user]);
 
   const onSelect = (product: Product) => {
     let arr = [...selected];
@@ -87,13 +82,10 @@ export const SearchHooks = () => {
       let amountsD: number[] = [...schemaNutrition.amountsD];
 
       selected.forEach((s) => {
-        if (s.category?.type) {
-          if (s.category.type === CategoryType.PRODUCT) {
-            arr1.push(s?._id);
-            amountsP.push(PRODUCT_AMOUNT);
-          }
+        if (s.category.type === CategoryType.PRODUCT) {
+          arr1.push(s?._id);
+          amountsP.push(PRODUCT_AMOUNT);
         } else {
-          console.log("WORK SELETC DISH");
           arr2.push(s?._id);
           amountsD.push(
             // @ts-ignore

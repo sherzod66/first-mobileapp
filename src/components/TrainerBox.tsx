@@ -44,7 +44,7 @@ const TrainerBox = ({
   const onDeleteConfirm = async (id: string) => {
     try {
       await ApiService.delete(
-        isFitness ? "/fitness-club/" + id : "/trainers/" + id
+        isFitness ? "/fitness-club/" + id : `/trainers/${trainer._id}`
       );
       EventEmitter.notify("refreshTrainers");
       Alert.alert("Внимание !", "Удалено");

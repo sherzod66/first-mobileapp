@@ -62,7 +62,7 @@ const ConsumeCalendarView = () => {
       <View style={styles.mh20}>
         <Header
           right
-          title="Еда употреблённая за сутки!"
+          title="Еда употреблённая за сутки"
           recommendation={
             tab > 0 ? "foodConsumedPerDayMass" : "foodConsumedPerDayOil"
           }

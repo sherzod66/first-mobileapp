@@ -197,7 +197,11 @@ export const ConsumeCalendarHooks = () => {
           let amountOil = 0;
           let amountCarb = 0;
 
-          amountNorm = dailyNorm - amount;
+          if (nType === NUTRITION_TYPE.THIN) {
+            amountNorm = dailyNorm + amount;
+          } else {
+            amountNorm = dailyNorm - amount;
+          }
           amountProtein = Math.trunc((amountNorm * proteinPercent) / 400);
           amountOil = Math.trunc((amountNorm * oilPercent) / 900);
           amountCarb = Math.trunc(

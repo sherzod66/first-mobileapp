@@ -10,10 +10,18 @@ import SelectPrimary from "../../../../components/common/SelectPrimary";
 import { CreateTrainerHook } from "./hooks";
 import { styles } from "./style";
 import { GENDER } from "../../../../types";
+import Active_Button from "../../../../components/common/Active_Buutton";
 
 const CreateTrainerView = () => {
-  const { onChange, onTrainerSubmit, trainer, selectImage, ImagePicker } =
-    CreateTrainerHook();
+  const {
+    onChange,
+    onTrainerSubmit,
+    trainer,
+    selectImage,
+    ImagePicker,
+    isPhoneNumber,
+    setPhoneNumber,
+  } = CreateTrainerHook();
 
   return (
     <View style={styles.container}>
@@ -35,9 +43,25 @@ const CreateTrainerView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
-          keyboardType="number-pad"
+          keyboardType="phone-pad"
           onChange={onChange("phoneNumber")}
         />
+        <Text style={[styles.textOne, { marginTop: 20 }]}>
+          Отображать номер телефона спортцменам?
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginVertical: 15,
+          }}
+        >
+          <Text style={[styles.textOne]}>Не показывать номер</Text>
+          <Active_Button toggle={isPhoneNumber} setToggle={setPhoneNumber} />
+          <Text style={[styles.textOne]}>Показывать номер</Text>
+        </View>
+
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Почта</Text>
         <InputPrimary
           disablePlaceholder
@@ -51,6 +75,7 @@ const CreateTrainerView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
+          keyboardType="number-pad"
           onChange={onChange("age")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>Город </Text>
@@ -91,6 +116,7 @@ const CreateTrainerView = () => {
           disablePlaceholder
           inputStyle={styles.input}
           containerStyle={styles.inputCont}
+          keyboardType="number-pad"
           onChange={onChange("experience")}
         />
         <Text style={[styles.textOne, { marginVertical: 10 }]}>

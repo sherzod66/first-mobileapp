@@ -23,6 +23,7 @@ interface IProps {
   onRemove: () => void;
   onRemoveByIndex: (index: number) => void;
   style?: StyleProp<ViewStyle>;
+  isButton?: boolean;
 }
 
 const ProductList = ({
@@ -36,6 +37,7 @@ const ProductList = ({
   onRemove,
   onRemoveByIndex,
   style,
+  isButton,
 }: IProps) => {
   return (
     <View style={[styles.container, style]}>
@@ -85,12 +87,16 @@ const ProductList = ({
           justifyContent: "center",
         }}
       >
-        <ButtonSecondary
-          textStyle={{ fontSize: 16 }}
-          text={title}
-          onPress={navigateAddProducts}
-          containerStyle={{}}
-        />
+        {!isButton ? (
+          <ButtonSecondary
+            textStyle={{ fontSize: 16 }}
+            text={title}
+            onPress={navigateAddProducts}
+            containerStyle={{}}
+          />
+        ) : (
+          ""
+        )}
       </View>
       {/* {!isDisabled && (
         <Controls

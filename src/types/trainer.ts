@@ -5,6 +5,7 @@ export type Trainer = BaseUser & {
   age: number;
   email: string;
   city: string;
+  isPhoneNumber: boolean;
   avatar: string;
   speciality: string;
   experience: number;

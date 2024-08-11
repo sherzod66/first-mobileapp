@@ -23,7 +23,7 @@ import { Assets } from "../../../../utils/requireAssets";
 import ButtonTabsMy from "../../../../components/common/ButtonTabsMy";
 
 const navAll = ["База продуктов", "Мои продукты", "Мои блюда"];
-const navMin = ["База продуктов", "Мои продукты"];
+const navMin = ["База продуктов"];
 
 const AddProductsView = () => {
   const {

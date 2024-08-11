@@ -199,14 +199,25 @@ export const AddProductsHooks = () => {
   };
 
   const navigateSearch = () => {
-    navigation.navigate(NUTRITION.ADD_PRODUCTS_SEARCH, {
-      products: productss,
-      schemaNutrition,
-      goBackNavigation,
-      activeType,
-      index,
-      reception,
-    });
+    if (goBackNavigation === "ADD_RECEPTION") {
+      navigation.navigate(NUTRITION.MEAL_PLANS_SEARCH, {
+        products: productss,
+        schemaNutrition,
+        goBackNavigation,
+        activeType,
+        index,
+        reception,
+      });
+    } else {
+      navigation.navigate(NUTRITION.ADD_PRODUCTS_SEARCH, {
+        products: productss,
+        schemaNutrition,
+        goBackNavigation,
+        activeType,
+        index,
+        reception,
+      });
+    }
   };
 
   return {

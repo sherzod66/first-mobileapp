@@ -17,6 +17,7 @@ export const CreateTrainerHook = () => {
   const [trainer, setTrainer] = useState<Partial<Trainer>>({});
   const navigation = useNavigation();
   const [selectImage, setSelectImage] = useState<Asset>();
+  const [isPhoneNumber, setPhoneNumber] = useState<boolean>(true);
 
   const onChange = (key: keyof Trainer) => (value: any) => {
     setTrainer({ ...trainer, [key]: value });
@@ -43,22 +44,23 @@ export const CreateTrainerHook = () => {
         }
         const current = {
           aboutMe: trainer.aboutMe ? trainer.aboutMe : " ",
-          age: trainer.age ? trainer.age : 18,
+          age: trainer.age ? +trainer.age : 18,
           avatar: imagePath.length > 0 ? imagePath : " ",
           city: trainer.city ? trainer.city : " ",
           education: trainer.education ? trainer.education : " ",
-          email: trainer.email ? trainer.email : " ",
+          isPhoneNumber,
+          email: trainer.phoneNumber,
           instagramLink: trainer.instagramLink ? trainer.instagramLink : " ",
           name: trainer.name,
-          phoneNumber: trainer.phoneNumber,
+          phoneNumber: trainer.email,
           speciality: trainer.speciality ? trainer.speciality : " ",
           telegramLink: trainer.telegramLink ? trainer.telegramLink : " ",
-          experience: trainer.experience ? trainer.experience : 0,
+          experience: trainer.experience ? +trainer.experience : 0,
           gender: trainer?.trainerGenderType?.value
             ? trainer?.trainerGenderType?.value
             : "MALE",
         };
-
+        console.log(JSON.stringify(current, null, 4));
         const res = await ApiService.post("/trainers", current);
         EventEmitter.notify("refreshTrainers");
         navigation.navigate(MAIN.TRAINERS as never);
@@ -82,5 +84,7 @@ export const CreateTrainerHook = () => {
     trainer,
     selectImage,
     ImagePicker,
+    isPhoneNumber,
+    setPhoneNumber,
   };
 };

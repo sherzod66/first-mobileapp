@@ -112,12 +112,12 @@ const CreateWorkoutPlanView = () => {
             </View>
           ))}
 
-          <Controls
+          {/* <Controls
             textStyle={{ marginTop: 3 }}
             text="Недели"
             onDecrement={decWeek}
             onIncrement={incWeek}
-          />
+          /> */}
 
           <Text style={styles.inputTopText}>{"Описание"}</Text>
           <InputPrimary

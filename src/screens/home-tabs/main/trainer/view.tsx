@@ -12,6 +12,7 @@ import { TrainerHooks } from "./hooks";
 import { styles } from "./style";
 import telegram from "../../../../assets/icons/telegram.png";
 import instagram from "../../../../assets/icons/instagram.png";
+import { imageLink } from "../../../../utils/imageLink";
 
 const TrainerView = () => {
   const { trainer, openLink, onPlansPress, onApplicationPress } =
@@ -24,13 +25,19 @@ const TrainerView = () => {
       <Header />
 
       <View style={styles.headerContainer}>
-        <Image style={styles.image} source={{ uri: trainer.avatar }} />
+        <Image
+          style={styles.image}
+          source={{ uri: imageLink(trainer.avatar) }}
+        />
 
         <View style={styles.headerRight}>
           <View>
             <Text style={styles.textName}>{trainer.name}</Text>
-            <Text style={styles.textOld}>{`${trainer.age} лет`}</Text>
-            <Text style={styles.textOld}>{`${trainer.city} лет`}</Text>
+            <Text style={styles.textOld}>
+              {trainer.age}
+              {trainer.age > 21 ? " года" : " лет"}
+            </Text>
+            <Text style={styles.textOld}>{trainer.city}</Text>
           </View>
         </View>
         <View style={{ justifyContent: "center" }}>
@@ -68,7 +75,13 @@ const TrainerView = () => {
           </View>
           <Text style={styles.textCart}>{"Номер телефона"}</Text>
           <View style={styles.about}>
-            <Text style={styles.aboutText}>{trainer.phoneNumber}</Text>
+            {trainer.isPhoneNumber ? (
+              <Text style={styles.aboutText}>{trainer.email}</Text>
+            ) : (
+              <Text style={styles.aboutText}>
+                Тренер решил скрыть номер телефона
+              </Text>
+            )}
           </View>
           <Text style={styles.textCart}>{"О себе"}</Text>
         </View>
