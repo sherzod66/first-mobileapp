@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NutritionStackParamList } from "..";
 import { NUTRITION } from "../../../../navigation/ROUTES";
 import { useRedux } from "../../../../store/hooks";
@@ -21,7 +21,7 @@ import {
 } from "../../../../types";
 import { boolean } from "yup";
 import { PRODUCT_AMOUNT } from "../../../../constants/AMOUNT";
-import { showSuccessToast } from "../../../../utils/showToast";
+import { showErrToast, showSuccessToast } from "../../../../utils/showToast";
 import { ApiService } from "../../../../services";
 
 export type NutritionPlanScreenRouteProp = RouteProp<
@@ -38,7 +38,10 @@ export const NutritionPlanHooks = () => {
   // );
   const { plan } = route.params ?? {};
   const [loading, setLoading] = useState<boolean>();
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+
   const [user, dispatch] = useRedux(selectUser);
+  const navigate = useNavigation();
 
   const [language] = useRedux(selectLanguage);
   const [activePlan, setActivePlan] = useState(0);
@@ -119,6 +122,24 @@ export const NutritionPlanHooks = () => {
       dispatch(setUser(res.data));
     }
   };
+  const onDeletePlan = async () => {
+    setDeleteLoading(true);
+    try {
+      await ApiService.put(`/users/remove-nutrition-plan/${user?._id}`, {
+        planId: plan._id,
+      });
+      const res = await ApiService.get<Response<User>>("/users/me");
+      dispatch(setUser(res.data));
+      showSuccessToast("Успешно удалено!");
+      navigate.goBack();
+    } catch (e) {
+      console.log(e);
+      showErrToast(e.data.error.message);
+      setDeleteLoading(false);
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
 
   return {
     language,
@@ -130,6 +151,8 @@ export const NutritionPlanHooks = () => {
     setActiveReception,
     onAddDiary,
     loading,
+    onDeletePlan,
+    deleteLoading,
   };
 };
 

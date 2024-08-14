@@ -1,5 +1,5 @@
 import React from "react";
-import { View, SafeAreaView, ScrollView } from "react-native";
+import { View, SafeAreaView, ScrollView, Button } from "react-native";
 import { MeasurementBox } from "../../../../components";
 import { ButtonPrimary, Header } from "../../../../components/common";
 import Modal from "./modal";
@@ -110,6 +110,7 @@ const MeasurementsView = () => {
         onRemoveRow={onRemoveRow}
         onClose={onClose}
       />
+
       {/* <ReactNativeModal>
       </ReactNativeModal> */}
       {!!pickerState && (
@@ -117,7 +118,7 @@ const MeasurementsView = () => {
           mode={pickerState}
           value={date}
           onChange={(e) => {
-            setPickerState(pickerState === "time" ? "date" : null);
+            setPickerState(pickerState === "date" ? "time" : null);
             setDate(new Date(e.nativeEvent.timestamp));
           }}
         />

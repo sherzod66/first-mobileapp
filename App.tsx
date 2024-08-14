@@ -5,7 +5,7 @@ import { enableScreens } from "react-native-screens";
 import store from "./src/store/configureStore";
 import Root from "./src/navigation/Root";
 import React from "react";
-import "./ignoreWarnings"
+import "./ignoreWarnings";
 enableScreens();
 
 const persistor = persistStore(store);

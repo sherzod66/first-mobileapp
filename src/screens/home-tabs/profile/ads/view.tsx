@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   Dimensions,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -20,59 +21,63 @@ const AdsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Carousel
-          data={ads}
-          renderItem={({ ...rest }) => <AdItem {...rest} fetchAds={fetchAds} />}
-          sliderWidth={sliderWidth}
-          itemWidth={itemWidth}
-        />
-      </View>
-      <View style={{ marginHorizontal: 15 }}>
-        <Text style={[styles.textOne, { marginVertical: 10 }]}>
-          Чтобы добавить рекламу, пожалуйста, заполните поля ниже
-        </Text>
-        <Text style={[styles.textOne, { marginVertical: 10 }]}>
-        Ссылка на Изображения
-        </Text>
-        <InputPrimary
-          disablePlaceholder
-          inputStyle={styles.input}
-          containerStyle={styles.inputCont}
-          onChange={onInputChange("imageUrl")}
-        />
-        <Text style={[styles.textOne, { marginVertical: 10 }]}>
-          Ссылка на видео
-        </Text>
-        <InputPrimary
-          disablePlaceholder
-          inputStyle={styles.input}
-          containerStyle={styles.inputCont}
-          onChange={onInputChange("videoUrl")}
-        />
-        <Text style={[styles.textOne, { marginVertical: 10 }]}>
-          Ссылка на сайт
-        </Text>
-        <InputPrimary
-          disablePlaceholder
-          inputStyle={styles.input}
-          containerStyle={styles.inputCont}
-          onChange={onInputChange("link")}
-        />
-        {loading ? (
-          <ActivityIndicator />
-        ) : (
-          <ButtonSecondary
-            containerStyle={{
-              width: "100%",
-              marginVertical: 20,
-              paddingVertical: 15,
-            }}
-            text="Cоздать"
-            onPress={onAdSubmit}
+      <ScrollView>
+        <View>
+          <Carousel
+            data={ads}
+            renderItem={({ ...rest }) => (
+              <AdItem {...rest} fetchAds={fetchAds} />
+            )}
+            sliderWidth={sliderWidth}
+            itemWidth={itemWidth}
           />
-        )}
-      </View>
+        </View>
+        <View style={{ marginHorizontal: 15 }}>
+          <Text style={[styles.textOne, { marginVertical: 10 }]}>
+            Чтобы добавить рекламу, пожалуйста, заполните поля ниже
+          </Text>
+          <Text style={[styles.textOne, { marginVertical: 10 }]}>
+            Ссылка на Изображения
+          </Text>
+          <InputPrimary
+            disablePlaceholder
+            inputStyle={styles.input}
+            containerStyle={styles.inputCont}
+            onChange={onInputChange("imageUrl")}
+          />
+          <Text style={[styles.textOne, { marginVertical: 10 }]}>
+            Ссылка на видео
+          </Text>
+          <InputPrimary
+            disablePlaceholder
+            inputStyle={styles.input}
+            containerStyle={styles.inputCont}
+            onChange={onInputChange("videoUrl")}
+          />
+          <Text style={[styles.textOne, { marginVertical: 10 }]}>
+            Ссылка на сайт
+          </Text>
+          <InputPrimary
+            disablePlaceholder
+            inputStyle={styles.input}
+            containerStyle={styles.inputCont}
+            onChange={onInputChange("link")}
+          />
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <ButtonSecondary
+              containerStyle={{
+                width: "100%",
+                marginVertical: 20,
+                paddingVertical: 15,
+              }}
+              text="Cоздать"
+              onPress={onAdSubmit}
+            />
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };

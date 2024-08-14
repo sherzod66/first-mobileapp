@@ -6,7 +6,14 @@ import { MAIN } from "../../../../navigation/ROUTES";
 import { ApiService } from "../../../../services";
 import { useRedux } from "../../../../store/hooks";
 import { selectUser, setUser } from "../../../../store/slices/appSlice";
-import { GENDER, LEVEL, Response, User, WorkoutPlan } from "../../../../types";
+import {
+  GENDER,
+  LEVEL,
+  Response,
+  ROLES,
+  User,
+  WorkoutPlan,
+} from "../../../../types";
 import EventEmitter from "../../../../utils/EventEmitter";
 import { getNewData } from "../../../../utils/getNewData";
 import { showSuccessToast } from "../../../../utils/showToast";
@@ -24,6 +31,7 @@ export const WorkoutPlansHooks = () => {
   const [show, setShow] = useState<any>();
 
   const [user, dispatch] = useRedux(selectUser);
+  const isSuperAdmin = user?.role === ROLES.SUPERADMIN;
   const { workoutPlans: userWorkoutPlans } = user ?? {};
 
   const navigation = useNavigation<WorkoutPlansScreenNavigationProp>();
@@ -97,5 +105,6 @@ export const WorkoutPlansHooks = () => {
     show,
     setShow,
     onRemove,
+    isSuperAdmin,
   };
 };

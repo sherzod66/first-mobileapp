@@ -56,18 +56,22 @@ export const ExercisesHooks = () => {
   };
 
   useEffect(() => {
+    setShow(false);
     getExercises();
   }, [activeCategory, activeSubCategory]);
 
   const onPress = (index: number) => {
     navigation.navigate(MAIN.EXERCISE, { exercise: exercises[index] });
+    setShow(false);
   };
   const onEdit = (index: number) => {
     navigation.navigate(MAIN.EDIT_EXERCISE, { exercise: exercises[index] });
+    setShow(false);
   };
 
   const onCreate = () => {
     navigation.navigate(MAIN.CREATE_EXERCISE);
+    setShow(false);
   };
 
   return {

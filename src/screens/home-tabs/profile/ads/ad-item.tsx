@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Dimensions, Image, StyleSheet, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Linking,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Box } from "../../../../components/common";
 import { ApiService } from "../../../../services";
 import { useSelector } from "react-redux";
@@ -35,15 +42,19 @@ const AdItem = ({
   };
   return (
     <View style={styles.container}>
-      <Box
-        cover={item.imageUrl || ""}
-        dots={isSuperAdmin}
-        show={show}
-        setShow={() => setShow((e) => !e)}
-        onRemove={onRemove}
-        dotsLoading={loading}
-        containerStyle={{ marginTop: 10 }}
-      />
+      <TouchableOpacity
+        onPress={() => Linking.openURL(item.link ? item.link : "")}
+      >
+        <Box
+          cover={item.imageUrl || ""}
+          dots={isSuperAdmin}
+          show={show}
+          setShow={() => setShow((e) => !e)}
+          onRemove={onRemove}
+          dotsLoading={loading}
+          containerStyle={{ marginTop: 10 }}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -52,9 +63,9 @@ export default AdItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get("window").width - 30,
+    width: "100%",
   },
   image: {
-    width: Dimensions.get("window").width - 30,
+    width: "100%",
   },
 });

@@ -170,6 +170,7 @@ export const styles = StyleSheet.create({
   },
   mt26: {
     marginTop: 26,
+    marginBottom: 26,
   },
   text: {
     fontSize: 12,
@@ -177,5 +178,18 @@ export const styles = StyleSheet.create({
     fontWeight: "400",
     color: COLORS.WHITE,
     textAlign: "justify",
+  },
+  button: {
+    borderRadius: 10,
+    paddingTop: 18,
+    paddingBottom: 18,
+    backgroundColor: COLORS.RED,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: COLORS.WHITE,
+    fontWeight: "700",
+    fontSize: 15,
+    lineHeight: 15,
   },
 });

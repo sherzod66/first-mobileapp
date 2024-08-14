@@ -35,6 +35,7 @@ const WorkoutPlansView = () => {
     setShow,
     show,
     onRemove,
+    isSuperAdmin,
   } = WorkoutPlansHooks();
 
   return (
@@ -72,7 +73,7 @@ const WorkoutPlansView = () => {
               onPress={() => onPress(i)}
             >
               <Box
-                dots
+                dots={isSuperAdmin}
                 dotsLoading={loading && loading[i]}
                 show={show && show[i]}
                 setShow={() => setShow({ [i]: !(show && show[i]) })}

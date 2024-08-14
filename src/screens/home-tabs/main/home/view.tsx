@@ -31,10 +31,13 @@ const MainHomeView = () => {
         <View style={{ marginBottom: 110, marginHorizontal: 15 }}>
           <Carousel
             data={ads}
+            autoplay={true}
+            autoplayDelay={6000}
+            loop={true}
             renderItem={({ ...rest }) => (
               <AdItem {...rest} fetchAds={fetchAds} />
             )}
-            sliderWidth={sliderWidth}
+            sliderWidth={itemWidth}
             itemWidth={itemWidth}
           />
           {data.map((e, i) => (

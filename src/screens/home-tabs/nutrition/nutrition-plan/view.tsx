@@ -18,6 +18,8 @@ const NutritionPlanView = () => {
     setActiveReception,
     loading,
     onAddDiary,
+    deleteLoading,
+    onDeletePlan,
   } = NutritionPlanHooks();
 
   const { nutritions } = plan;
@@ -166,6 +168,15 @@ const NutritionPlanView = () => {
               </ScrollView>
             </View>
           </View>
+
+          <ButtonPrimary
+            fill
+            onPress={onDeletePlan}
+            style={styles.button}
+            textStyle={styles.buttonText}
+            loading={deleteLoading}
+            text="Удалить из моих планов"
+          />
 
           <View style={{ marginBottom: 100 }} />
         </ScrollView>

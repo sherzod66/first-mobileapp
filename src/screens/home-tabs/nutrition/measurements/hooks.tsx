@@ -19,6 +19,7 @@ import { Response, User } from "../../../../types";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { NutritionStackParamList } from "..";
 import { NUTRITION } from "../../../../navigation/ROUTES";
+import { requestAlarmPermission } from "../../../../utils/permission";
 export type MeasurementsScreenRouteProp = RouteProp<
   NutritionStackParamList,
   NUTRITION.MEASUREMENTS
@@ -31,7 +32,6 @@ export const MeasurementsHooks = (apprenticeId = "") => {
   if (!!apprenticeId) {
     user = trainer?.disciples.find((e) => e._id === apprenticeId);
   }
-  console.log({ usr: user?.name });
 
   const route = useRoute<MeasurementsScreenRouteProp>();
   const { tab } = route.params;
@@ -165,7 +165,7 @@ export const MeasurementsHooks = (apprenticeId = "") => {
   }, [pickerState]);
 
   const onRemind = async () => {
-    setPickerState("time");
+    setPickerState("date");
   };
 
   const onSet = (i: number, ii: number) => {
