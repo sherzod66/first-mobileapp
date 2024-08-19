@@ -11,6 +11,7 @@ import Controls from './common/Controls'
 import { COLORS } from '../constants/COLORS'
 import { Product } from '../types'
 import { ButtonSecondary } from './common'
+import { Dispatch, SetStateAction } from 'react'
 
 interface IProps {
 	title: string
@@ -24,9 +25,14 @@ interface IProps {
 	onRemoveByIndex: (index: number) => void
 	style?: StyleProp<ViewStyle>
 	isButton?: boolean
+	isDots: boolean
+	setIsDots: Dispatch<SetStateAction<boolean>>
+	dateCopy: Product[]
+	onPaste?: () => void
+	onCopy: () => void
 }
 
-const ProductList = ({
+const ProductListDish = ({
 	title,
 	isDisabled,
 	loading,
@@ -37,18 +43,23 @@ const ProductList = ({
 	onRemove,
 	onRemoveByIndex,
 	style,
-	isButton
+	isDots,
+	setIsDots,
+	isButton,
+	dateCopy,
+	onPaste,
+	onCopy
 }: IProps) => {
 	return (
 		<View style={[styles.container, style]}>
 			<View style={[styles.header, styles.radiusTop]}>
 				<View style={styles.left}>
 					<Text style={styles.title}>{'Наименование продукта'}</Text>
-					<View style={styles.dots}>
+					<TouchableOpacity style={styles.dots} onPress={() => setIsDots(!isDots)}>
 						<View style={styles.dot} />
 						<View style={styles.dot} />
 						<View style={styles.dot} />
-					</View>
+					</TouchableOpacity>
 				</View>
 				<View style={styles.right}>
 					<Text style={styles.text4}>{'Кол-во'}</Text>
@@ -101,11 +112,37 @@ const ProductList = ({
           textStyle={{ marginTop: 3 }}
         />
       )} */}
+			{isDots && (
+				<View style={styles.touchableWrapper}>
+					{products.length > 0 && (
+						<TouchableOpacity
+							style={styles.absolute}
+							onPress={() => {
+								setIsDots(!isDots)
+								onCopy()
+							}}
+						>
+							<Text style={styles.absoluteText}>{'Скопировать'}</Text>
+						</TouchableOpacity>
+					)}
+					{dateCopy.length > 0 && onPaste && (
+						<TouchableOpacity
+							onPress={() => {
+								onPaste()
+							}}
+							style={styles.absolute}
+						>
+							{loading && <ActivityIndicator size={'small'} />}
+							{!loading && <Text style={styles.absoluteText}>{'Вставить'}</Text>}
+						</TouchableOpacity>
+					)}
+				</View>
+			)}
 		</View>
 	)
 }
 
-export default ProductList
+export default ProductListDish
 
 const styles = StyleSheet.create({
 	container: {},
@@ -114,11 +151,30 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: COLORS.GREY3
 	},
+	absoluteText: {
+		fontSize: 11,
+		lineHeight: 15,
+		fontWeight: '400',
+		color: COLORS.WHITE
+	},
+	absolute: {
+		marginTop: 5,
+		borderRadius: 5,
+		paddingVertical: 10,
+		paddingHorizontal: 40,
+		backgroundColor: COLORS.BLACK
+	},
 	title: {
 		fontSize: 12,
 		lineHeight: 16,
 		fontWeight: '800',
 		color: COLORS.WHITE
+	},
+	touchableWrapper: {
+		position: 'absolute',
+		right: 98,
+		top: 35,
+		zIndex: 50
 	},
 	left: {
 		flex: 1,
