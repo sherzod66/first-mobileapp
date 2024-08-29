@@ -45,33 +45,14 @@ export const AddReceptionHooks = () => {
 	useEffect(() => {
 		let arr: number[] = []
 		for (let i = 0; i < products.length; i++) {
-			if (products[i].category) {
-				if (reception?.amountsP[i] && reception.products[i].name.ru === products[i].name.ru) {
-					arr.push(
-						reception?.amountsP[i] === PRODUCT_AMOUNT ? PRODUCT_AMOUNT : reception?.amountsP[i]
-					)
-				} else {
-					arr.push(PRODUCT_AMOUNT)
+			if (reception?.amountsP[i] || amounts[i]) {
+				if (reception?.amountsP[i]) {
+					arr.push(reception?.amountsP[i])
+				} else if (amounts[i]) {
+					arr.push(amounts[i])
 				}
 			} else {
-				if (reception?.amountsP[i] && reception.products[i].name.ru === products[i].name.ru) {
-					arr.push(
-						reception?.amountsP[i] === PRODUCT_AMOUNT ? PRODUCT_AMOUNT : reception?.amountsD[i]
-					)
-				} else {
-					//TODO: Решить с добовлением блюд!
-					// if (products[i].amounts) {
-					//   let num = 0;
-					//   products[i].amounts.forEach((elem) => {
-					//     num += +elem;
-					//   });
-					//   arr.push(
-					//     reception?.amountsP[i] === PRODUCT_AMOUNT ? PRODUCT_AMOUNT : num
-					//   );
-					// } else {
-					//   arr.push(PRODUCT_AMOUNT);
-					// }
-				}
+				arr.push(PRODUCT_AMOUNT)
 			}
 		}
 

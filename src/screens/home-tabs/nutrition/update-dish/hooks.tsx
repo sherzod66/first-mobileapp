@@ -51,8 +51,12 @@ export const UpdateDishHooks = () => {
 		let arr: number[] = []
 
 		for (let i = 0; i < products.length; i++) {
-			if (RouteProp.params.data.amounts[i]) {
-				arr.push(RouteProp.params.data.amounts[i])
+			if (RouteProp.params.data.amounts[i] || amounts[i]) {
+				if (RouteProp.params.data.amounts[i]) {
+					arr.push(RouteProp.params.data.amounts[i])
+				} else if (amounts[i]) {
+					arr.push(amounts[i])
+				}
 			} else {
 				arr.push(PRODUCT_AMOUNT)
 			}

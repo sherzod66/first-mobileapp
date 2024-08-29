@@ -37,9 +37,11 @@ export const SearchHooks = () => {
 		if (user) {
 			if (searchValue.length > 1)
 				setFoundProduct([
-					...allProducts.filter(elem =>
-						elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
-					),
+					...allProducts.filter(elem => {
+						if (!elem.userProduct) {
+							return elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
+						}
+					}),
 					...user.products.filter(elem =>
 						elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
 					),

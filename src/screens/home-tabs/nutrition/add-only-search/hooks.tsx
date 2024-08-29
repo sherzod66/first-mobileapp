@@ -25,9 +25,14 @@ export const SearchHooks = () => {
 	const [foundProduct, setFoundProduct] = useState<Product[]>([])
 
 	useEffect(() => {
-		if (searchValue.length > 1)
+		if (searchValue.length > 1 && user)
 			setFoundProduct([
-				...allProducts.filter(elem =>
+				...allProducts.filter(elem => {
+					if (!elem.userProduct) {
+						return elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
+					}
+				}),
+				...user.products.filter(elem =>
 					elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
 				)
 			])

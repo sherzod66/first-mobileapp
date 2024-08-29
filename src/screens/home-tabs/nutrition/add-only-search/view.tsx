@@ -1,11 +1,8 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Modal } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { styles } from './style'
-import { PRODUCT_AMOUNT } from '../../../../constants/AMOUNT'
 import { ButtonPrimary, Header, InputPrimary } from '../../../../components/common'
 import { SearchHooks } from './hooks'
 import { COLORS } from '../../../../constants/COLORS'
-import { getSumValues } from '../../../../utils/getSumValues'
-import { Dish } from '../../../../types'
 
 const AddOnlySearch = () => {
 	const { foundProduct, loading, selected, onAdd, onSelect, setSearchValue } = SearchHooks()
