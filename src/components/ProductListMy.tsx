@@ -13,6 +13,7 @@ import { Product } from '../types'
 import { ButtonSecondary } from './common'
 import { Dispatch, SetStateAction } from 'react'
 import { IActiveDayProps } from './CustomCalendar'
+import { showErrToast } from '../utils/showToast'
 
 interface IProps {
 	title: string
@@ -91,7 +92,10 @@ const ProductListMy = ({
 					</View>
 					<TouchableOpacity
 						style={styles.right}
-						onPress={() => product.category && onShow(index, `${amounts[index]}`)}
+						onPress={() => {
+							if (product.category) onShow(index, `${amounts[index]}`)
+							else showErrToast('Кол-во блюда нельзя редактировать')
+						}}
 					>
 						<Text style={styles.text1}>{amounts[index]}</Text>
 					</TouchableOpacity>
