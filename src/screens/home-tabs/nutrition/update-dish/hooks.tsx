@@ -126,8 +126,9 @@ export const UpdateDishHooks = () => {
 	}
 
 	const onRemoveByIndex = (index: number) => {
-		// console.log("products: ", JSON.stringify(products, null, 4));
 		setProducts(products.filter((p, i) => i !== index))
+		setAmounts(amounts.filter((a, i) => i !== index))
+		RouteProp.params.data.amounts = amounts.filter((a, i) => i !== index)
 	}
 
 	const navigateAddProducts = () => {

@@ -29,14 +29,6 @@ const MainHomeView = () => {
 
 			<SafeAreaView />
 			<ScrollView showsVerticalScrollIndicator={false}>
-				<View style={{ paddingLeft: 20 }}>
-					<Text style={styles.text1}>
-						Добро пожаловать в <Text style={{ color: COLORS.RED }}>FIT</Text>
-						<Text style={{ color: COLORS.WHITE }}>.</Text>
-						<Text style={{ color: '#86c7ed' }}>ME</Text>
-						<Text style={{ color: COLORS.WHITE }}>!</Text>
-					</Text>
-				</View>
 				<View style={{ marginBottom: 110, marginHorizontal: 15 }}>
 					<Carousel
 						data={ads}
