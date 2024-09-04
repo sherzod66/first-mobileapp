@@ -137,10 +137,10 @@ export const AddProductsHooks = () => {
 						amountsP.push(PRODUCT_AMOUNT)
 					}
 				} else {
-					if (s.products) {
-						s.products.forEach(product => {
+					if (s.products && s.amounts) {
+						s.products.forEach((product, index) => {
 							arr1.push(product._id)
-							amountsP.push(PRODUCT_AMOUNT)
+							amountsP.push(s.amounts[index])
 						})
 					}
 				}

@@ -15,4 +15,5 @@ export type Product = BaseData & {
 	isAdmin: boolean
 	userProduct: boolean
 	products?: Product[]
+	amounts?: number[]
 }
