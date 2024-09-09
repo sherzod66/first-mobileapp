@@ -83,7 +83,7 @@ const TrainerBox = ({
 				<View>
 					<Text style={styles.name}>{name}</Text>
 					<Text style={styles.speciality}>{speciality}</Text>
-					{!!id && <Text style={styles.speciality}>ID: {id}</Text>}
+					{!!id && isSuperAdmin && <Text style={styles.speciality}>ID: {id}</Text>}
 					<View
 						style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
 					>
