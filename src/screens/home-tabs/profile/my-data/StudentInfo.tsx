@@ -21,7 +21,7 @@ const StudentInfo = () => {
 						primary
 						active={active}
 						setActive={setActive}
-						titles={['Питание', 'Тренинг!', 'Замеры']}
+						titles={['Питание', 'Тренинг', 'Замеры']}
 						scroll={false}
 					/>
 				</View>

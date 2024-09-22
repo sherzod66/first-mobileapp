@@ -68,8 +68,8 @@ export const StudentWorkoutHooks = (apprenticeId = '') => {
 
 	const onPress = (workoutIndex: number, weekIndex: number) => {
 		if (data) {
-			navigation.navigate(PROFILE.WORKOUT_RESULTS, {
-				schedule: data,
+			navigation.navigate(PROFILE.WORKOUT_RESULTS_STUDENT, {
+				userId: apprenticeId,
 				weekIndex,
 				workoutIndex
 			})

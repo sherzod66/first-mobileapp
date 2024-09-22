@@ -122,15 +122,15 @@ const AddProductsView = () => {
 								<View>
 									<Text style={styles.text3}>
 										{'Б - '}
-										<Text style={styles.text4}>{`${protein} гр`}</Text>
+										<Text style={styles.text4}>{`${Math.round(protein * 100) / 100} гр`}</Text>
 									</Text>
 									<Text style={styles.text3}>
 										{'Ж - '}
-										<Text style={styles.text4}>{`${oil} гр`}</Text>
+										<Text style={styles.text4}>{`${Math.round(oil * 100) / 100} гр`}</Text>
 									</Text>
 									<Text style={styles.text3}>
 										{'У - '}
-										<Text style={styles.text4}>{`${carb} гр`}</Text>
+										<Text style={styles.text4}>{`${Math.round(carb * 100) / 100} гр`}</Text>
 									</Text>
 								</View>
 								<Text style={styles.text5}>{`${calories} каллорий`}</Text>

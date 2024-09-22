@@ -19,7 +19,9 @@ const UpdateTrainerView = () => {
 		ImagePicker,
 		isPhoneNumber,
 		setPhoneNumber,
-		isLoading
+		isLoading,
+		isEducation,
+		setIsEducation
 	} = UpdateTrainerHook()
 
 	return (
@@ -125,14 +127,32 @@ const UpdateTrainerView = () => {
 					value={`${trainer.experience}`}
 					onChange={onChange('experience')}
 				/>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Образование </Text>
-				<InputPrimary
-					disablePlaceholder
-					inputStyle={styles.input}
-					containerStyle={styles.inputCont}
-					value={trainer.education}
-					onChange={onChange('education')}
-				/>
+				<Text style={[styles.textOne, { marginTop: 20 }]}>
+					Есть ли высшее образование у тренера?
+				</Text>
+				<View
+					style={{
+						flexDirection: 'row',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						marginVertical: 15
+					}}
+				>
+					<Text style={[styles.textOne]}>Нет</Text>
+					<Active_Button toggle={isEducation} setToggle={setIsEducation} />
+					<Text style={[styles.textOne]}>Да</Text>
+				</View>
+				{isEducation && (
+					<>
+						<Text style={[styles.textOne, { marginVertical: 10 }]}>Образование </Text>
+						<InputPrimary
+							disablePlaceholder
+							inputStyle={styles.input}
+							containerStyle={styles.inputCont}
+							onChange={onChange('education')}
+						/>
+					</>
+				)}
 				<Text style={[styles.textOne, { marginVertical: 10 }]}>Телеграм</Text>
 				<InputPrimary
 					disablePlaceholder

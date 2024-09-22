@@ -82,19 +82,19 @@ export const SearchHooks = () => {
 			let amountsP: number[] = [...schemaNutrition.amountsP]
 			let amountsD: number[] = [...schemaNutrition.amountsD]
 
-			selected.forEach(s => {
+			selected.map(s => {
 				if (s.category?.type) {
 					if (s.category.type === CategoryType.PRODUCT) {
 						arr1.push(s?._id)
 						amountsP.push(PRODUCT_AMOUNT)
 					}
 				} else {
-					console.log('WORK SELETC DISH')
-					arr2.push(s?._id)
-					amountsD.push(
-						// @ts-ignore
-						(s.amounts as number[]).reduce((acc, val) => acc + val, 0)
-					)
+					if (s.products && s.amounts) {
+						s.products.forEach((product, index) => {
+							arr1.push(product._id)
+							amountsP.push(s.amounts[index])
+						})
+					}
 				}
 			})
 			console.log(arr1)

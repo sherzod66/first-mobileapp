@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309384223462",
+    "project_id": "fit-me-f0215",
+    "storage_bucket": "fit-me-f0215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309384223462:android:eabca7892597838abbb927",
+        "android_client_info": {
+          "package_name": "fit.me.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIp1EV1lg5IaQiY9VoDEC1-Modv-PyAO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

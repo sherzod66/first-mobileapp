@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { WorkoutStackParamList } from '../..'
 import { ROUTES, WORKOUT } from '../../../../../navigation/ROUTES'
 import { ApiService } from '../../../../../services'
 import { useRedux } from '../../../../../store/hooks'
-import { selectUser, setUser } from '../../../../../store/slices/appSlice'
-import { Response, User, WorkoutPlan } from '../../../../../types'
+import { selectTrainer, selectUser, setUser } from '../../../../../store/slices/appSlice'
+import { Response, Trainer, User, WorkoutPlan } from '../../../../../types'
 import { showSuccessToast } from '../../../../../utils/showToast'
+import { useSelector } from 'react-redux'
 
 export type MyWorkoutPlansScreenNavigationProp = NativeStackNavigationProp<
 	WorkoutStackParamList,
@@ -17,6 +18,8 @@ export type MyWorkoutPlansScreenNavigationProp = NativeStackNavigationProp<
 export const MyWorkoutPlansHooks = () => {
 	const [loading, setLoading] = useState<any>()
 	const [show, setShow] = useState<any>()
+
+	const trainer = useSelector(selectTrainer)
 
 	const [user, dispatch] = useRedux(selectUser)
 	const { workoutPlans } = user ?? {}
@@ -62,6 +65,7 @@ export const MyWorkoutPlansHooks = () => {
 		onCreate,
 		onRemove,
 		workoutPlans,
-		user
+		user,
+		trainer
 	}
 }

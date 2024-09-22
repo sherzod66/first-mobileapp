@@ -19,11 +19,12 @@ export const UpdateTrainerHook = () => {
 	const [isPhoneNumber, setPhoneNumber] = useState<boolean>(true)
 	const route = useRoute<TrainerScreenRouteProp>()
 	const { trainer: globalTrainer } = route.params ?? {}
-	console.log(globalTrainer)
+	const [isEducation, setIsEducation] = useState<boolean>(true)
 
 	useEffect(() => {
 		setTrainer({ ...globalTrainer })
 		setPhoneNumber(globalTrainer.isPhoneNumber)
+		setIsEducation(globalTrainer.isEducation)
 	}, [globalTrainer])
 
 	const onChange = (key: keyof Trainer) => (value: any) => {
@@ -71,7 +72,8 @@ export const UpdateTrainerHook = () => {
 					age: trainer.age ? +trainer.age : 18,
 					avatar: trainer.avatar,
 					city: trainer.city ? trainer.city : ' ',
-					education: trainer.education ? trainer.education : ' ',
+					education: isEducation ? (trainer.education ? trainer.education : ' ') : ' ',
+					isEducation: isEducation,
 					isPhoneNumber,
 					email: trainer.email,
 					instagramLink: trainer.instagramLink ? trainer.instagramLink : ' ',
@@ -107,6 +109,8 @@ export const UpdateTrainerHook = () => {
 		ImagePicker,
 		isPhoneNumber,
 		setPhoneNumber,
-		isLoading
+		isLoading,
+		isEducation,
+		setIsEducation
 	}
 }

@@ -1,76 +1,75 @@
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useEffect, useState } from "react";
-import { NutritionStackParamList } from "../..";
-import { NUTRITION } from "../../../../../navigation/ROUTES";
-import { useRedux } from "../../../../../store/hooks";
-import { selectUser } from "../../../../../store/slices/appSlice";
-import {
-  NutritionPlan,
-  NUTRITION_TYPE,
-  ROLES,
-  Response,
-} from "../../../../../types";
-import { ApiService } from "../../../../../services";
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useEffect, useState } from 'react'
+import { NutritionStackParamList } from '../..'
+import { NUTRITION } from '../../../../../navigation/ROUTES'
+import { useRedux } from '../../../../../store/hooks'
+import { selectTrainer, selectUser } from '../../../../../store/slices/appSlice'
+import { NutritionPlan, NUTRITION_TYPE, ROLES, Response, Trainer } from '../../../../../types'
+import { ApiService } from '../../../../../services'
+import { useSelector } from 'react-redux'
 
 export type MyNutritionPlansScreenNavigationProp = NativeStackNavigationProp<
-  NutritionStackParamList,
-  NUTRITION.NUTRITION_LAYOUT
->;
+	NutritionStackParamList,
+	NUTRITION.NUTRITION_LAYOUT
+>
 
 export const MyNutritionPlansHooks = () => {
-  const navigation = useNavigation<MyNutritionPlansScreenNavigationProp>();
+	const navigation = useNavigation<MyNutritionPlansScreenNavigationProp>()
 
-  const [user] = useRedux(selectUser);
-  const { nutritionPlans } = user ?? {};
-  const [activeTab, setActiveTab] = useState(0);
-  const [plans, setPlans] = useState<NutritionPlan[]>([]);
-  console.log(plans);
-  const [subCategory, setSubCategory] = useState(1);
-  const isSuperAdmin = user?.role === ROLES.SUPERADMIN;
-  const isTrainers = user?.role === ROLES.TRAINER;
+	const [user] = useRedux(selectUser)
+	const { nutritionPlans } = user ?? {}
+	const [activeTab, setActiveTab] = useState(0)
+	const [plans, setPlans] = useState<NutritionPlan[]>([])
 
-  const effect = async () => {
-    if (nutritionPlans)
-      setPlans(
-        nutritionPlans.filter((nP) => {
-          return nP.type === NUTRITION_TYPE[activeTab === 0 ? "THIN" : "FAT"];
-        })
-      );
-    // if (user) {
-    //   setPlans(
-    //     user.nutritionPlans.filter(
-    //       (nP) => nP.type === NUTRITION_TYPE[activeTab ? "THIN" : "FAT"]
-    //     )
-    //   );
-    // }
-  };
+	const [subCategory, setSubCategory] = useState(1)
+	const isSuperAdmin = user?.role === ROLES.SUPERADMIN
+	const isTrainers = user?.role === ROLES.TRAINER
 
-  useEffect(() => {
-    effect();
-  }, [activeTab, subCategory, user]);
+	const trainer = useSelector(selectTrainer)
 
-  const onPlanPress = (index: number) => {
-    navigation.navigate(NUTRITION.NUTRITION_PLAN, {
-      plan: plans[index],
-    });
-  };
+	const effect = async () => {
+		if (nutritionPlans)
+			setPlans(
+				nutritionPlans.filter(nP => {
+					return nP.type === NUTRITION_TYPE[activeTab === 0 ? 'THIN' : 'FAT']
+				})
+			)
+		// if (user) {
+		//   setPlans(
+		//     user.nutritionPlans.filter(
+		//       (nP) => nP.type === NUTRITION_TYPE[activeTab ? "THIN" : "FAT"]
+		//     )
+		//   );
+		// }
+	}
 
-  const onPress = () => {
-    navigation.navigate(NUTRITION.CREATE_NUTRITION_PLAN, {
-      type: NUTRITION_TYPE[activeTab ? "THIN" : "FAT"],
-    });
-  };
+	useEffect(() => {
+		effect()
+	}, [activeTab, subCategory, user])
 
-  return {
-    activeTab,
-    setActiveTab,
-    plans,
-    onPlanPress,
-    onPress,
-    isSuperAdmin,
-    subCategory,
-    setSubCategory,
-    isTrainers,
-  };
-};
+	const onPlanPress = (index: number) => {
+		navigation.navigate(NUTRITION.NUTRITION_PLAN, {
+			plan: plans[index]
+		})
+	}
+
+	const onPress = () => {
+		navigation.navigate(NUTRITION.CREATE_NUTRITION_PLAN, {
+			type: NUTRITION_TYPE[activeTab ? 'THIN' : 'FAT']
+		})
+	}
+
+	return {
+		activeTab,
+		setActiveTab,
+		plans,
+		onPlanPress,
+		onPress,
+		isSuperAdmin,
+		subCategory,
+		setSubCategory,
+		isTrainers,
+		trainer
+	}
+}

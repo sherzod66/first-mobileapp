@@ -102,7 +102,7 @@ const StudentWorkoutView = ({ apprenticeId = '' }) => {
 
 									{new Array(4).fill(1).map((a, i) => (
 										<TouchableWithoutFeedback
-											// onPress={() => onPress(ii, data.activeWeek + i)}
+											onPress={() => onPress(ii, data.activeWeek + i)}
 											key={`${ii}/${data.activeWeek + i}/s/${data.plan._id}`}
 										>
 											<View style={styles.weekStake}>
@@ -167,14 +167,6 @@ const StudentWorkoutView = ({ apprenticeId = '' }) => {
               ))}
             </ScrollView> */}
 					</View>
-
-					{/* <ButtonPrimary
-						multiline
-						style={styles.btn2}
-						text='Статус выполнения'
-						textStyle={styles.btnText3}
-						onPress={() => setShowModal(true)}
-					/> */}
 				</View>
 			)}
 

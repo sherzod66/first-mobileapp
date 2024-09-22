@@ -6,9 +6,8 @@ import { MyWorkoutPlansHooks } from './hooks'
 import { ROLES } from '../../../../../types'
 
 const MyWorkoutPlansView = () => {
-	const { onPress, onCreate, onRemove, workoutPlans, loading, show, setShow, user } =
+	const { onPress, onCreate, onRemove, workoutPlans, loading, show, setShow, user, trainer } =
 		MyWorkoutPlansHooks()
-
 	return (
 		<View style={styles.container}>
 			<ScrollView showsVerticalScrollIndicator={false}>
@@ -41,16 +40,24 @@ const MyWorkoutPlansView = () => {
 			</ScrollView>
 
 			<View style={{ paddingBottom: 90, paddingTop: 20 }}>
-				{user?.role === ROLES.SUPERADMIN ||
-					(user?.role === ROLES.TRAINER && (
-						<ButtonPrimary
-							fill
-							onPress={onCreate}
-							style={styles.button}
-							text='Составить свою программу'
-							textStyle={styles.buttonText}
-						/>
-					))}
+				{user?.role === ROLES.SUPERADMIN && (
+					<ButtonPrimary
+						fill
+						onPress={onCreate}
+						style={styles.button}
+						text='Составить свою программу'
+						textStyle={styles.buttonText}
+					/>
+				)}
+				{user?.role === ROLES.TRAINER && trainer?.isEducation && (
+					<ButtonPrimary
+						fill
+						onPress={onCreate}
+						style={styles.button}
+						text='Составить свою программу'
+						textStyle={styles.buttonText}
+					/>
+				)}
 			</View>
 		</View>
 	)
