@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react'
+import { selectUser } from '../../../../store/slices/appSlice'
+import { useRedux } from '../../../../store/hooks'
+import { Trainer, User } from '../../../../types'
+import { useNavigation } from '@react-navigation/native'
+import { TrainersScreenNavigationProp } from '../users/hooks'
+import { MAIN } from '../../../../navigation/ROUTES'
 
 export const MyTrainerHooks = () => {
-  const [state, setState] = useState("");
+	const [user, dispatch] = useRedux(selectUser)
+	const [search, setSearch] = useState('')
 
-  return { state, setState };
-};
+	return { user, search, setSearch }
+}
