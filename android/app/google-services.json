@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:309384223462:android:eabca7892597838abbb927",
+        "mobilesdk_app_id": "1:309384223462:android:8273e915d4a8ba07bbb927",
         "android_client_info": {
-          "package_name": "fit.me.mobile"
+          "package_name": "com.fitmemobile"
         }
       },
       "oauth_client": [],
