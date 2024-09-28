@@ -6,48 +6,54 @@ import store from './src/store/configureStore'
 import Root from './src/navigation/Root'
 import React, { useEffect } from 'react'
 import messaging from '@react-native-firebase/messaging'
+import { PermissionsAndroid, Platform } from 'react-native'
+import { getFirebaseMessageToken } from './src/utils/getFirebaseMessageToken'
 
 enableScreens()
 
 const persistor = persistStore(store)
+const requestNotificationPermission = async () => {
+	if (Platform.OS === 'android' && Platform.Version >= 33) {
+		try {
+			const granted = await PermissionsAndroid.request(
+				PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+				{
+					title: 'Разрешение на уведомления',
+					message: 'Приложению необходимо разрешение для отправки уведомлений',
+					buttonNeutral: 'Напомнить позже',
+					buttonNegative: 'Отмена',
+					buttonPositive: 'OK'
+				}
+			)
 
-// Запрос разрешений для iOS
-const requestUserPermission = async () => {
+			if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+				console.log('Разрешение на уведомления получено')
+			} else {
+				console.log('Разрешение на уведомления отклонено')
+			}
+		} catch (err) {
+			console.warn(err)
+		}
+	}
+}
+
+// // Запрос разрешений для iOS
+async function requestUserPermission() {
 	const authStatus = await messaging().requestPermission()
 	const enabled =
 		authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
 		authStatus === messaging.AuthorizationStatus.PROVISIONAL
 
 	if (enabled) {
-		console.log('Уведомления разрешены')
+		console.log('Authorization status:', authStatus)
 	}
-}
-
-// Получение токена устройства
-const getDeviceToken = async () => {
-	const token = await messaging().getToken()
-	console.log('FCM Token:', token)
 }
 
 const App = () => {
 	useEffect(() => {
-		// Запрос разрешений при запуске приложения
+		requestNotificationPermission()
 		requestUserPermission()
-
-		// Получение FCM токена
-		getDeviceToken()
-
-		// Обработчик для сообщений, полученных в фоне
-		messaging().setBackgroundMessageHandler(async remoteMessage => {
-			console.log('Сообщение в фоне:', remoteMessage)
-		})
-
-		// Обработчик для сообщений, полученных, когда приложение активно
-		const unsubscribe = messaging().onMessage(async remoteMessage => {
-			console.log('Сообщение в активном приложении:', remoteMessage)
-		})
-
-		return unsubscribe
+		getFirebaseMessageToken()
 	}, [])
 	return (
 		<Provider store={store}>
@@ -59,3 +65,5 @@ const App = () => {
 }
 
 export default App
+
+//request-add-trainer

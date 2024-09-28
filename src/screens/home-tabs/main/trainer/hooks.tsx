@@ -26,7 +26,7 @@ export const TrainerHooks = () => {
 			const res = await ApiService.put('/trainers/request-add-trainer/' + trainer._id, {
 				discipleId: user?._id
 			})
-			Alert.alert('Внимание', `Ваша заявка принята`)
+			Alert.alert('Внимание', `Ваша заявка успешно отправлена!`)
 		} catch (error) {
 			console.log('====================================')
 			console.log(error)

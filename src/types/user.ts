@@ -28,4 +28,5 @@ export type User = BaseUser & {
 	nutritionPlans: NutritionPlan[]
 	schemaNutritions: SchemaNutrition[]
 	myMeasurements: Measurement[]
+	messageToken: string
 }
