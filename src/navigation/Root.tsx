@@ -6,10 +6,11 @@ import Toast from 'react-native-toast-message'
 import { ApiService, AuthService } from '../services'
 import { clearT } from '../services/AuthService'
 import { useRedux } from '../store/hooks'
-import { setTokens, setTrainer, setUser } from '../store/slices/appSlice'
+import { selectUser, setTokens, setTrainer, setUser } from '../store/slices/appSlice'
 import { setCategoriesByType } from '../store/slices/categorySlice'
 import { setDishes } from '../store/slices/dishSlice'
 import { setProducts } from '../store/slices/productSlice'
+import messaging from '@react-native-firebase/messaging'
 import {
 	Category,
 	CategoryType,
@@ -26,11 +27,13 @@ import { setOauthRequestInterceptor } from '../utils/axios'
 import Example from './Example'
 import HomeStack from './HomeStack'
 import PublicStack from './PublicStack'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
+import { getFirebaseMessageToken } from '../utils/getFirebaseMessageToken'
 
 const Root = () => {
 	const [loading, setLoading] = useState(true)
 	const [isAuthenticated, setIsAuthenticated] = useState(false)
+	const user = useSelector(selectUser)
 
 	const [store, dispatch] = useRedux(s => s)
 
@@ -42,6 +45,19 @@ const Root = () => {
 	const setBearerToken = () => {
 		if (token?.access_token) {
 			setOauthRequestInterceptor(`Bearer ${token.access_token}`)
+		}
+	}
+
+	useEffect(() => {
+		return messaging().onTokenRefresh(token => {
+			if (user) saveTokenToDatabase(token)
+		})
+	}, [])
+	const saveTokenToDatabase = async (token: string) => {
+		try {
+			await customRequests.updateMessageToken(token, user._id)
+		} catch (e) {
+			console.log('ee: ', JSON.stringify(e, null, 4))
 		}
 	}
 
@@ -129,6 +145,9 @@ const Root = () => {
 			)
 			dispatch(setProducts(resProducts.data))
 			dispatch(setDishes(resDishes.data))
+
+			const getToke = await getFirebaseMessageToken()
+			await saveTokenToDatabase(getToke)
 		} catch (e: any) {
 			console.log('ee: ', JSON.stringify(e, null, 4))
 		}

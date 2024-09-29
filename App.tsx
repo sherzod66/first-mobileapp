@@ -7,7 +7,7 @@ import Root from './src/navigation/Root'
 import React, { useEffect } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import { PermissionsAndroid, Platform } from 'react-native'
-import { getFirebaseMessageToken } from './src/utils/getFirebaseMessageToken'
+import PushNotification from 'react-native-push-notification'
 
 enableScreens()
 
@@ -48,12 +48,47 @@ async function requestUserPermission() {
 		console.log('Authorization status:', authStatus)
 	}
 }
-
 const App = () => {
 	useEffect(() => {
 		requestNotificationPermission()
 		requestUserPermission()
-		getFirebaseMessageToken()
+		PushNotification.configure({
+			// Обработка уведомлений, когда они приходят или когда на них нажимают
+			onNotification: function (notification) {
+				console.log('НОВОЕ УВЕДОМЛЕНИЕ:', notification)
+				// Дополнительная логика обработки нажатия на уведомление (если нужно)
+			},
+
+			// (опционально) если используете уведомления на iOS
+			requestPermissions: true
+		})
+
+		// Создаем канал уведомлений для Android
+		PushNotification.createChannel(
+			{
+				channelId: 'fit-me', // уникальный идентификатор канала
+				channelName: 'FIT-ME', // название канала
+				channelDescription: 'Sport', // описание канала
+				soundName: 'default', // звуковое уведомление
+				importance: 4, // высокий приоритет
+				vibrate: true // включить вибрацию
+			},
+			created => console.log(`Канал уведомлений '${created ? 'создан' : 'уже существует'}`)
+		)
+
+		const unsubscribe = messaging().onMessage(async remoteMessage => {
+			console.log('Получено новое сообщение:', remoteMessage)
+			PushNotification.localNotification({
+				channelId: 'fit-me',
+				title: remoteMessage.notification?.title,
+				message: remoteMessage.notification?.body,
+				playSound: true,
+				soundName: 'default',
+				importance: 'high' // для Android, чтобы показать уведомление сразу
+			})
+		})
+
+		return unsubscribe
 	}, [])
 	return (
 		<Provider store={store}>
