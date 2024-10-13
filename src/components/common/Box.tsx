@@ -11,6 +11,7 @@ import {
 	ActivityIndicator
 } from 'react-native'
 import { COLORS } from '../../constants/COLORS'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
 	cover: ImageSourcePropType | string
@@ -57,6 +58,7 @@ const Box = ({
 	onSelectIn,
 	onEdit
 }: IProps) => {
+	const { t } = useTranslation()
 	return (
 		<View style={[styles.container, containerStyle]}>
 			<ImageBackground
@@ -92,13 +94,13 @@ const Box = ({
 									<TouchableOpacity style={styles.touchableWrapper}>
 										<View style={styles.absolute}>
 											<Text onPress={onRemove} style={styles.absoluteText}>
-												{'Удалить'}
+												{t('delete')}
 											</Text>
 										</View>
 										{onEdit && (
 											<View style={styles.absolute}>
 												<Text onPress={onEdit} style={styles.absoluteText}>
-													{'Редактировать'}
+													{t('edit')}
 												</Text>
 											</View>
 										)}

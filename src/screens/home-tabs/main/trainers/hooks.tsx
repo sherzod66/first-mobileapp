@@ -8,6 +8,7 @@ import { GENDER, Trainer, Response, ROLES } from '../../../../types'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../../store/slices/appSlice'
 import EventEmitter from '../../../../utils/EventEmitter'
+import { useTranslation } from 'react-i18next'
 
 export type TrainersScreenNavigationProp = NativeStackNavigationProp<
 	MainStackParamList,
@@ -20,6 +21,7 @@ export const TrainersHooks = () => {
 	const [active, setActive] = useState(0)
 	const [trainers, setTrainers] = useState<Trainer[]>([])
 	const [search, setSearch] = useState('')
+	const { t } = useTranslation()
 	const user = useSelector(selectUser)
 	const isSuperAdmin = user?.role === ROLES.SUPERADMIN
 
@@ -77,6 +79,7 @@ export const TrainersHooks = () => {
 		isSuperAdmin,
 		onCreateTrainer,
 		onUpdate,
-		workout
+		workout,
+		t
 	}
 }

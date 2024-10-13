@@ -18,14 +18,15 @@ const TrainersView = () => {
 		isSuperAdmin,
 		onCreateTrainer,
 		workout,
-		onUpdate
+		onUpdate,
+		t
 	} = TrainersHooks()
 
 	return (
 		<View style={styles.container}>
 			<SafeAreaView />
 
-			<Header title={individual ? 'Индивидуальная программа' : 'Тренеры'} />
+			<Header title={individual ? t('individual-program2') : t('trainers')} />
 
 			{individual && (
 				<Text style={styles.text}>
@@ -38,7 +39,7 @@ const TrainersView = () => {
 			<InputPrimary
 				value={search}
 				onChange={value => setSearch(value)}
-				placeholder={'Поиск'}
+				placeholder={t('search')}
 				placeholderColor={COLORS.WHITE}
 				containerStyle={{
 					backgroundColor: COLORS.GREY3,
@@ -55,7 +56,7 @@ const TrainersView = () => {
 			<ButtonTabs
 				active={active}
 				setActive={setActive}
-				titles={['Мужчины', 'Женщины']}
+				titles={[t('mans'), t('womans')]}
 				primary
 				containerStyle={{
 					justifyContent: 'center',
@@ -91,7 +92,7 @@ const TrainersView = () => {
 			</ScrollView>
 			{isSuperAdmin && (
 				<View style={styles.createButtonContainer}>
-					<ButtonPrimary text='Добавить тренер' onPress={onCreateTrainer} />
+					<ButtonPrimary text={t('add-trainer')} onPress={onCreateTrainer} />
 				</View>
 			)}
 		</View>

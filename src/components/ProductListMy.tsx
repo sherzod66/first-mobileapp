@@ -14,6 +14,7 @@ import { ButtonSecondary } from './common'
 import { Dispatch, SetStateAction } from 'react'
 import { IActiveDayProps } from './CustomCalendar'
 import { showErrToast } from '../utils/showToast'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
 	title: string
@@ -60,11 +61,12 @@ const ProductListMy = ({
 	activeDay,
 	onPaste
 }: IProps) => {
+	const { t } = useTranslation()
 	return (
 		<View style={[styles.container, style]}>
 			<View style={[styles.header, styles.radiusTop]}>
 				<View style={styles.left}>
-					<Text style={styles.title}>{'Наименование продукта'}</Text>
+					<Text style={styles.title}>{t('product-name')}</Text>
 					<TouchableOpacity style={styles.dots} onPress={() => setIsDots(!isDots)}>
 						<View style={styles.dot} />
 						<View style={styles.dot} />
@@ -72,7 +74,7 @@ const ProductListMy = ({
 					</TouchableOpacity>
 				</View>
 				<View style={styles.right}>
-					<Text style={styles.text4}>{'Кол-во'}</Text>
+					<Text style={styles.text4}>{t('quantity')}</Text>
 				</View>
 			</View>
 			{products.map((product, index) => (

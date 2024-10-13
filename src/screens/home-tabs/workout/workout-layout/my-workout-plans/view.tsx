@@ -6,7 +6,7 @@ import { MyWorkoutPlansHooks } from './hooks'
 import { ROLES } from '../../../../../types'
 
 const MyWorkoutPlansView = () => {
-	const { onPress, onCreate, onRemove, workoutPlans, loading, show, setShow, user, trainer } =
+	const { onPress, onCreate, onRemove, workoutPlans, loading, show, setShow, user, trainer, t } =
 		MyWorkoutPlansHooks()
 	return (
 		<View style={styles.container}>
@@ -28,7 +28,7 @@ const MyWorkoutPlansView = () => {
 									onRemove={() => onRemove(i)}
 									cover={Assets.images.cover1}
 									title={w.title}
-									right={w.price ? `${w.price}` : 'Бесплатно'}
+									right={w.price ? `${w.price}` : t('free')}
 									containerStyle={{ marginTop: 10 }}
 								/>
 							</TouchableOpacity>
@@ -45,16 +45,16 @@ const MyWorkoutPlansView = () => {
 						fill
 						onPress={onCreate}
 						style={styles.button}
-						text='Составить свою программу'
+						text={t('make-a-program')}
 						textStyle={styles.buttonText}
 					/>
 				)}
-				{user?.role === ROLES.TRAINER && trainer?.isEducation && (
+				{user?.role === ROLES.TRAINER && (
 					<ButtonPrimary
 						fill
 						onPress={onCreate}
 						style={styles.button}
-						text='Составить свою программу'
+						text={t('make-a-program')}
 						textStyle={styles.buttonText}
 					/>
 				)}

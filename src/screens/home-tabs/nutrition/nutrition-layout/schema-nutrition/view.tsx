@@ -5,7 +5,6 @@ import { COLORS } from '../../../../../constants/COLORS'
 import { SchemaNutritionHooks } from './hooks'
 import Modal from './modal'
 import { styles } from './style'
-import { NUTRITION_TYPE } from '../../../../../types'
 
 const SchemaNutritionView = () => {
 	const {
@@ -37,7 +36,8 @@ const SchemaNutritionView = () => {
 		onMeasurementsPress,
 		onShow,
 		onSave,
-		onCancel
+		onCancel,
+		t
 	} = SchemaNutritionHooks()
 
 	const { data } = schemaNutrition ?? {}
@@ -55,7 +55,7 @@ const SchemaNutritionView = () => {
 					active={activeTab}
 					setActive={setActiveTab}
 					containerStyle={styles.btnCont}
-					titles={['Жиросжигание', 'Массанабор']}
+					titles={[t('oil'), t('mass')]}
 					scroll={false}
 				/>
 			)}
@@ -64,14 +64,16 @@ const SchemaNutritionView = () => {
 				<View style={[styles.row, styles.borderBottom]}>
 					<View style={styles.box}>
 						<ButtonSecondary
-							text='Суточная норма!'
+							text={t('daily-norm')}
 							textStyle={styles.title}
 							containerStyle={styles.titleBtn}
 							onPress={onDailyNormPress}
 						/>
 						<TouchableOpacity style={styles.col3} onPress={() => onShow('a')}>
 							{!!dailyNorm ? (
-								<Text style={styles.text1}>{dailyNorm} Ккал</Text>
+								<Text style={styles.text1}>
+									{dailyNorm} {t('calories2')}
+								</Text>
 							) : (
 								<View style={styles.colLine} />
 							)}
@@ -79,11 +81,17 @@ const SchemaNutritionView = () => {
 					</View>
 					<View style={styles.box}>
 						<View style={styles.titleBox}>
-							<Text style={styles.title}>{`Кол-во ${activeTab ? 'профицита' : 'дефицита'}`}</Text>
+							{activeTab ? (
+								<Text style={styles.title}>{t('surplus-amount')}</Text>
+							) : (
+								<Text style={styles.title}>{t('deficit-amount')}</Text>
+							)}
 						</View>
 						<TouchableOpacity style={styles.col2} onPress={() => onShow('b')}>
 							{!!amount ? (
-								<Text style={styles.text1}>{amount} Ккал</Text>
+								<Text style={styles.text1}>
+									{amount} {t('calories2')}
+								</Text>
 							) : (
 								<View style={styles.colLine} />
 							)}
@@ -91,7 +99,7 @@ const SchemaNutritionView = () => {
 					</View>
 					<View style={styles.box}>
 						<View style={styles.titleBox}>
-							<Text style={styles.title}>{'В %'}</Text>
+							<Text style={styles.title}>{t('in-percent')}</Text>
 						</View>
 						<View style={styles.col1}>
 							<Text style={styles.text1}>{amountPercent + '%' || ''}</Text>
@@ -101,15 +109,18 @@ const SchemaNutritionView = () => {
 
 				<View style={[styles.row, { marginTop: 15 }]}>
 					<View style={styles.box}>
-						<Text style={styles.title}>{`${
-							activeTab ? 'Профицитная' : 'Дефицитная'
-						} норма Ккал`}</Text>
+						{activeTab ? (
+							<Text style={styles.title}>{t('surplus-calorie-norm')}</Text>
+						) : (
+							<Text style={styles.title}>{t('deficit-calorie-norm')}</Text>
+						)}
+
 						<View style={styles.col3}>
 							<Text style={styles.text1}>{amountNorm + ' Ккал' || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.title}>{'Б'}</Text>
+						<Text style={styles.title}>{t('reduction-protein')}</Text>
 						<TouchableOpacity style={styles.col1} onPress={() => onShow('c')}>
 							<Text style={styles.text1}>{!!proteinPercent ? proteinPercent + '%' : ''}</Text>
 							<View style={styles.colLine} />
@@ -117,7 +128,7 @@ const SchemaNutritionView = () => {
 						</TouchableOpacity>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.title}>{'Ж'}</Text>
+						<Text style={styles.title}>{t('reduction-fats')}</Text>
 						<TouchableOpacity style={styles.col1} onPress={() => onShow('d')}>
 							<Text style={styles.text1}>{!!oilPercent ? oilPercent + '%' : ''}</Text>
 							<View style={styles.colLine} />
@@ -125,7 +136,7 @@ const SchemaNutritionView = () => {
 						</TouchableOpacity>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.title}>{'У'}</Text>
+						<Text style={styles.title}>{t('reduction-carbohydrates')}</Text>
 						<View style={styles.col1}>
 							<Text style={styles.text1}>
 								{!!proteinPercent && !!oilPercent ? amountCarb + ' гр' : ''}
@@ -136,37 +147,39 @@ const SchemaNutritionView = () => {
 
 				<View style={styles.row2}>
 					<ButtonSecondary
-						text='Изменить'
+						text={t('change')}
 						textStyle={styles.text1}
 						onPress={() => onShow('e')}
 						containerStyle={styles.changeBtn}
 					/>
-					<Text style={styles.text2}>{`Корректировка ${
-						activeTab ? 'профицитной' : 'дефицитной'
-					} нормы`}</Text>
+					{activeTab ? (
+						<Text style={styles.text2}>{t('adjust-surplus-norm')}</Text>
+					) : (
+						<Text style={styles.text2}>{t('adjust-deficit-norm')}</Text>
+					)}
 				</View>
 
 				<View style={[styles.row, { marginTop: 15 }]}>
 					<View style={styles.box}>
-						<Text style={styles.title}>{'Фактические ккал'}</Text>
+						<Text style={styles.title}>{t('actual-calories')}</Text>
 						<View style={styles.col3}>
 							<Text style={styles.text}>{Math.round(calories) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.title}>{'Б'}</Text>
+						<Text style={styles.title}>{t('reduction-protein')}</Text>
 						<View style={styles.col1}>
 							<Text style={styles.text}>{Math.round(protein) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.title}>{'Ж'}</Text>
+						<Text style={styles.title}>{t('reduction-fats')}</Text>
 						<View style={styles.col1}>
 							<Text style={styles.text}>{Math.round(oil) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.title}>{'У'}</Text>
+						<Text style={styles.title}>{t('reduction-carbohydrates')}</Text>
 						<View style={styles.col1}>
 							<Text style={styles.text}>{Math.round(carb) || ''}</Text>
 						</View>
@@ -179,14 +192,14 @@ const SchemaNutritionView = () => {
 						style={styles.btn1}
 						textStyle={styles.btnText1}
 						onPress={onConsumeCalendarPress}
-						text='+   Еда употребленная за сутки'
+						text={`+  ${t('food-consumed')}`}
 					/>
 					<ButtonPrimary
 						fill
 						style={styles.btn2}
 						textStyle={styles.btnText2}
 						onPress={onMeasurementsPress}
-						text='Динамика и Анализ процесса'
+						text={t('dynamic-analysis')}
 					/>
 				</View>
 

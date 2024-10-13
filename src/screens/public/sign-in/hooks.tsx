@@ -1,65 +1,68 @@
-import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { PublickStackParamList } from "../../../navigation/PublicStack";
-import { ApiService } from "../../../services";
-import { SignInResponse, Response } from "../../../types";
-import { showErrToast } from "../../../utils/showToast";
-import { PUBLIC } from "../../../navigation/ROUTES";
-import axios from "axios";
+import { useNavigation } from '@react-navigation/native'
+import { useEffect, useState } from 'react'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { PublickStackParamList } from '../../../navigation/PublicStack'
+import { ApiService } from '../../../services'
+import { SignInResponse, Response } from '../../../types'
+import { showErrToast } from '../../../utils/showToast'
+import { PUBLIC } from '../../../navigation/ROUTES'
+import axios from 'axios'
+import { useTranslation } from 'react-i18next'
 
 export type SignInScreenNavigationProp = NativeStackNavigationProp<
-  PublickStackParamList,
-  PUBLIC.SIGN_IN
->;
+	PublickStackParamList,
+	PUBLIC.SIGN_IN
+>
 
 export const SignInHooks = () => {
-  const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState(false);
+	const [phone, setPhone] = useState('')
+	const [loading, setLoading] = useState(false)
 
-  const navigation = useNavigation<SignInScreenNavigationProp>();
+	const { t } = useTranslation()
 
-  // useEffect(() => {
-  //   if (phone.length < 4 || phone.slice(0, 4) !== "+998") {
-  //     setPhone("+998");
-  //   }
-  //   if (phone.length > 13) {
-  //     setPhone(phone.slice(0, 13));
-  //   }
-  // }, [phone]);
+	const navigation = useNavigation<SignInScreenNavigationProp>()
 
-  const onRegisterPress = () => {
-    navigation.navigate(PUBLIC.SIGN_UP);
-  };
+	// useEffect(() => {
+	//   if (phone.length < 4 || phone.slice(0, 4) !== "+998") {
+	//     setPhone("+998");
+	//   }
+	//   if (phone.length > 13) {
+	//     setPhone(phone.slice(0, 13));
+	//   }
+	// }, [phone]);
 
-  const onPress = async () => {
-    try {
-      // if (phone.length !== 13) {
-      //   showErrToast("Please enter correct phone number");
-      //   return;
-      // }
+	const onRegisterPress = () => {
+		navigation.navigate(PUBLIC.SIGN_UP)
+	}
 
-      setLoading(true);
-      // axios.get("http://")
-      await ApiService.post<Response<SignInResponse>>("/auth/signin", {
-        phone,
-      });
+	const onPress = async () => {
+		try {
+			// if (phone.length !== 13) {
+			//   showErrToast("Please enter correct phone number");
+			//   return;
+			// }
 
-      setLoading(false);
+			setLoading(true)
+			// axios.get("http://")
+			await ApiService.post<Response<SignInResponse>>('/auth/signin', {
+				phone
+			})
 
-      navigation.navigate(PUBLIC.VERIFY_CODE, { phone, from: "signin" });
-    } catch (e) {
-      console.log("====================================");
-      console.log(e);
-      console.log("====================================");
-      setLoading(false);
-      if (!!e && e.data && e.data.error && e.data.error.message) {
-        showErrToast(e.data.error.message);
-      } else {
-        console.log("e: ", JSON.stringify(e, null, 4));
-      }
-    }
-  };
+			setLoading(false)
 
-  return { phone, setPhone, onRegisterPress, onPress, loading };
-};
+			navigation.navigate(PUBLIC.VERIFY_CODE, { phone, from: 'signin' })
+		} catch (e) {
+			console.log('====================================')
+			console.log(e)
+			console.log('====================================')
+			setLoading(false)
+			if (!!e && e.data && e.data.error && e.data.error.message) {
+				showErrToast(e.data.error.message)
+			} else {
+				console.log('e: ', JSON.stringify(e, null, 4))
+			}
+		}
+	}
+
+	return { phone, setPhone, onRegisterPress, onPress, loading, t }
+}

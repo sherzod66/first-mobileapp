@@ -6,8 +6,8 @@ import { ApiService } from '../../../../services'
 import { NutritionPlan, Response, ROLES, User } from '../../../../types'
 import { useRedux } from '../../../../store/hooks'
 import { selectUser, setUser } from '../../../../store/slices/appSlice'
-import EventEmitter from '../../../../utils/EventEmitter'
 import { showSuccessToast } from '../../../../utils/showToast'
+import { useTranslation } from 'react-i18next'
 export type ExerciseScreenRouteProp = RouteProp<MainStackParamList, MAIN.NUTRITION_DETAIL>
 
 export const NutritionPlanHooks = () => {
@@ -18,6 +18,7 @@ export const NutritionPlanHooks = () => {
 	const [deleteLoading, setDeleteLoading] = useState<boolean>()
 	const [user, dispatch] = useRedux(selectUser)
 	const isAdmin = user?.role === ROLES.SUPERADMIN
+	const { t } = useTranslation()
 
 	const [disabled, setDisabled] = useState(false)
 	const onPress = async () => {
@@ -63,6 +64,7 @@ export const NutritionPlanHooks = () => {
 		onPress,
 		isAdmin,
 		deleteLoading,
-		onDeletePlan
+		onDeletePlan,
+		t
 	}
 }

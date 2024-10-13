@@ -9,6 +9,7 @@ import { selectProducts } from '../../../../store/slices/productSlice'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { NutritionStackParamList } from '..'
 import { NUTRITION } from '../../../../navigation/ROUTES'
+import { useTranslation } from 'react-i18next'
 
 export type AddOnlyProductsScreenNavigationProp = NativeStackNavigationProp<
 	NutritionStackParamList,
@@ -33,6 +34,8 @@ export const AddProductsHooks = () => {
 	const [activeCategory, setActiveCategory] = useState(0)
 	const [products, setProducts] = useState<Product[]>([])
 	const [selected, setSelected] = useState<Product[]>([])
+
+	const { t, i18n } = useTranslation()
 
 	const { products: productss, back } = route.params ?? {}
 
@@ -93,6 +96,8 @@ export const AddProductsHooks = () => {
 		onAdd,
 		language,
 		productCategories,
-		navigateSearch
+		navigateSearch,
+		i18n,
+		t
 	}
 }

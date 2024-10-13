@@ -5,11 +5,14 @@ import { Linking, Alert } from 'react-native'
 import { ApiService } from '../../../../services'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../../../store/slices/appSlice'
+import { useState } from 'react'
+import { showSuccessToast } from '../../../../utils/showToast'
 
 export type TrainerScreenRouteProp = RouteProp<MainStackParamList, MAIN.TRAINER>
 
 export const TrainerHooks = () => {
 	const route = useRoute<TrainerScreenRouteProp>()
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const { trainer } = route.params ?? {}
 	const user = useSelector(selectUser)
 
@@ -23,16 +26,19 @@ export const TrainerHooks = () => {
 
 	const onApplicationPress = async () => {
 		try {
+			setIsLoading(true)
 			const res = await ApiService.put('/trainers/request-add-trainer/' + trainer._id, {
 				discipleId: user?._id
 			})
-			Alert.alert('Внимание', `Ваша заявка успешно отправлена!`)
+			setIsLoading(false)
+			showSuccessToast('Ваша заявка успешно отправлена!')
 		} catch (error) {
+			setIsLoading(false)
 			console.log('====================================')
 			console.log(error)
 			console.log('====================================')
 		}
 	}
 
-	return { trainer, openLink, onPlansPress, onApplicationPress }
+	return { trainer, openLink, onPlansPress, onApplicationPress, isLoading }
 }

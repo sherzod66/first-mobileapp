@@ -42,7 +42,8 @@ const ConsumeCalendarView = () => {
 		setDateCopy,
 		onPaste,
 		setShowDots,
-		showDots
+		showDots,
+		t
 	} = ConsumeCalendarHooks()
 
 	return (
@@ -52,7 +53,7 @@ const ConsumeCalendarView = () => {
 			<View style={styles.mh20}>
 				<Header
 					right
-					title='Еда употреблённая за сутки'
+					title={t('food-consumed')}
 					recommendation={tab > 0 ? 'foodConsumedPerDayMass' : 'foodConsumedPerDayOil'}
 				/>
 			</View>
@@ -72,27 +73,29 @@ const ConsumeCalendarView = () => {
 				</View>
 				<View style={styles.row}>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>
-							{`${activeTog ? 'Профицитная' : 'Дефицитная'} норма Ккал`}
-						</Text>
+						{activeTog ? (
+							<Text style={styles.rowTitle}>{t('surplus-calorie-norm')}</Text>
+						) : (
+							<Text style={styles.rowTitle}>{t('deficit-calorie-norm')}</Text>
+						)}
 						<View style={styles.col3}>
 							<Text style={styles.text}>{activeCalories || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>{'Б'}</Text>
+						<Text style={styles.rowTitle}>{t('reduction-protein')}</Text>
 						<View style={styles.col1}>
 							<Text style={styles.text}>{Math.round(activeProtein) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>{'Ж'}</Text>
+						<Text style={styles.rowTitle}>{t('reduction-fats')}</Text>
 						<View style={styles.col1}>
 							<Text style={styles.text}>{Math.round(activeOil) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>{'У'}</Text>
+						<Text style={styles.rowTitle}>{t('reduction-carbohydrates')}</Text>
 						<View style={styles.col1}>
 							<Text style={styles.text}>{Math.round(activeCarb) || ''}</Text>
 						</View>
@@ -100,25 +103,25 @@ const ConsumeCalendarView = () => {
 				</View>
 				<View style={styles.row1}>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>{'Фактические Ккал'}</Text>
+						<Text style={styles.rowTitle}>{t('actual-calories')}</Text>
 						<View style={[styles.col3, styles.bgGrey]}>
 							<Text style={styles.text}>{Math.round(calories) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>{'Б'}</Text>
+						<Text style={styles.rowTitle}>{t('reduction-protein')}</Text>
 						<View style={[styles.col1, styles.bgGrey]}>
 							<Text style={styles.text}>{Math.round(protein) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>{'Ж'}</Text>
+						<Text style={styles.rowTitle}>{t('reduction-fats')}</Text>
 						<View style={[styles.col1, styles.bgGrey]}>
 							<Text style={styles.text}>{Math.round(oil) || ''}</Text>
 						</View>
 					</View>
 					<View style={styles.box}>
-						<Text style={styles.rowTitle}>{'У'}</Text>
+						<Text style={styles.rowTitle}>{t('reduction-carbohydrates')}</Text>
 						<View style={[styles.col1, styles.bgGrey]}>
 							<Text style={styles.text}>{Math.round(carb) || ''}</Text>
 						</View>
@@ -126,7 +129,7 @@ const ConsumeCalendarView = () => {
 				</View>
 				<View style={styles.mh20}>
 					<ProductListMy
-						title={'Добавить продукт'}
+						title={t('add-product')}
 						loading={loading}
 						amounts={amounts}
 						products={products}

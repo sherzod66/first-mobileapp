@@ -1,17 +1,16 @@
 import React from 'react'
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import ReactNativeModal from 'react-native-modal'
-import { ButtonSecondary, Header, InputPrimary } from '../../../../components/common'
-import SelectPrimary from '../../../../components/common/SelectPrimary'
-import { Assets } from '../../../../utils/requireAssets'
-import { CreateExerciseHook } from './hooks'
+import { CreateProductHook } from './hooks'
 import { styles } from './style'
-import SelectPrimaryUpdate from '../../../../components/common/SelectPrimaryUpdate'
+import { ButtonSecondary, Header, InputPrimary } from '../../../../../components/common'
+import SelectPrimary from '../../../../../components/common/SelectPrimary'
+import { Assets } from '../../../../../utils/requireAssets'
+import SelectPrimaryUpdate from '../../../../../components/common/SelectPrimaryUpdate'
 
-const CreateExerciseView = () => {
+const UpdateProductView = () => {
 	const {
 		onChange,
-		subcategories,
 		categories,
 		categoryModalVisible,
 		onModalToggle,
@@ -19,183 +18,96 @@ const CreateExerciseView = () => {
 		onCategorySubmit,
 		onExerciseSubmit,
 		onCategoryRemove,
-		selectImage,
-		ImagePicker,
-		setExercise,
-		categoryProductUpdateSubmit,
-		closeUpdateCategory,
+		product,
 		openUpdateCategory,
-		setUpdateCategoryValue,
 		updateCategory,
+		closeUpdateCategory,
+		setUpdateCategoryValue,
 		updateCategoryValue,
 		updateLoading,
-		openUpdateSubcategory
-	} = CreateExerciseHook()
+		categoryProductUpdateSubmit
+	} = CreateProductHook()
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<Header title='Создание упражнения' />
+				<Header title='Редактирование продукта' />
 			</View>
 			<ScrollView style={styles.contentContainer}>
 				<View style={styles.categoryContainer}>
 					<View style={{ flex: 1, marginBottom: 10 }}>
-						<SelectPrimary
-							hasRemove
+						<SelectPrimaryUpdate
 							title='Категория'
 							data={categories.map(e => ({ label: e.name.ru, value: e._id }))}
 							onChange={onChange('category')}
-							onRemove={onCategoryRemove}
-							isUpdate={openUpdateCategory}
+							onUpdate={openUpdateCategory}
 						>
 							<TouchableOpacity onPress={onModalToggle} style={styles.plusContainer}>
 								<Image source={Assets.icons.close} style={styles.plusIcon} />
 							</TouchableOpacity>
-						</SelectPrimary>
+						</SelectPrimaryUpdate>
 					</View>
 				</View>
-				{!!subcategories && (
-					<SelectPrimaryUpdate
-						title='Подкатегория'
-						data={subcategories?.map(e => ({ label: e.name.ru, value: e._id })) || []}
-						onUpdate={openUpdateSubcategory}
-						onChange={onChange('category')}
-					/>
-				)}
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название (Ru)</Text>
+				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название(RU)</Text>
 				<InputPrimary
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					onChange={e =>
-						setExercise(prev => ({
-							...prev,
-							title: {
-								en: prev.title ? prev.title.en : '',
-								ru: e,
-								uz: prev.title ? prev.title.uz : ''
-							}
-						}))
-					}
+					value={product.name?.ru}
+					onChange={onChange('name.ru')}
 				/>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название (Uz)</Text>
+				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название(UZ)</Text>
 				<InputPrimary
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					onChange={e =>
-						setExercise(prev => ({
-							...prev,
-							title: {
-								en: prev.title ? prev.title.en : '',
-								ru: prev.title ? prev.title.ru : '',
-								uz: e
-							}
-						}))
-					}
+					value={product.name?.uz}
+					onChange={onChange('name.uz')}
 				/>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название (En)</Text>
+				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название(EN)</Text>
 				<InputPrimary
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					onChange={e =>
-						setExercise(prev => ({
-							...prev,
-							title: {
-								en: e,
-								ru: prev.title ? prev.title.ru : '',
-								uz: prev.title ? prev.title.uz : ''
-							}
-						}))
-					}
+					value={product.name?.en}
+					onChange={onChange('name.en')}
 				/>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Описание (Ru)</Text>
+				<Text style={[styles.textOne, { marginVertical: 10 }]}>Каллории</Text>
+				<Text style={styles.inputContMy}>{product?.calories ? product.calories : 0}</Text>
+				<Text style={[styles.textOne, { marginVertical: 10 }]}>Белки</Text>
 				<InputPrimary
-					multiline={true}
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					onChange={e =>
-						setExercise(prev => ({
-							...prev,
-							description: {
-								en: prev.description ? prev.description.en : '',
-								ru: e,
-								uz: prev.description ? prev.description.uz : ''
-							}
-						}))
-					}
+					keyboardType='number-pad'
+					value={`${product.protein}`}
+					onChange={onChange('protein')}
 				/>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Описание (Uz)</Text>
+				<Text style={[styles.textOne, { marginVertical: 10 }]}>Жиры</Text>
 				<InputPrimary
-					multiline={true}
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					onChange={e =>
-						setExercise(prev => ({
-							...prev,
-							description: {
-								en: prev.description ? prev.description.en : '',
-								ru: prev.description ? prev.description.ru : '',
-								uz: e
-							}
-						}))
-					}
+					keyboardType='number-pad'
+					value={`${product.oil}`}
+					onChange={onChange('oil')}
 				/>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Описание (En)</Text>
-				<InputPrimary
-					multiline={true}
-					disablePlaceholder
-					inputStyle={styles.input}
-					containerStyle={styles.inputCont}
-					onChange={e =>
-						setExercise(prev => ({
-							...prev,
-							description: {
-								en: e,
-								ru: prev.description ? prev.description.ru : '',
-								uz: prev.description ? prev.description.uz : ''
-							}
-						}))
-					}
-				/>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Ссылка на видео с голосом</Text>
+				<Text style={[styles.textOne, { marginVertical: 10 }]}>Углеводы</Text>
 				<InputPrimary
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					onChange={onChange('metadescription')}
+					keyboardType='number-pad'
+					value={`${product.carb}`}
+					onChange={onChange('carb')}
 				/>
 
-				{selectImage && (
-					<Image
-						style={{
-							width: '100%',
-							height: 150,
-							marginTop: 15,
-							borderRadius: 5
-						}}
-						source={{ uri: selectImage.uri }}
-					/>
-				)}
-				<TouchableOpacity style={styles.imageSelect} onPress={ImagePicker}>
-					<Text style={[styles.textOne, { marginVertical: 10 }]}>Выберите фото</Text>
-				</TouchableOpacity>
-				<Text style={[styles.textOne, { marginVertical: 10 }]}>Ссылка на видео</Text>
-				<InputPrimary
-					disablePlaceholder
-					inputStyle={styles.input}
-					containerStyle={styles.inputCont}
-					onChange={onChange('video')}
-				/>
 				<ButtonSecondary
 					containerStyle={{
 						width: '100%',
 						marginVertical: 20,
 						paddingVertical: 15
 					}}
-					text='Save'
+					text='Редактировать'
 					onPress={onExerciseSubmit}
 				/>
 			</ScrollView>
@@ -243,7 +155,7 @@ const CreateExerciseView = () => {
 							marginVertical: 20,
 							paddingVertical: 15
 						}}
-						text='Save'
+						text='Создать'
 						onPress={onCategorySubmit}
 					/>
 				</View>
@@ -299,4 +211,4 @@ const CreateExerciseView = () => {
 	)
 }
 
-export default CreateExerciseView
+export default UpdateProductView

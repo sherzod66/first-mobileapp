@@ -13,7 +13,7 @@ import {
 import { Assets } from '../../../../utils/requireAssets'
 import { COLORS } from '../../../../constants/COLORS'
 import { AddWorkoutHooks, WeightAndRepititionHooks } from './hooks'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { DraxList, DraxProvider, DraxView } from 'react-native-drax'
 import { useRef } from 'react'
 
@@ -53,100 +53,102 @@ const AddWorkoutView = () => {
 			<Header title={`Тренировка ${index + 1}`} />
 
 			<View style={{ flex: 1, justifyContent: 'center', marginBottom: 160 }}>
-				<DraxProvider>
-					<SafeAreaView edges={['top', 'left', 'right']}>
-						<DraxList
-							data={workouts}
-							ref={listRef}
-							renderItemContent={({ item, index }) => (
-								<View key={index} style={{ marginTop: 30 }}>
-									<View style={styles.head}>
-										<ScrollView
-											horizontal={false}
-											contentContainerStyle={{
-												alignItems: 'center',
-												flexDirection: 'row'
-											}}
-											showsHorizontalScrollIndicator={false}
-										>
-											<Text style={styles.text}>{`${index + 1}. ${
-												item.exercise.title[i18n.language as 'ru' | 'en' | 'uz']
-											}`}</Text>
-											<ButtonSecondary
-												onPress={() => onShow(index)}
-												containerStyle={[
-													{ marginLeft: 5 },
-													!!!(item.approach && item.repetitions) && {
-														width: 70
+				<GestureHandlerRootView>
+					<DraxProvider>
+						<SafeAreaView edges={['top', 'left', 'right']}>
+							<DraxList
+								data={workouts}
+								ref={listRef}
+								renderItemContent={({ item, index }) => (
+									<View key={index} style={{ marginTop: 30 }}>
+										<View style={styles.head}>
+											<ScrollView
+												horizontal={false}
+												contentContainerStyle={{
+													alignItems: 'center',
+													flexDirection: 'row'
+												}}
+												showsHorizontalScrollIndicator={false}
+											>
+												<Text style={styles.text}>{`${index + 1}. ${
+													item.exercise.title[i18n.language as 'ru' | 'en' | 'uz']
+												}`}</Text>
+												<ButtonSecondary
+													onPress={() => onShow(index)}
+													containerStyle={[
+														{ marginLeft: 5 },
+														!!!(item.approach && item.repetitions) && {
+															width: 70
+														}
+													]}
+													text={
+														item.approach && item.repetitions
+															? `${item.approach}x${item.repetitions ?? '     '}`
+															: ''
 													}
-												]}
-												text={
-													item.approach && item.repetitions
-														? `${item.approach}x${item.repetitions ?? '     '}`
-														: ''
-												}
-											/>
-											<ButtonSecondary
-												text='Техника'
-												onPress={() => onPress(index)}
-												textStyle={styles.btnTextStyle}
-												containerStyle={styles.btnStyle}
-											/>
-										</ScrollView>
-									</View>
-									<View style={styles.main}>
-										<View style={styles.mainLeft}>
-											<Text style={styles.text2}>{'Вес'}</Text>
-											<Text style={styles.text2}>{'Повтор'}</Text>
+												/>
+												<ButtonSecondary
+													text='Техника'
+													onPress={() => onPress(index)}
+													textStyle={styles.btnTextStyle}
+													containerStyle={styles.btnStyle}
+												/>
+											</ScrollView>
 										</View>
-										<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-											<View style={styles.mainRight}>
-												{new Array(item.approach).fill(1).map((aa, ii) => (
-													<InputSecondary
-														key={`${index}/${ii}`}
-														text1={''}
-														text2={''}
-														disabled1
-														disabled2
-														containerStyle={!!ii && { marginLeft: 7 }}
-													/>
-												))}
+										<View style={styles.main}>
+											<View style={styles.mainLeft}>
+												<Text style={styles.text2}>{'Вес'}</Text>
+												<Text style={styles.text2}>{'Повтор'}</Text>
 											</View>
-										</ScrollView>
+											<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+												<View style={styles.mainRight}>
+													{new Array(item.approach).fill(1).map((aa, ii) => (
+														<InputSecondary
+															key={`${index}/${ii}`}
+															text1={''}
+															text2={''}
+															disabled1
+															disabled2
+															containerStyle={!!ii && { marginLeft: 7 }}
+														/>
+													))}
+												</View>
+											</ScrollView>
+										</View>
 									</View>
-								</View>
-							)}
-							onItemDragStart={({ index, item }) => {
-								console.log(item)
-								console.log(`Item #${index} (${item}) drag start`)
-							}}
-							onItemDragPositionChange={({ index, item, toIndex, previousIndex }) => {
-								console.log(
-									`Item #${index} (${item}) dragged to index ${toIndex} (previous: ${previousIndex})`
-								)
-							}}
-							onItemDragEnd={({ index, item, toIndex, toItem }) => {
-								console.log(`Item #${index} (${item}) drag ended at index ${toIndex} (${toItem})`)
-							}}
-							onItemReorder={({ fromIndex, fromItem, toIndex, toItem }) => {
-								console.log(
-									`Item dragged from index ${fromIndex} (${fromItem}) to index ${toIndex} (${toItem})`
-								)
-								const newData = workouts.slice()
-								newData.splice(toIndex, 0, newData.splice(fromIndex, 1)[0])
-								setWorkouts(newData)
-							}}
-							keyExtractor={item => item.exercise._id}
-						/>
-						<ButtonPrimary
-							fill
-							text='Добавить упражнение'
-							onPress={onAddExercise}
-							style={[styles.button, !workouts.length && { marginTop: height * 0.3 }]}
-							textStyle={styles.buttonText}
-						/>
-					</SafeAreaView>
-				</DraxProvider>
+								)}
+								onItemDragStart={({ index, item }) => {
+									console.log(item)
+									console.log(`Item #${index} (${item}) drag start`)
+								}}
+								onItemDragPositionChange={({ index, item, toIndex, previousIndex }) => {
+									console.log(
+										`Item #${index} (${item}) dragged to index ${toIndex} (previous: ${previousIndex})`
+									)
+								}}
+								onItemDragEnd={({ index, item, toIndex, toItem }) => {
+									console.log(`Item #${index} (${item}) drag ended at index ${toIndex} (${toItem})`)
+								}}
+								onItemReorder={({ fromIndex, fromItem, toIndex, toItem }) => {
+									console.log(
+										`Item dragged from index ${fromIndex} (${fromItem}) to index ${toIndex} (${toItem})`
+									)
+									const newData = workouts.slice()
+									newData.splice(toIndex, 0, newData.splice(fromIndex, 1)[0])
+									setWorkouts(newData)
+								}}
+								keyExtractor={item => item.exercise._id}
+							/>
+							<ButtonPrimary
+								fill
+								text='Добавить упражнение'
+								onPress={onAddExercise}
+								style={[styles.button, !workouts.length && { marginTop: height * 0.3 }]}
+								textStyle={styles.buttonText}
+							/>
+						</SafeAreaView>
+					</DraxProvider>
+				</GestureHandlerRootView>
 			</View>
 
 			{!!workouts.length && (

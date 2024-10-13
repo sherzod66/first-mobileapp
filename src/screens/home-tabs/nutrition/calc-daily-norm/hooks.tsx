@@ -2,44 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useRedux } from '../../../../store/hooks'
 import { selectSchemaNutritions } from '../../../../store/slices/appSlice'
 import { NUTRITION_TYPE } from '../../../../types'
-
-const maleItems = [
-	{ text: 'Сидячий образ жизни. Мало хожу пешком', value: 23 },
-	{ text: 'Мало-подвижный. 3-5 тыс. шагов в день.', value: 25 },
-	{
-		text: 'Фитнес тренировки 3 раза в неделю. 3-5 тыс. шагов в день.',
-		value: 27
-	},
-	{ text: 'Средняя Активность. 8-10 тыс. шагов в день.', value: 28 },
-	{
-		text: 'Фитнес тренировки 3 раза в неделю. 8-10 тыс. шагов в день.',
-		value: 29
-	},
-	{ text: 'Высокая Активность. 12-15 тыс. шагов в день.', value: 30 },
-	{
-		text: 'Фитнес тренировки 3 раза в неделю. 12-15 тыс. шагов в день.',
-		value: 32
-	}
-]
-
-const femaleItems = [
-	{ text: 'Сидячий образ жизни. Мало хожу пешком', value: 20 },
-	{ text: 'Мало-подвижный. 3-5 тыс. шагов в день.', value: 22 },
-	{
-		text: 'Фитнес тренировки 3 раза в неделю. 3-5 тыс. шагов в день.',
-		value: 23
-	},
-	{ text: 'Средняя Активность. 8-10 тыс. шагов в день.', value: 24 },
-	{
-		text: 'Фитнес тренировки 3 раза в неделю. 8-10 тыс. шагов в день.',
-		value: 25
-	},
-	{ text: 'Высокая Активность. 12-15 тыс. шагов в день.', value: 26 },
-	{
-		text: 'Фитнес тренировки 3 раза в неделю. 12-15 тыс. шагов в день.',
-		value: 28
-	}
-]
+import { useTranslation } from 'react-i18next'
 
 export const CalcDailyNormHooks = () => {
 	const [weight, setWeight] = useState('')
@@ -48,6 +11,7 @@ export const CalcDailyNormHooks = () => {
 	const [calculated, setCalculated] = useState(0)
 	const [items, setItems] = useState<{ text: string; value: number }[]>([])
 	const [schemaNutritions] = useRedux(selectSchemaNutritions)
+	const { t, i18n } = useTranslation()
 	const nType = useMemo(() => {
 		if (schemaNutritions && schemaNutritions.length > 0) {
 			return schemaNutritions[schemaNutritions.length - 1].data.nType
@@ -103,6 +67,50 @@ export const CalcDailyNormHooks = () => {
 		}
 	}
 
+	const maleItems = useMemo(
+		() => [
+			{ text: t('sedentary-lifestyle'), value: 23 },
+			{ text: t('low-activity'), value: 25 },
+			{
+				text: t('fitness-3-per-week-low'),
+				value: 27
+			},
+			{ text: t('moderate-activity'), value: 28 },
+			{
+				text: t('fitness-3-per-week-moderate'),
+				value: 29
+			},
+			{ text: t('high-activity'), value: 30 },
+			{
+				text: t('fitness-3-per-week-high'),
+				value: 32
+			}
+		],
+		[i18n.language]
+	)
+
+	const femaleItems = useMemo(
+		() => [
+			{ text: t('sedentary-lifestyle'), value: 20 },
+			{ text: t('low-activity'), value: 22 },
+			{
+				text: t('fitness-3-per-week-low'),
+				value: 23
+			},
+			{ text: t('moderate-activity'), value: 24 },
+			{
+				text: t('fitness-3-per-week-moderate'),
+				value: 25
+			},
+			{ text: t('high-activity'), value: 26 },
+			{
+				text: t('fitness-3-per-week-high'),
+				value: 28
+			}
+		],
+		[i18n.language]
+	)
+
 	return {
 		weight,
 		setWeight,
@@ -112,6 +120,7 @@ export const CalcDailyNormHooks = () => {
 		selected,
 		onSelect,
 		items,
-		nType
+		nType,
+		t
 	}
 }

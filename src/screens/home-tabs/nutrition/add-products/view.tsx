@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import {
 	ButtonPrimary,
@@ -16,9 +16,6 @@ import { styles } from './style'
 import { Assets } from '../../../../utils/requireAssets'
 import ButtonTabsMy from '../../../../components/common/ButtonTabsMy'
 
-const navAll = ['База продуктов', 'Мои продукты', 'Мои блюда']
-const navMin = ['База продуктов']
-
 const AddProductsView = () => {
 	const {
 		activeTab,
@@ -35,8 +32,16 @@ const AddProductsView = () => {
 		language,
 		categories,
 		navigateSearch,
-		goBackNavigation
+		goBackNavigation,
+		t,
+		i18n
 	} = AddProductsHooks()
+
+	const navAll = useMemo(
+		() => [t('product-base'), t('my-products'), t('my-dishes')],
+		[i18n.language]
+	)
+	const navMin = useMemo(() => [t('product-base')], [i18n.language])
 
 	return (
 		<View style={styles.container}>
@@ -52,7 +57,7 @@ const AddProductsView = () => {
 					}}
 					icon={<Icon source={Assets.icons.search} />}
 				/>
-				<Text style={styles.textMy}>Поиск</Text>
+				<Text style={styles.textMy}>{t('search')}</Text>
 			</TouchableOpacity>
 
 			<ButtonTabs
@@ -70,7 +75,7 @@ const AddProductsView = () => {
 						active={activeCategory}
 						setActive={setActiveCategory}
 						containerStyle={styles.tab2Cont}
-						titles={[...categories.map(a => a.name[language])]}
+						titles={[...categories.map(a => a.name[i18n.language as 'ru'])]}
 					/>
 				</ScrollView>
 			</View>
@@ -121,19 +126,21 @@ const AddProductsView = () => {
 							<View style={styles.main}>
 								<View>
 									<Text style={styles.text3}>
-										{'Б - '}
+										{t('reduction-protein')} -
 										<Text style={styles.text4}>{`${Math.round(protein * 100) / 100} гр`}</Text>
 									</Text>
 									<Text style={styles.text3}>
-										{'Ж - '}
+										{t('reduction-fats')} -
 										<Text style={styles.text4}>{`${Math.round(oil * 100) / 100} гр`}</Text>
 									</Text>
 									<Text style={styles.text3}>
-										{'У - '}
+										{t('reduction-carbohydrates')} -
 										<Text style={styles.text4}>{`${Math.round(carb * 100) / 100} гр`}</Text>
 									</Text>
 								</View>
-								<Text style={styles.text5}>{`${calories} каллорий`}</Text>
+								<Text style={styles.text5}>{`${Math.round(calories * 100) / 100} ${t(
+									'calories'
+								)}`}</Text>
 							</View>
 						</View>
 					)
@@ -143,7 +150,7 @@ const AddProductsView = () => {
 			{selected.length > 0 && (
 				<ButtonPrimary
 					fill
-					text='Добавить'
+					text={t('add')}
 					onPress={onAdd}
 					loading={loading}
 					style={styles.btn}

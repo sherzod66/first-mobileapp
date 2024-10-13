@@ -23,6 +23,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { NutritionStackParamList } from '..'
 import { ApiService } from '../../../../services'
 import { PRODUCT_AMOUNT } from '../../../../constants/AMOUNT'
+import { useTranslation } from 'react-i18next'
 
 export type AddProductsScreenNavigationProp = NativeStackNavigationProp<
 	NutritionStackParamList,
@@ -49,6 +50,7 @@ export const AddProductsHooks = () => {
 	const [products, setProducts] = useState<Product[]>([])
 	const [selected, setSelected] = useState<Product[]>([])
 	const [loading, setLoading] = useState(false)
+	const { t, i18n } = useTranslation()
 
 	const {
 		products: productss,
@@ -231,6 +233,8 @@ export const AddProductsHooks = () => {
 		onAdd,
 		language,
 		categories,
-		navigateSearch
+		navigateSearch,
+		t,
+		i18n
 	}
 }

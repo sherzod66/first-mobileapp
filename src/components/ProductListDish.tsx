@@ -12,6 +12,7 @@ import { COLORS } from '../constants/COLORS'
 import { Product } from '../types'
 import { ButtonSecondary } from './common'
 import { Dispatch, SetStateAction } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
 	title: string
@@ -50,11 +51,12 @@ const ProductListDish = ({
 	onPaste,
 	onCopy
 }: IProps) => {
+	const { t } = useTranslation()
 	return (
 		<View style={[styles.container, style]}>
 			<View style={[styles.header, styles.radiusTop]}>
 				<View style={styles.left}>
-					<Text style={styles.title}>{'Наименование продукта'}</Text>
+					<Text style={styles.title}>{t('product_name')}</Text>
 					<TouchableOpacity style={styles.dots} onPress={() => setIsDots(!isDots)}>
 						<View style={styles.dot} />
 						<View style={styles.dot} />
@@ -62,7 +64,7 @@ const ProductListDish = ({
 					</TouchableOpacity>
 				</View>
 				<View style={styles.right}>
-					<Text style={styles.text4}>{'Кол-во'}</Text>
+					<Text style={styles.text4}>{t('quantity')}</Text>
 				</View>
 			</View>
 			{products.map((product, index) => (
@@ -76,7 +78,7 @@ const ProductListDish = ({
 							{typeof loading === 'number' && loading === index ? (
 								<ActivityIndicator size={'small'} />
 							) : (
-								<Text style={styles.text2}>{'Удалить'}</Text>
+								<Text style={styles.text2}>{t('delete')}</Text>
 							)}
 						</TouchableOpacity>
 					</View>

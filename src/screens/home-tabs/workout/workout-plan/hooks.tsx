@@ -10,6 +10,7 @@ import { Response, ROLES, Trainer, User, WorkoutPlan } from '../../../../types'
 import { useSelector } from 'react-redux'
 import { string } from 'yup'
 import { showErrToast, showSuccessToast } from '../../../../utils/showToast'
+import { useTranslation } from 'react-i18next'
 
 export type WorkoutPlanScreenNavigationProp = NativeStackNavigationProp<
 	WorkoutStackParamList,
@@ -23,6 +24,7 @@ export const WorkoutPlanHooks = () => {
 	const [disabled, setDisabled] = useState(false)
 	const [isShow, setIsShow] = useState<boolean>(false)
 	const [selected, setSelected] = useState<User[]>([])
+	const { t } = useTranslation()
 
 	const [user, dispatch] = useRedux(selectUser)
 
@@ -119,6 +121,7 @@ export const WorkoutPlanHooks = () => {
 		onSelect,
 		selected,
 		onSubmitAdd,
-		user
+		user,
+		t
 	}
 }

@@ -27,7 +27,8 @@ const WorkoutResultsView = () => {
 		onHide,
 		onSubmit,
 		i18n,
-		getRecordWight
+		getRecordWight,
+		t
 	} = WorkoutResultsHooks()
 
 	return (
@@ -38,9 +39,9 @@ const WorkoutResultsView = () => {
 				<Header />
 
 				<View style={styles.titleRow}>
-					<Text style={styles.title}>{`Тренировка ${workoutIndex + 1}`}</Text>
+					<Text style={styles.title}>{`${t('training')} ${workoutIndex + 1}`}</Text>
 					<ButtonSecondary
-						text={`Неделя ${weekIndex + 1}`}
+						text={`${t('week')} ${weekIndex + 1}`}
 						onPress={() => {}}
 						textStyle={styles.title2}
 					/>
@@ -71,7 +72,7 @@ const WorkoutResultsView = () => {
 										/>
 										{a.exercise && (
 											<ButtonSecondary
-												text='Техника'
+												text={t('technique')}
 												onPress={() => onPress(i)}
 												textStyle={styles.btnTextStyle}
 												containerStyle={styles.btnStyle}
@@ -80,13 +81,12 @@ const WorkoutResultsView = () => {
 									</ScrollView>
 								</View>
 								<Text style={styles.textLast}>
-									Рекордный вес:
-									{getRecordWight(workoutIndex, weekIndex, i)}
+									{t('record-weight')}:{getRecordWight(workoutIndex, weekIndex, i)}
 								</Text>
 								<View style={styles.main}>
 									<View style={styles.mainLeft}>
-										<Text style={styles.text2}>{'Вес (кг)'}</Text>
-										<Text style={styles.text2}>{'Повтор'}</Text>
+										<Text style={styles.text2}>{t('weight-kg')}</Text>
+										<Text style={styles.text2}>{t('repetition')}</Text>
 									</View>
 									<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 										<View style={styles.mainRight}>

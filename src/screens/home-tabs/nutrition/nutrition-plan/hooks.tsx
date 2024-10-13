@@ -24,6 +24,7 @@ import {
 import { showErrToast, showSuccessToast } from '../../../../utils/showToast'
 import { ApiService } from '../../../../services'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 export type NutritionPlanScreenRouteProp = RouteProp<
 	NutritionStackParamList,
@@ -52,6 +53,7 @@ export const NutritionPlanHooks = () => {
 	const [isShow, setIsShow] = useState<boolean>(false)
 	const [selected, setSelected] = useState<User[]>([])
 	const trainer = useSelector(selectTrainer)
+	const { t, i18n } = useTranslation()
 
 	const [nutritionPlan, setNutritionPlan] = useState<NutritionPlan | null>(null)
 
@@ -219,7 +221,9 @@ export const NutritionPlanHooks = () => {
 		trainer,
 		user,
 		isShow,
-		selected
+		selected,
+		t,
+		i18n
 	}
 }
 

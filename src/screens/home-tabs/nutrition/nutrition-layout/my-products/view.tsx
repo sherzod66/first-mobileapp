@@ -44,7 +44,9 @@ const MyProductsView = () => {
 		setEditId,
 		onEdit,
 		navigateSearch,
-		navigateUpdateDish
+		navigateUpdateDish,
+		t,
+		i18n
 	} = MyProductsHooks()
 	console.log(name)
 
@@ -58,7 +60,7 @@ const MyProductsView = () => {
 					}}
 					icon={<Icon source={Assets.icons.search} />}
 				/>
-				<Text style={styles.textMy}>Поиск</Text>
+				<Text style={styles.textMy}>{t('search')}</Text>
 			</TouchableOpacity>
 			{/* <InputPrimary
         value={search}
@@ -79,7 +81,7 @@ const MyProductsView = () => {
 			<View style={styles.scrollCont}>
 				<ScrollView horizontal showsHorizontalScrollIndicator={false}>
 					<TouchableOpacity onPress={() => setActiveTab(null)}>
-						<Text style={styles.greenText}>{'Мои блюда'}</Text>
+						<Text style={styles.greenText}>{t('my-dishes')}</Text>
 						{activeTab === null && <View style={styles.greenLine} />}
 					</TouchableOpacity>
 
@@ -90,7 +92,7 @@ const MyProductsView = () => {
 						setActive={setActiveTab}
 						containerStyle={styles.tabCont}
 						textStyle={{ backgroundColor: 'aquamarine' }}
-						titles={[...productCategories.map(a => a.name[language])]}
+						titles={[...productCategories.map(a => a.name[i18n.language as 'ru'])]}
 					/>
 				</ScrollView>
 			</View>
@@ -101,7 +103,7 @@ const MyProductsView = () => {
 						fill
 						onPress={onCreate}
 						style={styles.button}
-						text='Сделать новое блюдо'
+						text={t('create_new_dish')}
 						textStyle={styles.buttonText}
 					/>
 				)}
@@ -111,7 +113,7 @@ const MyProductsView = () => {
 						onPress={onShow}
 						style={styles.btn}
 						textStyle={styles.buttonText}
-						text='Добавить свой продукт'
+						text={t('add-your-product')}
 					/>
 				)}
 				{products.map((a, i) => (
@@ -123,7 +125,7 @@ const MyProductsView = () => {
 							</View>
 							<View>
 								<ButtonPrimary
-									text='Удалить'
+									text={t('delete')}
 									style={styles.deleteBtn}
 									textStyle={styles.deleteBtnText}
 									onPress={() => !loading && onRemove(a)}
@@ -145,26 +147,32 @@ const MyProductsView = () => {
 									}}
 									style={styles.editBtn}
 								>
-									Изменить
+									{t('edit')}
 								</Text>
 							</View>
 						</View>
 						<View style={styles.main}>
 							<View>
 								<Text style={styles.text3}>
-									{'Б - '}
-									<Text style={styles.text4}>{`${a.protein} гр`}</Text>
+									{t('reduction-protein')} -
+									<Text style={styles.text4}>{`${Math.round(a.protein * 100) / 100} ${t(
+										'grams'
+									)}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'Ж - '}
-									<Text style={styles.text4}>{`${a.oil} гр`}</Text>
+									{t('reduction-fats')} -
+									<Text style={styles.text4}>{`${Math.round(a.oil * 100) / 100} ${t(
+										'grams'
+									)}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'У - '}
-									<Text style={styles.text4}>{`${a.carb} гр`}</Text>
+									{t('reduction-carbohydrates')} -
+									<Text style={styles.text4}>{`${Math.round(a.carb * 100) / 100} ${t(
+										'grams'
+									)}`}</Text>
 								</Text>
 							</View>
-							<Text style={styles.text5}>{`${a.calories} каллорий`}</Text>
+							<Text style={styles.text5}>{`${Math.round(a.calories * 100) / 100} каллорий`}</Text>
 						</View>
 					</View>
 				))}

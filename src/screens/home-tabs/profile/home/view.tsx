@@ -33,21 +33,21 @@ const ProfileHomeView = () => {
 			</View>
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={{ marginBottom: 130 }}>
-					<Profile_btn onPress={onMyDataPress} title={t('myDetails')} />
-					<Profile_btn title='Мои покупки' />
+					<Profile_btn onPress={onMyDataPress} title={t('my-data')} />
+					<Profile_btn title={t('my-purchases')} />
 					{isTrainer ? (
 						<Profile_btn onPress={() => onUsersPress(true)} title='Мои ученики' />
 					) : (
-						<Profile_btn onPress={onMyTrainerPress} title='Мой тренер' />
+						<Profile_btn onPress={onMyTrainerPress} title={t('my-coach')} />
 					)}
 					{isTrainer && <Profile_btn onPress={onTrainerStatistic} title='Статистика' />}
-					<Profile_btn onPress={onNotificationPress} title='Уведомления' />
-					<Profile_btn onPress={onSettingsPress} title='Настройки приложения' />
-					{!!isAdmin && <Profile_btn title='Пользователи' onPress={() => onUsersPress(false)} />}
-					{!!isAdmin && <Profile_btn title='Рекламы' onPress={onAdPress} />}
+					<Profile_btn onPress={onNotificationPress} title={t('notifications')} />
+					<Profile_btn onPress={onSettingsPress} title={t('app-settings')} />
+					{!!isAdmin && <Profile_btn title={t('users')} onPress={() => onUsersPress(false)} />}
+					{!!isAdmin && <Profile_btn title={t('ads')} onPress={onAdPress} />}
 					<Profile_btn
 						textStyle={styles.titleBtn}
-						title='Выйти из аккаунта'
+						title={t('logout')}
 						hasIcon={false}
 						onPress={onLogOut}
 						// onPress={logOut}

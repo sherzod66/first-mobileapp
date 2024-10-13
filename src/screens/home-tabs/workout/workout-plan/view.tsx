@@ -19,7 +19,8 @@ const WorkoutPlanView = () => {
 		onSelect,
 		selected,
 		onSubmitAdd,
-		user
+		user,
+		t
 	} = WorkoutPlanHooks()
 
 	return (
@@ -42,7 +43,7 @@ const WorkoutPlanView = () => {
 						style={styles.button}
 						loadingColor={COLORS.WHITE}
 						textStyle={styles.buttonText}
-						text={'Добавить в “ Дневник Тренировок “'}
+						text={t('add-training-diary')}
 					/>
 					{isTrainer && trainer?.isEducation && plan?.creatorUser?._id === user?._id && (
 						<ButtonPrimary
@@ -53,7 +54,7 @@ const WorkoutPlanView = () => {
 							style={styles.button}
 							loadingColor={COLORS.WHITE}
 							textStyle={styles.buttonText}
-							text={'Отправить ученикам'}
+							text={t('send-to-students')}
 						/>
 					)}
 				</View>
@@ -90,7 +91,7 @@ const WorkoutPlanView = () => {
 							style={styles.send}
 							loadingColor={COLORS.WHITE}
 							textStyle={styles.buttonText}
-							text={'Отправить ученикам'}
+							text={t('send-to-students')}
 						/>
 					)}
 				</View>

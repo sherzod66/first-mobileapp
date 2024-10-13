@@ -32,7 +32,9 @@ const NutritionPlanView = () => {
 		trainer,
 		user,
 		isShow,
-		selected
+		selected,
+		t,
+		i18n
 	} = NutritionPlanHooks()
 
 	const { nutritions } = plan
@@ -47,7 +49,7 @@ const NutritionPlanView = () => {
 				<ScrollView showsVerticalScrollIndicator={false}>
 					<View style={styles.compositionRow}>
 						<View style={styles.compositionCol}>
-							<Text style={styles.compositionTitle}>{'Белки'}</Text>
+							<Text style={styles.compositionTitle}>{t('proteins')}</Text>
 							<View style={styles.compositionBox}>
 								<View style={styles.compositionBox1}>
 									<Text style={styles.compositionText1}>{`${plan.proteinPercent}%`}</Text>
@@ -56,12 +58,12 @@ const NutritionPlanView = () => {
 								<View style={styles.compositionBox2}>
 									<Text style={styles.compositionText2}>{`${Math.trunc(
 										(plan.calories * plan.proteinPercent) / 400
-									)}гр`}</Text>
+									)} ${t('grams')}`}</Text>
 								</View>
 							</View>
 						</View>
 						<View style={styles.compositionCol}>
-							<Text style={styles.compositionTitle}>{'Жиры'}</Text>
+							<Text style={styles.compositionTitle}>{t('oils')}</Text>
 							<View style={styles.compositionBox}>
 								<View style={styles.compositionBox1}>
 									<Text style={styles.compositionText1}>{`${plan.oilPercent}%`}</Text>
@@ -70,12 +72,12 @@ const NutritionPlanView = () => {
 								<View style={styles.compositionBox2}>
 									<Text style={styles.compositionText2}>{`${Math.trunc(
 										(plan.calories * plan.oilPercent) / 900
-									)}гр`}</Text>
+									)} ${t('grams')}`}</Text>
 								</View>
 							</View>
 						</View>
 						<View style={styles.compositionCol}>
-							<Text style={styles.compositionTitle}>{'Углеводы'}</Text>
+							<Text style={styles.compositionTitle}>{t('carbohydrates')}</Text>
 							<View style={styles.compositionBox}>
 								<View style={styles.compositionBox1}>
 									<Text style={styles.compositionText1}>{`${
@@ -86,7 +88,7 @@ const NutritionPlanView = () => {
 								<View style={styles.compositionBox2}>
 									<Text style={styles.compositionText2}>{`${Math.trunc(
 										(plan.calories * (100 - (plan.proteinPercent + plan.oilPercent))) / 400
-									)}гр`}</Text>
+									)} ${t('grams')}`}</Text>
 								</View>
 							</View>
 						</View>
@@ -102,7 +104,7 @@ const NutritionPlanView = () => {
 								textStyle={styles.planTabsText}
 								buttonStyle={styles.planTabsBtn}
 								containerStyle={styles.planTabs}
-								titles={plan.nutritions.map((g, i) => `План ${i + 1}`)}
+								titles={plan.nutritions.map((g, i) => `${t('plan')} ${i + 1}`)}
 							/>
 						</ScrollView>
 					</View>
@@ -116,7 +118,7 @@ const NutritionPlanView = () => {
 								textStyle={styles.receptTabsText}
 								buttonStyle={styles.receptTabsBtn}
 								containerStyle={styles.receptTabs}
-								titles={plan.nutritions[activePlan].map((r, i) => `${i + 1}-Прием`)}
+								titles={plan.nutritions[activePlan].map((r, i) => `${i + 1}-${t('reception')}`)}
 							/>
 						</ScrollView>
 					</View>
@@ -125,19 +127,19 @@ const NutritionPlanView = () => {
 						<View style={styles.main}>
 							{reception.products.map((p, i) => (
 								<View key={i} style={[styles.row, i === 0 && { marginTop: 0 }]}>
-									<Text style={styles.text1}>{p.name[language]}</Text>
-									<Text style={styles.text2}>{`${reception.amountsP[i] ?? 0} гр`}</Text>
+									<Text style={styles.text1}>{p.name[i18n.language as 'ru']}</Text>
+									<Text style={styles.text2}>{`${reception.amountsP[i] ?? 0} ${t('grams')}`}</Text>
 								</View>
 							))}
 							{reception.dishes.map((dish, i) => (
 								<View key={i} style={[styles.row, i === 0 && { marginTop: 0 }]}>
 									<Text style={styles.text1}>{dish.name}</Text>
-									<Text style={styles.text2}>{`${reception.amountsD[i] ?? 0} гр`}</Text>
+									<Text style={styles.text2}>{`${reception.amountsD[i] ?? 0} ${t('grams')}`}</Text>
 								</View>
 							))}
 							<View style={styles.sum}>
 								<Text style={styles.text3}>
-									{`Общие Ккал: ${getSumValues(
+									{`${t('total_kcal')}: ${getSumValues(
 										[...reception.products, ...reception.dishes.map(d => convertDishToProduct(d))],
 										[...reception.amountsP, ...reception.amountsD],
 										'calories'
@@ -153,11 +155,11 @@ const NutritionPlanView = () => {
 						style={styles.btn}
 						textStyle={styles.btnText}
 						loading={loading}
-						text='Добавить в пищевой дневник'
+						text={t('add-food-diary')}
 					/>
 
 					<View style={styles.mt26}>
-						<Text style={styles.title}>{'Рекомендации'}</Text>
+						<Text style={styles.title}>{t('reacamendation')}</Text>
 						<View style={styles.recommendation}>
 							<ScrollView showsVerticalScrollIndicator={false}>
 								<Text style={styles.text}>
@@ -173,7 +175,7 @@ const NutritionPlanView = () => {
 						style={styles.button}
 						textStyle={styles.buttonText}
 						loading={deleteLoading}
-						text='Удалить из моих планов'
+						text={t('delete-nutrition-paln')}
 					/>
 
 					{isTrainer && trainer?.isEducation && nutritionPlan?.creatorUser?._id === user?._id && (
@@ -185,7 +187,7 @@ const NutritionPlanView = () => {
 							style={styles.button}
 							loadingColor={COLORS.WHITE}
 							textStyle={styles.buttonText}
-							text={'Отправить ученикам'}
+							text={t('send-to-students')}
 						/>
 					)}
 
@@ -227,7 +229,7 @@ const NutritionPlanView = () => {
 							style={styles.send}
 							loadingColor={COLORS.WHITE}
 							textStyle={styles.buttonText}
-							text={'Отправить ученикам'}
+							text={t('send-to-students')}
 						/>
 					)}
 				</View>

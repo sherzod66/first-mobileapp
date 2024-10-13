@@ -15,12 +15,48 @@ import { ROUTES } from '../../../../navigation/ROUTES'
 import { COLORS } from '../../../../constants/COLORS'
 import Carousel from 'react-native-snap-carousel'
 import AdItem from '../../profile/ads/ad-item'
+import { useMemo } from 'react'
 
 const sliderWidth = Dimensions.get('window').width
 const itemWidth = sliderWidth - 30
 
 const MainHomeView = () => {
-	const { onPress, ads, fetchAds } = MainHomeHooks()
+	const { onPress, ads, fetchAds, t, i18n } = MainHomeHooks()
+	const data = useMemo(
+		() => [
+			{
+				title: t('exercise-base'),
+				text: t('exercise-description'),
+				cover: Assets.images.cover1,
+				to: ROUTES.TABS.MAIN.EXERCISES
+			},
+			{
+				title: t('training-programs'),
+				text: t('training-description'),
+				cover: Assets.images.cover2,
+				to: ROUTES.TABS.MAIN.WORKOUT_PLANS
+			},
+			{
+				title: t('meal-plans'),
+				text: t('meal-description'),
+				cover: Assets.images.cover3,
+				to: ROUTES.TABS.MAIN.NUTRITION_PLANS
+			},
+			{
+				title: t('trainers'),
+				text: t('trainer-description'),
+				cover: Assets.images.cover4,
+				to: ROUTES.TABS.MAIN.TRAINERS
+			},
+			{
+				title: t('fitness-clubs'),
+				text: t('fitness-club-description'),
+				cover: Assets.images.fitness,
+				to: ROUTES.TABS.MAIN.FITNESS_CLUBS
+			}
+		],
+		[i18n.language]
+	)
 
 	return (
 		<View style={styles.container}>
@@ -56,36 +92,3 @@ const MainHomeView = () => {
 }
 
 export default MainHomeView
-
-const data = [
-	{
-		title: 'База упражнений',
-		text: 'Для всех групп мышц',
-		cover: Assets.images.cover1,
-		to: ROUTES.TABS.MAIN.EXERCISES
-	},
-	{
-		title: 'Программы тренировок',
-		text: 'Для Мужчин и Женщин \nДля Новичков и Продвинутых',
-		cover: Assets.images.cover2,
-		to: ROUTES.TABS.MAIN.WORKOUT_PLANS
-	},
-	{
-		title: 'Планы питания',
-		text: 'Для жиросжигания \nи набора мышечной массы',
-		cover: Assets.images.cover3,
-		to: ROUTES.TABS.MAIN.NUTRITION_PLANS
-	},
-	{
-		title: 'Тренеры',
-		text: 'Выберите себе наставника',
-		cover: Assets.images.cover4,
-		to: ROUTES.TABS.MAIN.TRAINERS
-	},
-	{
-		title: 'Фитнес клубы',
-		text: 'Клубы',
-		cover: Assets.images.fitness,
-		to: ROUTES.TABS.MAIN.FITNESS_CLUBS
-	}
-]

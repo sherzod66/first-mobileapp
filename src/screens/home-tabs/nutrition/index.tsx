@@ -24,10 +24,12 @@ import { TRecommendationContent } from './recommendation/hooks'
 import AddOnlySearchScreen from './add-only-search'
 import UpdateDish from './update-dish'
 import MealPlansSearchView from './meal-plans-search'
+import UpdateProductScreen from './nutrition-layout/update-product'
 
 export type NutritionStackParamList = {
 	[NUTRITION.NUTRITION_LAYOUT]: undefined
 	[NUTRITION.CREATE_PRODUCT]: undefined
+	[NUTRITION.UPDATE_PRODUCT]: { product: Product }
 	[NUTRITION.CALC_DAILY_NORM]: {
 		onSave: (val: string) => Promise<void>
 		tab: number
@@ -198,6 +200,11 @@ const NutritionStack = () => {
 			<Stack.Screen
 				name={NUTRITION.CREATE_PRODUCT}
 				component={CreateProductScreen}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name={NUTRITION.UPDATE_PRODUCT}
+				component={UpdateProductScreen}
 				options={{ headerShown: false }}
 			/>
 		</Stack.Navigator>

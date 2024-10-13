@@ -12,7 +12,8 @@ const NutritionPlanView = () => {
 		onPress,
 		isAdmin,
 		deleteLoading,
-		onDeletePlan
+		onDeletePlan,
+		t
 	} = NutritionPlanHooks()
 	return (
 		<View style={styles.container}>
@@ -30,7 +31,7 @@ const NutritionPlanView = () => {
 						disabled={disabled}
 						style={styles.button}
 						textStyle={styles.buttonText}
-						text={'Добавить в "Мои планы питания"'}
+						text={t('add-to-my-meal-plans')}
 					/>
 					{isAdmin && (
 						<ButtonPrimary
@@ -40,7 +41,7 @@ const NutritionPlanView = () => {
 							disabled={disabled}
 							style={styles.button}
 							textStyle={styles.buttonText}
-							text={'Удалить план питания'}
+							text={t('delete-nutrition-paln')}
 						/>
 					)}
 				</View>

@@ -12,19 +12,17 @@ import { NutritionStackParamList } from '..'
 import { NUTRITION_TYPE } from '../../../../types'
 
 export type DailyScreenRouteProp = RouteProp<NutritionStackParamList, NUTRITION.CALC_DAILY_NORM>
-const text =
-	'Расчёт вашей суточной нормы калорий, т.е. тех калорий, которые нужны для поддержания того веса, который вы имеете на данный момент. Из этих калорий будет вычитаться то количество калорий (количество дефицита), которое вы укажите далее'
-
-const textThin =
-	'Расчёт вашей суточной нормы калорий, т.е. тех калорий, которые нужны для поддержания того веса, который вы имеете на данный момент. К этим калориям будет добавлено то количество калорий (количество профицита), которое вы укажите далее'
-
 const CalcDailyNormView = () => {
-	const { weight, setWeight, gender, setGender, selected, onSelect, calculated, items, nType } =
+	const { weight, setWeight, gender, setGender, selected, onSelect, calculated, t, items, nType } =
 		CalcDailyNormHooks()
 
 	const route = useRoute<DailyScreenRouteProp>()
 	const navigation = useNavigation()
 	const { onSave, tab } = route.params || {}
+
+	const text = t('daily-calorie-intake-deficit')
+
+	const textThin = t('daily-calorie-intake-surplus')
 
 	return (
 		<View style={styles.container}>
@@ -43,12 +41,12 @@ const CalcDailyNormView = () => {
 			/>
 
 			<ScrollView>
-				<Text style={styles.title}>{'Расчет вашей суточной нормы калорий'}</Text>
+				<Text style={styles.title}>{t('daily-calorie-intake')}</Text>
 				<Text style={styles.text1}>{nType === NUTRITION_TYPE.FAT ? text : textThin}</Text>
 
 				<View style={styles.mid}>
 					<View style={styles.left}>
-						<Text style={styles.title1}>{'Вес натoщак'}</Text>
+						<Text style={styles.title1}>{t('weight-on-empty-stomach')}</Text>
 
 						<InputPrimary
 							value={!!weight && `${weight} кг`}
@@ -59,17 +57,17 @@ const CalcDailyNormView = () => {
 						/>
 					</View>
 					<View style={styles.right}>
-						<Text style={styles.title1}>{'Пол'}</Text>
+						<Text style={styles.title1}>{t('gender')}</Text>
 
 						<View style={styles.rightRow}>
 							<ButtonSecondary
-								text='Муж'
+								text={t('male')}
 								onPress={() => setGender(0)}
 								containerStyle={[!!gender && styles.inActiveBtn]}
 								textStyle={!gender ? styles.text2 : styles.inActiveBtnText}
 							/>
 							<ButtonSecondary
-								text='Жен'
+								text={t('female')}
 								onPress={() => setGender(1)}
 								textStyle={gender ? styles.text2 : styles.inActiveBtnText}
 								containerStyle={[styles.ml15, !!!gender && styles.inActiveBtn]}
@@ -78,7 +76,7 @@ const CalcDailyNormView = () => {
 					</View>
 				</View>
 
-				<Text style={styles.title2}>{'Какой образ жизни вы ведете?'}</Text>
+				<Text style={styles.title2}>{t('lifestyle-question')}</Text>
 				{items.map((e, i) => (
 					<TouchableOpacity key={i} style={styles.row} onPress={() => onSelect(i)}>
 						<View style={styles.checkbox}>
@@ -89,7 +87,7 @@ const CalcDailyNormView = () => {
 				))}
 			</ScrollView>
 			<View style={{ paddingBottom: 60 }}>
-				<Text style={styles.title3}>{'Ваша суточная норма калорий'}</Text>
+				<Text style={styles.title3}>{t('daily-calorie-requirement')}</Text>
 				<View
 					style={[
 						styles.result,
@@ -97,7 +95,7 @@ const CalcDailyNormView = () => {
 					]}
 				>
 					<Text style={[styles.title1, { fontSize: 16 }]}>
-						{selected !== undefined && Number(weight) * items[selected].value} Ккал
+						{selected !== undefined && Number(weight) * items[selected].value} {t('calories2')}
 					</Text>
 				</View>
 			</View>

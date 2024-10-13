@@ -14,6 +14,7 @@ export type MyWorkoutScreenNavigationProp = NavigationProp<ProfileStackParamList
 export const StudentWorkoutHooks = (apprenticeId = '') => {
 	const [show, setShow] = useState<any>({})
 	const [data, setData] = useState<ScheduleWorkout | null>(null)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [showModal, setShowModal] = useState(false)
 	const [modalLoading, setModalLoading] = useState(false)
 	const trainer = useSelector(selectTrainer)
@@ -21,9 +22,14 @@ export const StudentWorkoutHooks = (apprenticeId = '') => {
 	const [user, setUser] = useState<User | undefined>(undefined)
 	const getUser = async () => {
 		try {
+			setIsLoading(true)
+
 			const req = await ApiService.get<Response<User>>(`/users/${apprenticeId}`)
 			setUser(req.data)
-		} catch (e) {}
+			setIsLoading(false)
+		} catch (e) {
+			setIsLoading(false)
+		}
 	}
 	useEffect(() => {
 		if (apprenticeId.length > 1) {
@@ -96,6 +102,7 @@ export const StudentWorkoutHooks = (apprenticeId = '') => {
 		onHide,
 		onFinish,
 		i18n,
-		exercisePress
+		exercisePress,
+		isLoading
 	}
 }

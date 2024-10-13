@@ -8,7 +8,7 @@ import instagram from '../../../../assets/icons/instagram.png'
 import { imageLink } from '../../../../utils/imageLink'
 
 const TrainerView = () => {
-	const { trainer, openLink, onPlansPress, onApplicationPress } = TrainerHooks()
+	const { trainer, openLink, onPlansPress, onApplicationPress, isLoading } = TrainerHooks()
 
 	return (
 		<View style={styles.container}>
@@ -74,6 +74,7 @@ const TrainerView = () => {
 						<ButtonPrimary
 							text='Оставить заявку'
 							fill
+							loading={isLoading}
 							style={{
 								borderRadius: 10,
 								paddingVertical: 18,

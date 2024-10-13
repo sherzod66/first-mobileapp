@@ -21,6 +21,7 @@ import {
 } from '../../../../types'
 import { ApiService } from '../../../../services'
 import { PRODUCT_AMOUNT } from '../../../../constants/AMOUNT'
+import { useTranslation } from 'react-i18next'
 
 const cd = new Date(Date.now())
 
@@ -83,7 +84,7 @@ export const ConsumeCalendarHooks = () => {
 		products: Product[]
 	}>({ day: activeDay, products: [] })
 
-	console.log(calories)
+	const { t } = useTranslation()
 
 	const effect = () => {
 		const currentYear = cd.getFullYear()
@@ -547,6 +548,7 @@ export const ConsumeCalendarHooks = () => {
 		setDateCopy,
 		onPaste,
 		showDots,
-		setShowDots
+		setShowDots,
+		t
 	}
 }

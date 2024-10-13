@@ -187,6 +187,7 @@ export const MyExercisesHooks = () => {
 		onAdd,
 		loadingSelect,
 		i18n,
-		onPress
+		onPress,
+		t
 	}
 }

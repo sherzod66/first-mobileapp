@@ -9,6 +9,7 @@ import { useRedux } from '../../../store/hooks'
 import { setTokens } from '../../../store/slices/appSlice'
 import { setOauthRequestInterceptor } from '../../../utils/axios'
 import { getFirebaseMessageToken } from '../../../utils/getFirebaseMessageToken'
+import { useTranslation } from 'react-i18next'
 
 export type VerifyCodeScreenNavigationProp = NativeStackNavigationProp<
 	PublickStackParamList,
@@ -20,6 +21,7 @@ export type VerifyCodeScreenRouteProp = RouteProp<PublickStackParamList, PUBLIC.
 export const VerifyCodeHooks = () => {
 	const [code, setCode] = useState('')
 	const [loading, setLoading] = useState(false)
+	const { t } = useTranslation()
 
 	const firstInput = useRef<any>()
 	const secondInput = useRef<any>()
@@ -92,6 +94,7 @@ export const VerifyCodeHooks = () => {
 		onResend,
 		onChangePhoneNumber,
 		phone,
-		loading
+		loading,
+		t
 	}
 }

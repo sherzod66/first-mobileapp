@@ -9,14 +9,15 @@ import { Dish } from '../../../../types'
 import { language } from '../../../../utils/language'
 
 const AddProductsSearchView = () => {
-	const { foundProduct, loading, selected, onAdd, onSelect, setSearchValue, i18n } = SearchHooks()
+	const { foundProduct, loading, selected, onAdd, onSelect, setSearchValue, i18n, t } =
+		SearchHooks()
 	return (
 		<View style={styles.container}>
 			<SafeAreaView />
 			<Header />
 			<InputPrimary
 				onChange={v => setSearchValue(v)}
-				placeholder={'Поиск'}
+				placeholder={t('search')}
 				placeholderColor={COLORS.WHITE}
 				containerStyle={{
 					backgroundColor: COLORS.GREY3,
@@ -77,7 +78,7 @@ const AddProductsSearchView = () => {
 										<Text style={styles.text4}>{`${Math.round(carb * 100) / 100} гр`}</Text>
 									</Text>
 								</View>
-								<Text style={styles.text5}>{`${calories} каллорий`}</Text>
+								<Text style={styles.text5}>{`${calories} ${t('calories')}`}</Text>
 							</View>
 						</View>
 					)
@@ -87,7 +88,7 @@ const AddProductsSearchView = () => {
 			{selected.length > 0 && (
 				<ButtonPrimary
 					fill
-					text='Добавить'
+					text={t('add')}
 					onPress={onAdd}
 					loading={loading}
 					style={styles.btn}

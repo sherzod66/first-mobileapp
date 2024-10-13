@@ -6,7 +6,6 @@ import { styles } from './style'
 import { COLORS } from '../../../../../constants/COLORS'
 import { Assets } from '../../../../../utils/requireAssets'
 import ButtonTabsMy from '../../../../../components/common/ButtonTabsMy'
-
 const BaseProductsView = () => {
 	const {
 		activeTab,
@@ -21,7 +20,7 @@ const BaseProductsView = () => {
 		onCreate,
 		onDeletePress,
 		isSuperAdmin,
-		search,
+		onUpdateNavigate,
 		onSearch
 	} = BaseProductsHooks()
 
@@ -82,6 +81,11 @@ const BaseProductsView = () => {
 						{isSuperAdmin && (
 							<TouchableOpacity onPress={() => onDeletePress(a)} style={styles.row}>
 								<Text style={styles.text5}>Удалить</Text>
+							</TouchableOpacity>
+						)}
+						{isSuperAdmin && (
+							<TouchableOpacity onPress={() => onUpdateNavigate(a)} style={styles.rowEdit}>
+								<Text style={styles.text5}>Редактировать</Text>
 							</TouchableOpacity>
 						)}
 					</View>

@@ -14,19 +14,20 @@ const VerifyCodeView = () => {
 		onChangePhoneNumber,
 		onResend,
 		phone,
-		loading
+		loading,
+		t
 	} = VerifyCodeHooks()
 
 	return (
 		<View style={styles.container}>
 			<SafeAreaView style={{ marginBottom: 100 }} />
 			<View style={styles.header}>
-				<Text style={styles.text}>{'Подтверждение электронной почты'}</Text>
-				<Text style={styles.textOne}>{'Мы отправили вам код потвреждения на '}</Text>
+				<Text style={styles.text}>{t('email-confirmation')}</Text>
+				<Text style={styles.textOne}>{t('code-sent')}</Text>
 				<View style={styles.row}>
 					<Text style={styles.textOne}>{phone}</Text>
 					<ButtonUnderline
-						text='Изменить почту'
+						text={t('change-email')}
 						lineStyle={styles.line}
 						textStyle={styles.text2}
 						style={{ marginLeft: 10 }}
@@ -81,12 +82,12 @@ const VerifyCodeView = () => {
 				/>
 			</View>
 			<View style={styles.footerBox}>
-				<Text style={styles.textOne}>{'Вы не получили код?'}</Text>
+				<Text style={styles.textOne}>{t('didnt-receive-code')}</Text>
 				<ButtonUnderline
 					loading={loading}
 					onPress={onResend}
 					lineStyle={styles.line}
-					text='Отправить еще раз'
+					text={t('resend-code')}
 					textStyle={styles.text3}
 					style={loading && styles.footer}
 				/>

@@ -8,6 +8,7 @@ import { selectTrainer, selectUser } from '../../../../../store/slices/appSlice'
 import { NutritionPlan, NUTRITION_TYPE, ROLES, Response, Trainer } from '../../../../../types'
 import { ApiService } from '../../../../../services'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 export type MyNutritionPlansScreenNavigationProp = NativeStackNavigationProp<
 	NutritionStackParamList,
@@ -25,6 +26,8 @@ export const MyNutritionPlansHooks = () => {
 	const [subCategory, setSubCategory] = useState(1)
 	const isSuperAdmin = user?.role === ROLES.SUPERADMIN
 	const isTrainers = user?.role === ROLES.TRAINER
+
+	const { t } = useTranslation()
 
 	const trainer = useSelector(selectTrainer)
 
@@ -70,6 +73,7 @@ export const MyNutritionPlansHooks = () => {
 		subCategory,
 		setSubCategory,
 		isTrainers,
-		trainer
+		trainer,
+		t
 	}
 }

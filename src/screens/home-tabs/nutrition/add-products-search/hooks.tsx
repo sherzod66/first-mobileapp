@@ -26,12 +26,12 @@ export const SearchHooks = () => {
 	const route = useRoute<AddProductsScreenRouteProp>()
 	const [user, dispatch] = useRedux(selectUser)
 	const [dish, setDish] = useState<Product[]>([])
-	const { i18n } = useTranslation()
 	//const [language] = useRedux(selectLanguage);
 	const [searchValue, setSearchValue] = useState<string>('')
 	const [selected, setSelected] = useState<Product[]>([])
 	const [loading, setLoading] = useState(false)
 	const [foundProduct, setFoundProduct] = useState<Product[]>([])
+	const { t, i18n } = useTranslation()
 
 	useEffect(() => {
 		if (user) {
@@ -39,13 +39,17 @@ export const SearchHooks = () => {
 				setFoundProduct([
 					...allProducts.filter(elem => {
 						if (!elem.userProduct) {
-							return elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
+							return elem.name[i18n.language as 'ru']
+								.toLowerCase()
+								.includes(searchValue.toLowerCase())
 						}
 					}),
 					...user.products.filter(elem =>
-						elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
+						elem.name[i18n.language as 'ru'].toLowerCase().includes(searchValue.toLowerCase())
 					),
-					...dish.filter(item => item.name.ru.toLowerCase().includes(searchValue.toLowerCase()))
+					...dish.filter(item =>
+						item.name[i18n.language as 'ru'].toLowerCase().includes(searchValue.toLowerCase())
+					)
 				])
 			else setFoundProduct([])
 			setDish([...user.dishes.map(item => convertDishToProduct(item))])
@@ -161,6 +165,7 @@ export const SearchHooks = () => {
 		onAdd,
 		onSelect,
 		setSearchValue,
-		i18n
+		i18n,
+		t
 	}
 }

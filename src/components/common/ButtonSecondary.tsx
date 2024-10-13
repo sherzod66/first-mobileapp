@@ -1,53 +1,62 @@
 import {
-  View,
-  Text,
-  StyleSheet,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-  TouchableOpacity,
-} from "react-native";
-import { COLORS } from "../../constants/COLORS";
+	View,
+	Text,
+	StyleSheet,
+	StyleProp,
+	TextStyle,
+	ViewStyle,
+	TouchableOpacity,
+	ActivityIndicator
+} from 'react-native'
+import { COLORS } from '../../constants/COLORS'
 
 interface IProps {
-  text: string;
-  textStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  onPress: () => void;
+	text: string
+	textStyle?: StyleProp<TextStyle>
+	containerStyle?: StyleProp<ViewStyle>
+	onPress: () => void
+	loading?: boolean
+	disabled?: boolean
 }
 
 const ButtonSecondary = ({
-  text,
-  textStyle,
-  containerStyle,
-  onPress,
+	text,
+	textStyle,
+	containerStyle,
+	onPress,
+	loading,
+	disabled
 }: IProps) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={[styles.container, containerStyle]}>
-        <Text style={[styles.text, textStyle]}>{text}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
+	return (
+		<TouchableOpacity onPress={onPress} disabled={disabled}>
+			<View style={[styles.container, containerStyle]}>
+				{loading ? (
+					<ActivityIndicator size={'small'} color={COLORS.WHITE} />
+				) : (
+					<Text style={[styles.text, textStyle, disabled && { opacity: 0.25 }]}>{text}</Text>
+				)}
+			</View>
+		</TouchableOpacity>
+	)
+}
 
-export default ButtonSecondary;
+export default ButtonSecondary
 
 const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderRadius: 30,
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    alignSelf: "flex-start",
-    borderColor: COLORS.WHITE,
-  },
-  text: {
-    fontSize: 11,
-    lineHeight: 16,
-    fontWeight: "600",
-    textAlign: "center",
-    color: COLORS.WHITE,
-    textAlignVertical: "center",
-  },
-});
+	container: {
+		borderWidth: 1,
+		borderRadius: 30,
+		paddingVertical: 5,
+		paddingHorizontal: 15,
+		alignSelf: 'flex-start',
+		borderColor: COLORS.WHITE
+	},
+	text: {
+		fontSize: 11,
+		lineHeight: 16,
+		fontWeight: '600',
+		textAlign: 'center',
+		color: COLORS.WHITE,
+		textAlignVertical: 'center'
+	}
+})

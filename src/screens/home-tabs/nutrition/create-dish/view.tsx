@@ -34,7 +34,8 @@ const CreateDishView = () => {
 		showDots,
 		copyHandler,
 		onPasteData,
-		copyData
+		copyData,
+		t
 	} = CreateDishHooks()
 
 	return (
@@ -43,7 +44,7 @@ const CreateDishView = () => {
 
 			<Header />
 
-			<Text style={styles.miniTitle}>{'Название блюда'}</Text>
+			<Text style={styles.miniTitle}>{t('dish-name')}</Text>
 			<InputPrimary
 				value={name}
 				onChange={setName}
@@ -54,25 +55,25 @@ const CreateDishView = () => {
 
 			<View style={styles.row}>
 				<View style={styles.box}>
-					<Text style={styles.rowTitle}>{'Ккал'}</Text>
+					<Text style={styles.rowTitle}>{t('calories2')}</Text>
 					<View style={styles.col3}>
 						<Text style={styles.input}>{Math.round(calories * 10) / 10 || ''}</Text>
 					</View>
 				</View>
 				<View style={styles.box}>
-					<Text style={styles.rowTitle}>{'Б'}</Text>
+					<Text style={styles.rowTitle}>{t('reduction-protein')}</Text>
 					<View style={styles.col1}>
 						<Text style={styles.input}>{Math.round(protein * 10) / 10 || ''}</Text>
 					</View>
 				</View>
 				<View style={styles.box}>
-					<Text style={styles.rowTitle}>{'Ж'}</Text>
+					<Text style={styles.rowTitle}>{t('reduction-fats')}</Text>
 					<View style={styles.col1}>
 						<Text style={styles.input}>{Math.round(oil * 10) / 10 || ''}</Text>
 					</View>
 				</View>
 				<View style={styles.box}>
-					<Text style={styles.rowTitle}>{'У'}</Text>
+					<Text style={styles.rowTitle}>{t('reduction-carbohydrates')}</Text>
 					<View style={styles.col1}>
 						<Text style={styles.input}>{Math.round(carb * 10) / 100 || ''}</Text>
 					</View>
@@ -81,7 +82,7 @@ const CreateDishView = () => {
 
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<ProductListDish
-					title='Добавить продукт'
+					title={t('add-product')}
 					amounts={amounts}
 					products={products}
 					style={{ marginTop: 25 }}

@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import {
+	View,
+	Text,
+	ScrollView,
+	TouchableWithoutFeedback,
+	TouchableOpacity,
+	ActivityIndicator
+} from 'react-native'
 import { ButtonPrimary, EmptyComponent, Icon } from '../../../../../components/common'
 import Modal from './modal'
 import { COLORS } from '../../../../../constants/COLORS'
@@ -43,13 +50,17 @@ const StudentWorkoutView = ({ apprenticeId = '' }) => {
 		onHide,
 		onFinish,
 		exercisePress,
-		i18n
+		i18n,
+		isLoading
 	} = StudentWorkoutHooks(apprenticeId)
 
 	return (
 		<View style={styles.container}>
+			{isLoading && (
+				<ActivityIndicator style={{ marginTop: 50 }} size={'large'} color={COLORS.WHITE} />
+			)}
 			{!!!data ? (
-				<EmptyComponent />
+				<>{!isLoading && <EmptyComponent />}</>
 			) : (
 				<View>
 					<Text style={styles.topTitle}>{data.plan.title}</Text>

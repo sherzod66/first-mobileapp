@@ -11,6 +11,7 @@ import { selectProductCategories } from '../../../../../store/slices/categorySli
 import { ApiService } from '../../../../../services'
 import { TRecommendationContent } from '../../recommendation/hooks'
 import EventEmitter from '../../../../../utils/EventEmitter'
+import { useTranslation } from 'react-i18next'
 
 export type MyProductsScreenNavigationProp = NativeStackNavigationProp<
 	NutritionStackParamList,
@@ -35,6 +36,7 @@ export const MyProductsHooks = () => {
 	const [language] = useRedux(selectLanguage)
 	const [productCategories] = useRedux(selectProductCategories)
 	const [user, dispatch] = useRedux(selectUser)
+	const { t, i18n } = useTranslation()
 
 	const navigation = useNavigation<MyProductsScreenNavigationProp>()
 
@@ -247,6 +249,8 @@ export const MyProductsHooks = () => {
 		setEditId,
 		onEdit,
 		navigateSearch,
-		navigateUpdateDish
+		navigateUpdateDish,
+		t,
+		i18n
 	}
 }

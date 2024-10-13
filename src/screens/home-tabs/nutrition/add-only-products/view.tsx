@@ -29,7 +29,9 @@ const AddProductsView = () => {
 		onAdd,
 		language,
 		productCategories,
-		navigateSearch
+		navigateSearch,
+		i18n,
+		t
 	} = AddProductsHooks()
 
 	return (
@@ -46,12 +48,12 @@ const AddProductsView = () => {
 					}}
 					icon={<Icon source={Assets.icons.search} />}
 				/>
-				<Text style={styles.textMy}>Поиск</Text>
+				<Text style={styles.textMy}>{t('search')}</Text>
 			</TouchableOpacity>
 
 			<ButtonTabs
 				secondary
-				titles={['Мои продукты', 'База продуктов']}
+				titles={[t('my-products'), t('product-base')]}
 				active={activeTab}
 				setActive={setActiveTab}
 				containerStyle={styles.tab1Cont}
@@ -64,7 +66,7 @@ const AddProductsView = () => {
 						active={activeCategory}
 						setActive={setActiveCategory}
 						containerStyle={styles.tab2Cont}
-						titles={[...productCategories.map(a => a.name[language])]}
+						titles={[...productCategories.map(a => a.name[i18n.language as 'ru'])]}
 					/>
 				</ScrollView>
 			</View>
@@ -74,8 +76,10 @@ const AddProductsView = () => {
 					<View style={styles.box} key={`${p._id}/${pI}`}>
 						<View style={styles.header}>
 							<View>
-								<Text style={styles.text1}>{p.name[language]}</Text>
-								<Text style={styles.text2}>{`на ${PRODUCT_AMOUNT}гр. продукта`}</Text>
+								<Text style={styles.text1}>{p.name[i18n.language as 'ru']}</Text>
+								<Text style={styles.text2}>{`${t('per_100g', {
+									amount: PRODUCT_AMOUNT
+								})}`}</Text>
 							</View>
 							<TouchableOpacity style={styles.checkbox} onPress={() => onSelect(p)}>
 								{selected.find(s => s._id === p._id) && <View style={styles.checkboxFilled} />}

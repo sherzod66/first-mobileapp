@@ -18,6 +18,7 @@ import { getSumValues } from '../../../../../utils/getSumValues'
 import { convertDishToProduct } from '../../../../../utils/convertDishToProduct'
 import EventEmitter from '../../../../../utils/EventEmitter'
 import { TRecommendationContent } from '../../recommendation/hooks'
+import { useTranslation } from 'react-i18next'
 
 export type SchemaNutritionScreenNavigationProp = NativeStackNavigationProp<
 	NutritionStackParamList,
@@ -63,6 +64,8 @@ export const SchemaNutritionHooks = () => {
 	const [oil, setOil] = useState(0)
 	const [carb, setCarb] = useState(0)
 	const [whatModel, setWhatModel] = useState<keyof TRecommendationContent>('amountOfDeficitOil')
+
+	const { t } = useTranslation()
 
 	const effect = () => {
 		if (schemaNutritions) {
@@ -388,6 +391,7 @@ export const SchemaNutritionHooks = () => {
 		onMeasurementsPress,
 		onShow,
 		onSave,
-		onCancel
+		onCancel,
+		t
 	}
 }

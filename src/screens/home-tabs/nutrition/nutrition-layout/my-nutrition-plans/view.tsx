@@ -14,14 +14,15 @@ const MyNutritionPlansView = () => {
 		onPress,
 		isSuperAdmin,
 		isTrainers,
-		trainer
+		trainer,
+		t
 	} = MyNutritionPlansHooks()
 	return (
 		<View style={styles.container}>
 			<ButtonTabs
 				active={activeTab}
 				setActive={setActiveTab}
-				titles={['Жиросжигание', 'Массанабор']}
+				titles={[t('oil'), t('mass')]}
 				primary
 				containerStyle={styles.btnCont}
 				scroll={false}
@@ -40,14 +41,14 @@ const MyNutritionPlansView = () => {
 											<Text style={styles.text2}>{'Белков'}</Text>
 											<Text style={styles.text3}>{`${Math.trunc(
 												(nP.calories * nP.proteinPercent) / 400
-											)}гр`}</Text>
+											)} ${t('grams')}`}</Text>
 										</View>
 										<View style={[styles.center, styles.ml20]}>
 											<Text style={styles.text1}>{`${nP.oilPercent}%`}</Text>
 											<Text style={styles.text2}>{'Жиров'}</Text>
 											<Text style={styles.text3}>{`${Math.trunc(
 												(nP.calories * nP.oilPercent) / 900
-											)}гр`}</Text>
+											)} ${t('grams')}`}</Text>
 										</View>
 										<View style={[styles.center, styles.ml20]}>
 											<Text style={styles.text1}>{`${
@@ -56,11 +57,11 @@ const MyNutritionPlansView = () => {
 											<Text style={styles.text2}>{'Углеводов'}</Text>
 											<Text style={styles.text3}>{`${Math.trunc(
 												(nP.calories * (100 - (nP.proteinPercent + nP.oilPercent))) / 400
-											)}гр`}</Text>
+											)} ${t('grams')}`}</Text>
 										</View>
 									</View>
 									<Text style={[styles.title, { textAlign: 'right' }]}>
-										{nP.price ? `${formatPrice(nP.price)} UZS` : 'Бесплатно'}
+										{nP.price ? `${formatPrice(nP.price)} UZS` : t('free')}
 									</Text>
 								</View>
 							</TouchableOpacity>
@@ -74,7 +75,7 @@ const MyNutritionPlansView = () => {
 						onPress={onPress}
 						style={styles.btn}
 						textStyle={styles.btnText}
-						text='Сделать свой план'
+						text={t('create-paln')}
 					/>
 				)}
 				{isTrainers && trainer?.isEducation && (
@@ -83,7 +84,7 @@ const MyNutritionPlansView = () => {
 						onPress={onPress}
 						style={styles.btn}
 						textStyle={styles.btnText}
-						text='Сделать свой план'
+						text={t('create-paln')}
 					/>
 				)}
 			</View>

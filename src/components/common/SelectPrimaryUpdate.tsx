@@ -13,17 +13,15 @@ export interface SelectProps {
 	title?: string
 	onChange?: (data: SelectItem) => void
 	hasRemove?: boolean
-	onRemove?: (e: string) => void
-	isUpdate?: (data: SelectItem) => void
+	onUpdate?: (data: SelectItem) => void
 }
-const SelectPrimary = ({
+const SelectPrimaryUpdate = ({
 	data,
 	title,
 	onChange,
 	hasRemove,
-	onRemove,
-	children,
-	isUpdate
+	onUpdate,
+	children
 }: SelectProps & React.PropsWithChildren) => {
 	const [shouldShow, setShouldShow] = useState(true)
 	const [drop, setDrop] = useState<SelectItem>()
@@ -61,16 +59,10 @@ const SelectPrimary = ({
 										style={styles.btnLanguage}
 									>
 										<Text style={styles.textOne}>{e.label}</Text>
-										{isUpdate && (
-											<TouchableOpacity onPress={() => isUpdate && isUpdate(e)}>
-												<Text style={styles.textUpdate}>Редактировать</Text>
-											</TouchableOpacity>
-										)}
-										{hasRemove && (
-											<TouchableOpacity onPress={() => onRemove && onRemove(e.value)}>
-												<Image source={Assets.icons.close} style={styles.removeIcon} />
-											</TouchableOpacity>
-										)}
+
+										<TouchableOpacity onPress={() => onUpdate && onUpdate(e)}>
+											<Text style={styles.textUpdate}>Редактировать</Text>
+										</TouchableOpacity>
 									</TouchableOpacity>
 								)
 							})}
@@ -82,22 +74,22 @@ const SelectPrimary = ({
 	)
 }
 
-export default SelectPrimary
+export default SelectPrimaryUpdate
 
 const styles = StyleSheet.create({
 	removeIcon: {
 		width: 20,
 		height: 20
 	},
-	textUpdate: {
-		fontSize: 12,
-		fontWeight: '600',
-		color: COLORS.RED2
-	},
 	textOne: {
 		fontSize: 12,
 		fontWeight: '600',
 		color: COLORS.WHITE
+	},
+	textUpdate: {
+		fontSize: 12,
+		fontWeight: '600',
+		color: COLORS.RED2
 	},
 	btnLanguage: {
 		marginVertical: 10,

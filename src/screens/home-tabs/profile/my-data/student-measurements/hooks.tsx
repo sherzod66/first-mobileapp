@@ -15,11 +15,17 @@ export const StudentHooks = (apprenticeId = '') => {
 	const [date, setDate] = useState(new Date())
 	const [pickerState, setPickerState] = useState<'date' | 'time' | null>(null)
 	const [user, setUser] = useState<User | undefined>(undefined)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+
 	const getUser = async () => {
 		try {
+			setIsLoading(true)
 			const req = await ApiService.get<Response<User>>(`/users/${apprenticeId}`)
 			setUser(req.data)
-		} catch (e) {}
+			setIsLoading(false)
+		} catch (e) {
+			setIsLoading(false)
+		}
 	}
 	useEffect(() => {
 		if (apprenticeId.length > 1) {
@@ -68,6 +74,7 @@ export const StudentHooks = (apprenticeId = '') => {
 		setDate,
 		pickerState,
 		setPickerState,
-		user
+		user,
+		isLoading
 	}
 }

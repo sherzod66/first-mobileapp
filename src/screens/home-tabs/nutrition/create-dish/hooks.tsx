@@ -13,6 +13,7 @@ import { selectDishCategories } from '../../../../store/slices/categorySlice'
 import { ApiService } from '../../../../services'
 import { setProducts as setP } from '../../../../store/slices/productSlice'
 import { copyProductSlice, setCopyProducts } from '../../../../store/slices/copyDataSlice'
+import { useTranslation } from 'react-i18next'
 
 export type CreateDishScreenNavigationProp = NativeStackNavigationProp<
 	NutritionStackParamList,
@@ -38,6 +39,8 @@ export const CreateDishHooks = () => {
 	const [modalValue, setModalValue] = useState('')
 	const [showDots, setShowDots] = useState<boolean>(false)
 	const [copyData, updateCopy] = useRedux(copyProductSlice)
+
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		let arr: number[] = []
@@ -175,6 +178,7 @@ export const CreateDishHooks = () => {
 		setShowDots,
 		copyHandler,
 		onPasteData,
-		copyData
+		copyData,
+		t
 	}
 }

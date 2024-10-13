@@ -27,7 +27,8 @@ const MyExercisesView = () => {
 		onAdd,
 		loadingSelect,
 		i18n,
-		onPress
+		onPress,
+		t
 	} = MyExercisesHooks()
 
 	return (
@@ -36,7 +37,7 @@ const MyExercisesView = () => {
 				primary
 				active={isFavorite}
 				setActive={setIsFavorite}
-				titles={['Выбранные', 'Выбрать из общей базы']}
+				titles={[t('selected'), t('select-from-general-database')]}
 				containerStyle={styles.favoriteBtnCont}
 				scroll={false}
 			/>
@@ -45,7 +46,7 @@ const MyExercisesView = () => {
 				secondary
 				active={activeCategory}
 				setActive={setActiveCategory}
-				titles={[...exerciseCategories.map(a => a.name[language])]}
+				titles={[...exerciseCategories.map(a => a.name[i18n.language as 'ru'])]}
 				containerStyle={styles.categoryBtnCont}
 			/>
 
@@ -54,7 +55,11 @@ const MyExercisesView = () => {
 				setActive={setActiveSubCategory}
 				titles={
 					!!exerciseCategories && exerciseCategories.length > 0
-						? [...exerciseCategories[activeCategory].children.map(a => a.name[language])]
+						? [
+								...exerciseCategories[activeCategory].children.map(
+									a => a.name[i18n.language as 'ru']
+								)
+						  ]
 						: []
 				}
 				containerStyle={styles.subCategoryBtnCont}
@@ -96,7 +101,7 @@ const MyExercisesView = () => {
 						loadingColor={COLORS.WHITE}
 						onPress={onAdd}
 						style={styles.button}
-						text='Добавить в  “ Выбранные “'
+						text={t('add-to-favorites')}
 						textStyle={styles.buttonText}
 					/>
 				</View>

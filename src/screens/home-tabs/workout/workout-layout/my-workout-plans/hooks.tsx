@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { WorkoutStackParamList } from '../..'
 import { ROUTES, WORKOUT } from '../../../../../navigation/ROUTES'
 import { ApiService } from '../../../../../services'
@@ -9,6 +9,7 @@ import { selectTrainer, selectUser, setUser } from '../../../../../store/slices/
 import { Response, Trainer, User, WorkoutPlan } from '../../../../../types'
 import { showSuccessToast } from '../../../../../utils/showToast'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 export type MyWorkoutPlansScreenNavigationProp = NativeStackNavigationProp<
 	WorkoutStackParamList,
@@ -20,6 +21,8 @@ export const MyWorkoutPlansHooks = () => {
 	const [show, setShow] = useState<any>()
 
 	const trainer = useSelector(selectTrainer)
+
+	const { t } = useTranslation()
 
 	const [user, dispatch] = useRedux(selectUser)
 	const { workoutPlans } = user ?? {}
@@ -66,6 +69,7 @@ export const MyWorkoutPlansHooks = () => {
 		onRemove,
 		workoutPlans,
 		user,
-		trainer
+		trainer,
+		t
 	}
 }

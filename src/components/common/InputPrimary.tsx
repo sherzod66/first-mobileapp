@@ -16,7 +16,7 @@ import { NUTRITION } from '../../navigation/ROUTES'
 
 interface IProps {
 	multiline?: boolean
-	value?: string
+	value?: string | undefined
 	onChange: (value: string) => void
 	placeholder?: string
 	placeholderColor?: string

@@ -14,6 +14,7 @@ import { ROLES, Trainer } from '../types'
 import { ApiService } from '../services'
 import { useRedux } from '../store/hooks'
 import EventEmitter from '../utils/EventEmitter'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
 	avatar?: ImageSourcePropType
@@ -42,6 +43,7 @@ const TrainerBox = ({
 }: IProps) => {
 	let [user, dispatch] = useRedux(selectUser)
 	let isSuperAdmin = user?.role === ROLES.SUPERADMIN
+	const { t } = useTranslation()
 
 	const onDeleteConfirm = async (id: string) => {
 		try {
@@ -56,7 +58,7 @@ const TrainerBox = ({
 	const onDeletePress = (el: string) => {
 		Alert.alert('Внимание !', 'Вы уверены, что хотите удалить этого пользователя?', [
 			{
-				text: 'Удалить',
+				text: t('delete'),
 				style: 'destructive',
 				onPress: () => onDeleteConfirm(el)
 			},
@@ -91,10 +93,10 @@ const TrainerBox = ({
 						{isSuperAdmin && (
 							<>
 								<TouchableOpacity onPress={() => onUpdate(id ? id : '')}>
-									<Text style={[styles.experience, { color: COLORS.RED }]}>Редактировать</Text>
+									<Text style={[styles.experience, { color: COLORS.RED }]}>{t('edit')}</Text>
 								</TouchableOpacity>
 								<TouchableOpacity onPress={() => onDeletePress(id ? id : '')}>
-									<Text style={[styles.experience, { color: COLORS.RED }]}>Удалить</Text>
+									<Text style={[styles.experience, { color: COLORS.RED }]}>{t('delete')}</Text>
 								</TouchableOpacity>
 							</>
 						)}
