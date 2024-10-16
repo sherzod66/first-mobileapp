@@ -6,9 +6,8 @@ import { styles } from './style'
 import { ButtonSecondary, Header, InputPrimary } from '../../../../../components/common'
 import SelectPrimary from '../../../../../components/common/SelectPrimary'
 import { Assets } from '../../../../../utils/requireAssets'
-import SelectPrimaryUpdate from '../../../../../components/common/SelectPrimaryUpdate'
 
-const UpdateProductView = () => {
+const CreateProductView = () => {
 	const {
 		onChange,
 		categories,
@@ -19,32 +18,34 @@ const UpdateProductView = () => {
 		onExerciseSubmit,
 		onCategoryRemove,
 		product,
-		openUpdateCategory,
-		updateCategory,
 		closeUpdateCategory,
-		setUpdateCategoryValue,
+		openUpdateCategory,
 		updateCategoryValue,
 		updateLoading,
+		updateCategory,
+		setUpdateCategoryValue,
 		categoryProductUpdateSubmit
 	} = CreateProductHook()
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<Header title='Редактирование продукта' />
+				<Header title='Создание продукта' />
 			</View>
 			<ScrollView style={styles.contentContainer}>
 				<View style={styles.categoryContainer}>
 					<View style={{ flex: 1, marginBottom: 10 }}>
-						<SelectPrimaryUpdate
+						<SelectPrimary
+							hasRemove
 							title='Категория'
 							data={categories.map(e => ({ label: e.name.ru, value: e._id }))}
 							onChange={onChange('category')}
-							onUpdate={openUpdateCategory}
+							onRemove={onCategoryRemove}
+							isUpdate={openUpdateCategory}
 						>
 							<TouchableOpacity onPress={onModalToggle} style={styles.plusContainer}>
 								<Image source={Assets.icons.close} style={styles.plusIcon} />
 							</TouchableOpacity>
-						</SelectPrimaryUpdate>
+						</SelectPrimary>
 					</View>
 				</View>
 				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название(RU)</Text>
@@ -52,7 +53,6 @@ const UpdateProductView = () => {
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					value={product.name?.ru}
 					onChange={onChange('name.ru')}
 				/>
 				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название(UZ)</Text>
@@ -60,7 +60,6 @@ const UpdateProductView = () => {
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					value={product.name?.uz}
 					onChange={onChange('name.uz')}
 				/>
 				<Text style={[styles.textOne, { marginVertical: 10 }]}>Название(EN)</Text>
@@ -68,7 +67,6 @@ const UpdateProductView = () => {
 					disablePlaceholder
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
-					value={product.name?.en}
 					onChange={onChange('name.en')}
 				/>
 				<Text style={[styles.textOne, { marginVertical: 10 }]}>Каллории</Text>
@@ -79,7 +77,6 @@ const UpdateProductView = () => {
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
 					keyboardType='number-pad'
-					value={`${product.protein}`}
 					onChange={onChange('protein')}
 				/>
 				<Text style={[styles.textOne, { marginVertical: 10 }]}>Жиры</Text>
@@ -88,7 +85,6 @@ const UpdateProductView = () => {
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
 					keyboardType='number-pad'
-					value={`${product.oil}`}
 					onChange={onChange('oil')}
 				/>
 				<Text style={[styles.textOne, { marginVertical: 10 }]}>Углеводы</Text>
@@ -97,7 +93,6 @@ const UpdateProductView = () => {
 					inputStyle={styles.input}
 					containerStyle={styles.inputCont}
 					keyboardType='number-pad'
-					value={`${product.carb}`}
 					onChange={onChange('carb')}
 				/>
 
@@ -107,7 +102,7 @@ const UpdateProductView = () => {
 						marginVertical: 20,
 						paddingVertical: 15
 					}}
-					text='Редактировать'
+					text='Создать'
 					onPress={onExerciseSubmit}
 				/>
 			</ScrollView>
@@ -211,4 +206,4 @@ const UpdateProductView = () => {
 	)
 }
 
-export default UpdateProductView
+export default CreateProductView

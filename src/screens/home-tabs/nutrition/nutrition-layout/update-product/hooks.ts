@@ -39,18 +39,6 @@ export const CreateProductHook = () => {
 	const [product, setProduct] = useState<CustomCategory>({})
 	const [category, setCategory] = useState<Partial<Category>>({})
 	const [categoryModalVisible, setCategoryModalVisible] = useState(false)
-	const [updateLoading, setUpdateLoading] = useState<boolean>(false)
-	const [updateCategoryValue, setUpdateCategoryValue] = useState<CustomCategoryUpdate>({
-		_id: '',
-		en: '',
-		ru: '',
-		type: CategoryType.PRODUCT,
-		uz: ''
-	})
-	const [updateCategory, setUpdateCategory] = useState<{
-		isOpen: boolean
-		category: SelectItem | null
-	}>({ category: null, isOpen: false })
 	const categories = useSelector(selectProductCategories)
 	const navigation = useNavigation()
 	const dispatch = useDispatch()
@@ -110,34 +98,6 @@ export const CreateProductHook = () => {
 		)
 	}
 
-	const categoryProductUpdateSubmit = async () => {
-		if (updateCategoryValue) {
-			const findCategory = categories.find(elem => elem._id === updateCategoryValue._id)
-			if (findCategory) {
-				try {
-					setUpdateLoading(true)
-					const payload = {
-						name: {
-							ru: updateCategoryValue.ru,
-							uz: updateCategoryValue.uz,
-							en: updateCategoryValue.en
-						},
-						type: updateCategoryValue.type,
-						parent: findCategory.parent
-					}
-					await ApiService.put(`/categories/${updateCategoryValue._id}`, payload)
-
-					await fetchCategories()
-					setUpdateLoading(false)
-					setUpdateCategory({ category: null, isOpen: false })
-					showSuccessToast('Категорий успешно обновлен')
-				} catch (error) {
-					setUpdateLoading(false)
-				}
-			}
-		}
-	}
-
 	const onCategoryRemove = async (e: string) => {
 		try {
 			await ApiService.delete(`/categories/${e}`)
@@ -148,23 +108,6 @@ export const CreateProductHook = () => {
 
 	const onModalToggle = () => {
 		setCategoryModalVisible(e => !e)
-	}
-
-	const openUpdateCategory = (category: SelectItem) => {
-		setUpdateCategory({ category, isOpen: true })
-		const findCategory = categories.find(elem => elem._id === category.value)
-		if (findCategory) {
-			setUpdateCategoryValue({
-				_id: findCategory._id,
-				en: findCategory.name.en,
-				ru: findCategory.name.ru,
-				type: findCategory.type,
-				uz: findCategory.name.uz
-			})
-		}
-	}
-	const closeUpdateCategory = () => {
-		setUpdateCategory({ category: null, isOpen: false })
 	}
 
 	const onChange = (key: keyof Product) => (value: any) => {
@@ -248,13 +191,6 @@ export const CreateProductHook = () => {
 		onCategorySubmit,
 		onExerciseSubmit,
 		onCategoryRemove,
-		product,
-		openUpdateCategory,
-		updateCategory,
-		closeUpdateCategory,
-		updateCategoryValue,
-		setUpdateCategoryValue,
-		categoryProductUpdateSubmit,
-		updateLoading
+		product
 	}
 }

@@ -22,6 +22,13 @@ const CreateProductView = () => {
     onExerciseSubmit,
     onCategoryRemove,
     product,
+    closeUpdateCategory,
+    openUpdateCategory,
+    updateCategoryValue,
+    updateLoading,
+    updateCategory,
+    setUpdateCategoryValue,
+    categoryProductUpdateSubmit,
   } = CreateProductHook();
   return (
     <View style={styles.container}>
@@ -37,6 +44,7 @@ const CreateProductView = () => {
               data={categories.map((e) => ({ label: e.name.ru, value: e._id }))}
               onChange={onChange("category")}
               onRemove={onCategoryRemove}
+              isUpdate={openUpdateCategory}
             >
               <TouchableOpacity
                 onPress={onModalToggle}
@@ -171,8 +179,68 @@ const CreateProductView = () => {
           />
         </View>
       </ReactNativeModal>
+      <ReactNativeModal
+        isVisible={updateCategory.isOpen}
+        onDismiss={closeUpdateCategory}
+        onBackButtonPress={closeUpdateCategory}
+        onBackdropPress={closeUpdateCategory}
+      >
+        {updateCategoryValue && (
+          <View style={styles.modalContainer}>
+            <Text style={[styles.modalTitle]}>Редактировать</Text>
+            <Text style={[styles.textOne, { marginVertical: 10 }]}>
+              Название(RU)
+            </Text>
+            <InputPrimary
+              disablePlaceholder
+              inputStyle={styles.input}
+              value={updateCategoryValue.ru}
+              containerStyle={styles.inputCont}
+              onChange={(v) =>
+                setUpdateCategoryValue((prev) => ({ ...prev, ru: v }))
+              }
+            />
+            <Text style={[styles.textOne, { marginVertical: 10 }]}>
+              Название(UZ)
+            </Text>
+            <InputPrimary
+              disablePlaceholder
+              inputStyle={styles.input}
+              containerStyle={styles.inputCont}
+              value={updateCategoryValue.uz}
+              onChange={(v) =>
+                setUpdateCategoryValue((prev) => ({ ...prev, uz: v }))
+              }
+            />
+            <Text style={[styles.textOne, { marginVertical: 10 }]}>
+              Название(EN)
+            </Text>
+            <InputPrimary
+              disablePlaceholder
+              inputStyle={styles.input}
+              containerStyle={styles.inputCont}
+              value={updateCategoryValue.en}
+              onChange={(v) =>
+                setUpdateCategoryValue((prev) => ({ ...prev, en: v }))
+              }
+            />
+            <ButtonSecondary
+              loading={updateLoading}
+              disabled={updateLoading}
+              containerStyle={{
+                width: "100%",
+                marginVertical: 20,
+                paddingVertical: 15,
+              }}
+              text="Редактировать"
+              onPress={categoryProductUpdateSubmit}
+            />
+          </View>
+        )}
+      </ReactNativeModal>
     </View>
   );
 };
 
 export default CreateProductView;
+
