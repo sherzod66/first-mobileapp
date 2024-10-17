@@ -3,10 +3,12 @@ import { useMemo, useState } from 'react'
 import { useRedux } from '../../../../store/hooks'
 import { selectSchemaNutritions } from '../../../../store/slices/appSlice'
 import { NUTRITION_TYPE } from '../../../../types'
+import { useTranslation } from 'react-i18next'
 
 export const MyDataHooks = () => {
 	const [active, setActive] = useState(0)
 	const [schemaNutritions] = useRedux(selectSchemaNutritions)
+	const { t } = useTranslation()
 	const nType = useMemo(() => {
 		if (schemaNutritions && schemaNutritions.length > 0) {
 			return schemaNutritions[schemaNutritions.length - 1].data?.nType
@@ -21,6 +23,7 @@ export const MyDataHooks = () => {
 		active,
 		setActive,
 		apprenticeId: route?.params?.apprenticeId,
-		nType
+		nType,
+		t
 	}
 }

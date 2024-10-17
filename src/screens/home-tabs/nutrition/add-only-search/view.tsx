@@ -5,14 +5,15 @@ import { SearchHooks } from './hooks'
 import { COLORS } from '../../../../constants/COLORS'
 
 const AddOnlySearch = () => {
-	const { foundProduct, loading, selected, onAdd, onSelect, setSearchValue } = SearchHooks()
+	const { foundProduct, loading, selected, onAdd, onSelect, setSearchValue, i18n, t } =
+		SearchHooks()
 	return (
 		<View style={styles.container}>
 			<SafeAreaView />
 			<Header />
 			<InputPrimary
 				onChange={v => setSearchValue(v)}
-				placeholder={'Поиск'}
+				placeholder={t('search')}
 				placeholderColor={COLORS.WHITE}
 				containerStyle={{
 					backgroundColor: COLORS.GREY3,
@@ -31,8 +32,8 @@ const AddOnlySearch = () => {
 					<View style={styles.box} key={`${p._id}/${pI}`}>
 						<View style={styles.header}>
 							<View>
-								<Text style={styles.text1}>{p.name.ru}</Text>
-								<Text style={styles.text2}>{`на 100гр. продукта`}</Text>
+								<Text style={styles.text1}>{p.name[i18n.language as 'ru']}</Text>
+								<Text style={styles.text2}>{t('per_100g_product')}</Text>
 							</View>
 							<TouchableOpacity style={styles.checkbox} onPress={() => onSelect(p)}>
 								{selected.find(s => s._id === p._id) && <View style={styles.checkboxFilled} />}
@@ -41,19 +42,19 @@ const AddOnlySearch = () => {
 						<View style={styles.main}>
 							<View>
 								<Text style={styles.text3}>
-									{'Б - '}
-									<Text style={styles.text4}>{`${p.protein} гр`}</Text>
+									{`${t('reduction-protein')} - `}
+									<Text style={styles.text4}>{`${p.protein} ${t('grams')}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'Ж - '}
-									<Text style={styles.text4}>{`${p.oil} гр`}</Text>
+									{`${t('reduction-fats')} - `}
+									<Text style={styles.text4}>{`${p.oil} ${t('grams')}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'У - '}
-									<Text style={styles.text4}>{`${p.carb} гр`}</Text>
+									{`${t('reduction-carbohydrates')} - `}
+									<Text style={styles.text4}>{`${p.carb} ${t('grams')}`}</Text>
 								</Text>
 							</View>
-							<Text style={styles.text5}>{`${p.calories} каллорий`}</Text>
+							<Text style={styles.text5}>{`${p.calories} ${t('calories')}`}</Text>
 						</View>
 					</View>
 				))}
@@ -62,7 +63,7 @@ const AddOnlySearch = () => {
 			{selected.length > 0 && (
 				<ButtonPrimary
 					fill
-					text='Добавить'
+					text={t('add')}
 					onPress={onAdd}
 					loading={loading}
 					style={styles.btn}

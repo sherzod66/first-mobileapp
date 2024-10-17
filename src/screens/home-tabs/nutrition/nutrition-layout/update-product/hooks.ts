@@ -15,6 +15,7 @@ import { addProduct, setProducts } from '../../../../../store/slices/productSlic
 import { countCalories } from '../../../../../utils/countCalories'
 import { NutritionStackParamList } from '../..'
 import { showSuccessToast } from '../../../../../utils/showToast'
+import { useTranslation } from 'react-i18next'
 
 type CustomCategory = Partial<
 	Omit<Product, 'category'> & {
@@ -43,6 +44,7 @@ export const CreateProductHook = () => {
 	const navigation = useNavigation()
 	const dispatch = useDispatch()
 	const user = useSelector(selectUser)
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		if (product && product.protein && product.oil && product.carb) {
@@ -191,6 +193,7 @@ export const CreateProductHook = () => {
 		onCategorySubmit,
 		onExerciseSubmit,
 		onCategoryRemove,
-		product
+		product,
+		t
 	}
 }

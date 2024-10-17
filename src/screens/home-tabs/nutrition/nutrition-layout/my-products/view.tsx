@@ -120,8 +120,8 @@ const MyProductsView = () => {
 					<View style={styles.box} key={a._id}>
 						<View style={styles.header}>
 							<View>
-								<Text style={styles.text1}>{a.name.ru}</Text>
-								{activeTab !== null && <Text style={styles.text2}>{'на 100гр. продукта'}</Text>}
+								<Text style={styles.text1}>{a.name[i18n.language as 'ru']}</Text>
+								{activeTab !== null && <Text style={styles.text2}>{t('per_100g_product')}</Text>}
 							</View>
 							<View>
 								<ButtonPrimary
@@ -172,7 +172,9 @@ const MyProductsView = () => {
 									)}`}</Text>
 								</Text>
 							</View>
-							<Text style={styles.text5}>{`${Math.round(a.calories * 100) / 100} каллорий`}</Text>
+							<Text style={styles.text5}>{`${Math.round(a.calories * 100) / 100} ${t(
+								'calories'
+							)}`}</Text>
 						</View>
 					</View>
 				))}

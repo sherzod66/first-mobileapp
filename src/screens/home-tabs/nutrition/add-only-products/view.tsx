@@ -88,19 +88,19 @@ const AddProductsView = () => {
 						<View style={styles.main}>
 							<View>
 								<Text style={styles.text3}>
-									{'Б - '}
-									<Text style={styles.text4}>{`${p.protein} гр`}</Text>
+									{`${t('reduction-protein')} - `}
+									<Text style={styles.text4}>{`${p.protein} ${t('grams')}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'Ж - '}
-									<Text style={styles.text4}>{`${p.oil} гр`}</Text>
+									{`${t('reduction-fats')} - `}
+									<Text style={styles.text4}>{`${p.oil} ${t('grams')}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'У - '}
-									<Text style={styles.text4}>{`${p.carb} гр`}</Text>
+									{`${t('reduction-carbohydrates')} - `}
+									<Text style={styles.text4}>{`${p.carb} ${t('grams')}`}</Text>
 								</Text>
 							</View>
-							<Text style={styles.text5}>{`${p.calories} каллорий`}</Text>
+							<Text style={styles.text5}>{`${p.calories} ${t('calories')}`}</Text>
 						</View>
 					</View>
 				))}
@@ -110,7 +110,7 @@ const AddProductsView = () => {
 			{selected.length > 0 && (
 				<ButtonPrimary
 					fill
-					text='Добавить'
+					text={t('add')}
 					onPress={onAdd}
 					style={styles.btn}
 					textStyle={styles.btnText}

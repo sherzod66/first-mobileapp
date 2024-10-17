@@ -206,5 +206,11 @@
 	"language": "Язык",
 	"settings": "Настройки",
 	"create_new_dish": "Сделать новое блюдо",
-	"product_name": "Наименование продукта"
+	"product_name": "Наименование продукта",
+	"product_will_be_added_to_category": "Данный продукт, будет добавлен в категорию",
+	"per_100g_product": "на 100гр. продукта",
+	"add_to_my_products": "Добавить в 'Мои продукты'",
+	"successfully_added": "Успешно добавлено!",
+	"remind_next_measurement": "Напомнить о следующем замере",
+	"delete_row": "Удалить строку"
 }

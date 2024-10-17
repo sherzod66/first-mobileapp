@@ -206,5 +206,11 @@
 	"language": "Language",
 	"settings": "Settings",
 	"create_new_dish": "Create new dish",
-	"product_name": "Product name"
+	"product_name": "Product name",
+	"product_will_be_added_to_category": "This product will be added to the category",
+	"per_100g_product": "Per 100g of product",
+	"add_to_my_products": "Add to 'My Products'",
+	"successfully_added": "Successfully added!",
+	"remind_next_measurement": "Remind about the next measurement",
+	"delete_row": "Delete row"
 }

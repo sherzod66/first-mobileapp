@@ -10,6 +10,7 @@ import EventEmitter from '../../../../utils/EventEmitter'
 import { NutritionStackParamList } from '..'
 import { NUTRITION } from '../../../../navigation/ROUTES'
 import { SchemaNutritionScreenNavigationProp } from '../nutrition-layout/schema-nutrition/hooks'
+import { useTranslation } from 'react-i18next'
 
 type AddProductsScreenRouteProp = RouteProp<NutritionStackParamList, NUTRITION.ADD_ONLY_SEARCH>
 
@@ -23,17 +24,20 @@ export const SearchHooks = () => {
 	const [selected, setSelected] = useState<Product[]>([])
 	const [loading, setLoading] = useState(false)
 	const [foundProduct, setFoundProduct] = useState<Product[]>([])
+	const { t, i18n } = useTranslation()
 
 	useEffect(() => {
 		if (searchValue.length > 1 && user)
 			setFoundProduct([
 				...allProducts.filter(elem => {
 					if (!elem.userProduct) {
-						return elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
+						return elem.name[i18n.language as 'ru']
+							.toLowerCase()
+							.includes(searchValue.toLowerCase())
 					}
 				}),
 				...user.products.filter(elem =>
-					elem.name.ru.toLowerCase().includes(searchValue.toLowerCase())
+					elem.name[i18n.language as 'ru'].toLowerCase().includes(searchValue.toLowerCase())
 				)
 			])
 		else setFoundProduct([])
@@ -69,6 +73,8 @@ export const SearchHooks = () => {
 		setLoading,
 		onAdd,
 		onSelect,
-		setSearchValue
+		setSearchValue,
+		t,
+		i18n
 	}
 }

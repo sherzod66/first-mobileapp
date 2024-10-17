@@ -11,6 +11,8 @@ import { NUTRITION } from '../../../../../navigation/ROUTES'
 import { Alert } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { NutritionStackParamList } from '../..'
+import { showSuccessToast } from '../../../../../utils/showToast'
+import { useTranslation } from 'react-i18next'
 
 type MyNutritionPlansScreenNavigationProp = NativeStackNavigationProp<
 	NutritionStackParamList,
@@ -28,6 +30,7 @@ export const BaseProductsHooks = () => {
 	const [selected, setSelected] = useState<Product[]>([])
 	const [loading, setLoading] = useState(false)
 	const [search, setSearch] = useState<string>('')
+	const { t, i18n } = useTranslation()
 
 	const navigation = useNavigation<MyNutritionPlansScreenNavigationProp>()
 
@@ -89,6 +92,7 @@ export const BaseProductsHooks = () => {
 			)
 
 			setLoading(false)
+			showSuccessToast('Успешно добавлено!')
 			setSelected([])
 		}
 	}
@@ -147,6 +151,8 @@ export const BaseProductsHooks = () => {
 		search,
 		setSearch,
 		onSearch,
-		onUpdateNavigate
+		onUpdateNavigate,
+		t,
+		i18n
 	}
 }

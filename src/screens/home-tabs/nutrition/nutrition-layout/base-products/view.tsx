@@ -3,7 +3,6 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import { ButtonPrimary, ButtonTabs, Icon, InputPrimary } from '../../../../../components/common'
 import { BaseProductsHooks } from './hooks'
 import { styles } from './style'
-import { COLORS } from '../../../../../constants/COLORS'
 import { Assets } from '../../../../../utils/requireAssets'
 import ButtonTabsMy from '../../../../../components/common/ButtonTabsMy'
 const BaseProductsView = () => {
@@ -21,7 +20,9 @@ const BaseProductsView = () => {
 		onDeletePress,
 		isSuperAdmin,
 		onUpdateNavigate,
-		onSearch
+		onSearch,
+		i18n,
+		t
 	} = BaseProductsHooks()
 
 	return (
@@ -34,7 +35,7 @@ const BaseProductsView = () => {
 					}}
 					icon={<Icon source={Assets.icons.search} />}
 				/>
-				<Text style={styles.textMy}>Поиск</Text>
+				<Text style={styles.textMy}>{t('search')}</Text>
 			</TouchableOpacity>
 			<View style={styles.scrollCont}>
 				<ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -44,7 +45,7 @@ const BaseProductsView = () => {
 						setActive={setActiveTab}
 						containerStyle={styles.tabCont}
 						textStyle={{ backgroundColor: 'aquamarine' }}
-						titles={[...productCategories.map(a => a.name[language])]}
+						titles={[...productCategories.map(a => a.name[i18n.language as 'ru'])]}
 					/>
 				</ScrollView>
 			</View>
@@ -54,8 +55,8 @@ const BaseProductsView = () => {
 					<View style={styles.box} key={i}>
 						<View style={styles.header}>
 							<View>
-								<Text style={styles.text1}>{a.name[language]}</Text>
-								<Text style={styles.text2}>{'на 100гр. продукта'}</Text>
+								<Text style={styles.text1}>{a.name[i18n.language as 'ru']}</Text>
+								<Text style={styles.text2}>{t('per_100g_product')}</Text>
 							</View>
 							<TouchableOpacity style={styles.checkbox} onPress={() => onSelect(a)}>
 								{selected.find(s => s._id === a._id) && <View style={styles.checkboxFilled} />}
@@ -64,28 +65,28 @@ const BaseProductsView = () => {
 						<View style={styles.main}>
 							<View>
 								<Text style={styles.text3}>
-									{'Б - '}
-									<Text style={styles.text4}>{`${a.protein} гр`}</Text>
+									{`${t('reduction-protein')} - `}
+									<Text style={styles.text4}>{`${a.protein} ${t('grams')}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'Ж - '}
-									<Text style={styles.text4}>{`${a.oil} гр`}</Text>
+									{`${t('reduction-fats')} - `}
+									<Text style={styles.text4}>{`${a.oil} ${t('grams')}`}</Text>
 								</Text>
 								<Text style={styles.text3}>
-									{'У - '}
-									<Text style={styles.text4}>{`${a.carb} гр`}</Text>
+									{`${t('reduction-carbohydrates')} - `}
+									<Text style={styles.text4}>{`${a.carb} ${t('grams')}`}</Text>
 								</Text>
 							</View>
-							<Text style={styles.text5}>{`${a.calories} каллорий`}</Text>
+							<Text style={styles.text5}>{`${a.calories} ${t('calories')}`}</Text>
 						</View>
 						{isSuperAdmin && (
 							<TouchableOpacity onPress={() => onDeletePress(a)} style={styles.row}>
-								<Text style={styles.text5}>Удалить</Text>
+								<Text style={styles.text5}>{t('delete')}</Text>
 							</TouchableOpacity>
 						)}
 						{isSuperAdmin && (
 							<TouchableOpacity onPress={() => onUpdateNavigate(a)} style={styles.rowEdit}>
-								<Text style={styles.text5}>Редактировать</Text>
+								<Text style={styles.text5}>{t('edit')}</Text>
 							</TouchableOpacity>
 						)}
 					</View>
@@ -103,10 +104,10 @@ const BaseProductsView = () => {
 							style={styles.btn}
 							textStyle={styles.btnText}
 							disabled={!!!selected.length}
-							text='Добавить в “ Мои продукты “'
+							text={t('add_to_my_products')}
 						/>
 					)}
-					{isSuperAdmin && <ButtonPrimary text='Добавить продукт' onPress={onCreate} />}
+					{isSuperAdmin && <ButtonPrimary text={t('add-product')} onPress={onCreate} />}
 				</>
 			</View>
 		</View>

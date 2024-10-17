@@ -51,7 +51,7 @@ const ProductListDish = ({
 	onPaste,
 	onCopy
 }: IProps) => {
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 	return (
 		<View style={[styles.container, style]}>
 			<View style={[styles.header, styles.radiusTop]}>
@@ -73,7 +73,7 @@ const ProductListDish = ({
 					style={[styles.row, index === products.length - 1 && styles.radiusBottom]}
 				>
 					<View style={styles.left}>
-						<Text style={styles.textMy}>{product.name.ru}</Text>
+						<Text style={styles.textMy}>{product.name[i18n.language as 'ru']}</Text>
 						<TouchableOpacity onPress={() => onRemoveByIndex(index)}>
 							{typeof loading === 'number' && loading === index ? (
 								<ActivityIndicator size={'small'} />

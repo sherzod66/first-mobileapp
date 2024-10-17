@@ -196,13 +196,23 @@ export const CreateExerciseHook = () => {
 	}
 
 	const categoryProductUpdateSubmit = async () => {
-		if (updateCategoryValue && subcategories) {
-			console.log('sss')
+		if (updateCategoryValue) {
 			const findCategory = categories.find(elem => elem._id === updateCategoryValue._id)
-			const findSubcategory = subcategories.find(elem => elem._id === updateCategoryValue._id)
+			const findSubcategory = subcategories
+				? subcategories.find(elem => elem._id === updateCategoryValue._id)
+				: undefined
 			if (findCategory) {
 				try {
 					setUpdateLoading(true)
+					const payload = {
+						name: {
+							ru: updateCategoryValue.ru,
+							uz: updateCategoryValue.uz,
+							en: updateCategoryValue.en
+						},
+						type: updateCategoryValue.type,
+						parent: findCategory.parent
+					}
 
 					await ApiService.put(`/categories/${updateCategoryValue._id}`, payload)
 

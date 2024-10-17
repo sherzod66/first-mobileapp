@@ -207,5 +207,11 @@
 	"language": "Til",
 	"settings": "Sozlamalar",
 	"create_new_dish": "Yangi taom yaratish",
-	"product_name": "Mahsulot nomi"
+	"product_name": "Mahsulot nomi",
+	"product_will_be_added_to_category": "Bu mahsulot kategoriya ichiga qo'shiladi",
+	"per_100g_product": "100 g mahsulotga",
+	"add_to_my_products": "'Mening mahsulotlarim'ga qo'shish",
+	"successfully_added": "Muvaffaqiyatli qo'shildi!",
+	"remind_next_measurement": "Keyingi o'lchov haqida eslatish",
+	"delete_row": "Qatorni o'chirish"
 }
