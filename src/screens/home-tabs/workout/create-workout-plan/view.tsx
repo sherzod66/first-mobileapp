@@ -35,14 +35,15 @@ const CreateWorkoutPlanView = () => {
 		shouldShow,
 		drop,
 		setDrop,
-		setToggle,
-		toggle,
+		setByFemale,
+		byFemale,
 		price,
 		setPrice,
 		setPublic,
 		publicly,
 		t,
-		trainer
+		trainer,
+		isSuperAdmin
 	} = CreateWorkoutPlanHooks()
 
 	return (
@@ -170,10 +171,17 @@ const CreateWorkoutPlanView = () => {
 								</View>
 							</>
 							<View style={styles.activeBox}>
-								<Text style={styles.activeText}>{t('by-woman')}</Text>
-								<Active_Button toggle={toggle} setToggle={setToggle} />
 								<Text style={styles.activeText}>{t('by-man')}</Text>
+								<Active_Button toggle={byFemale} setToggle={setByFemale} />
+								<Text style={styles.activeText}>{t('by-woman')}</Text>
 							</View>
+							{isSuperAdmin && (
+								<View style={styles.activeBox}>
+									<Text style={styles.activeText}>{t('public')}</Text>
+									<Active_ButtonMy toggle={publicly} setToggle={setPublic} />
+									<Text style={styles.activeText}>{t('private')}</Text>
+								</View>
+							)}
 							{trainer?.isEducation && (
 								<View style={styles.activeBox}>
 									<Text style={styles.activeText}>{t('public')}</Text>

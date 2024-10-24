@@ -28,6 +28,7 @@ export const CreateWorkoutPlanHooks = () => {
 
 	const [user, dispatch] = useRedux(selectUser)
 	const isSuperAdminOrTrainer = user?.role === ROLES.SUPERADMIN || user?.role === ROLES.TRAINER
+	const isSuperAdmin = user?.role === ROLES.SUPERADMIN
 
 	const { t } = useTranslation()
 	const [loading, setLoading] = useState(false)
@@ -38,7 +39,7 @@ export const CreateWorkoutPlanHooks = () => {
 	const [week, setWeek] = useState(1)
 	const [groupWorkouts, setGroupWorkouts] = useState<Workout[][]>([[]])
 	const [shouldShow, setShouldShow] = useState(true)
-	const [toggle, setToggle] = useState(false)
+	const [byFemale, setByFemale] = useState(false)
 	const [publicly, setPublic] = useState(false)
 	const [drop, setDrop] = useState<keyof typeof levelsMapper>('Опытный')
 	const trainer = useSelector(selectTrainer)
@@ -133,7 +134,7 @@ export const CreateWorkoutPlanHooks = () => {
 				title,
 				description,
 				price: +price,
-				gender: GENDER.MALE,
+				gender: byFemale ? GENDER.FEMALE : GENDER.MALE,
 				level: levelsMapper[drop],
 				week: week * 4,
 				creator: user?._id,
@@ -179,13 +180,14 @@ export const CreateWorkoutPlanHooks = () => {
 		setShouldShow,
 		drop,
 		setDrop,
-		toggle,
-		setToggle,
+		byFemale,
+		setByFemale,
 		price,
 		setPrice,
 		publicly,
 		setPublic,
 		t,
-		trainer
+		trainer,
+		isSuperAdmin
 	}
 }
