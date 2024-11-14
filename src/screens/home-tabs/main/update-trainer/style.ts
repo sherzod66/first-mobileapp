@@ -4,13 +4,17 @@ import { COLORS } from '../../../../constants/COLORS'
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.BLACK
+		backgroundColor: COLORS.BLACK,
+		paddingBottom: 15,
+		paddingTop: 50
 	},
 	header: { marginHorizontal: 20, marginBottom: 20 },
 	inputCont: {
 		marginTop: 12,
 		borderRadius: 10,
-		backgroundColor: COLORS.GREY2
+		backgroundColor: COLORS.GREY2,
+		paddingBottom: 15,
+		paddingTop: 15
 	},
 	input: {
 		color: COLORS.WHITE,

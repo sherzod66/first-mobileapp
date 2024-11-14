@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 0,
     backgroundColor: "transparent",
+    flexDirection: "row",
     justifyContent: "space-between",
   },
   btn: {

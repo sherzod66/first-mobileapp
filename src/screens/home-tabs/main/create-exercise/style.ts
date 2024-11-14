@@ -5,12 +5,16 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.BLACK,
+    paddingBottom: 20,
+    paddingTop: 50
   },
   header: { marginHorizontal: 20, marginBottom: 20 },
   inputCont: {
     marginTop: 12,
     borderRadius: 10,
     backgroundColor: COLORS.GREY2,
+    paddingTop: 15,
+		paddingBottom: 15
   },
   input: {
     color: COLORS.WHITE,

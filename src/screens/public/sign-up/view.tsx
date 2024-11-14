@@ -19,7 +19,9 @@ const SignUpView = () => {
 					containerStyle={{
 						backgroundColor: COLORS.GREY,
 						marginBottom: 10,
-						marginTop: 30
+						marginTop: 30,
+						paddingTop: 15,
+						paddingBottom: 15
 					}}
 					inputStyle={{
 						backgroundColor: COLORS.GREY,
@@ -33,7 +35,9 @@ const SignUpView = () => {
 					onChange={value => setPhone(value)}
 					containerStyle={{
 						backgroundColor: COLORS.GREY,
-						marginBottom: 10
+						marginBottom: 10,
+						paddingTop: 15,
+						paddingBottom: 15
 					}}
 					inputStyle={{
 						backgroundColor: COLORS.GREY,

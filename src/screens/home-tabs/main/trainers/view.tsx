@@ -44,7 +44,10 @@ const TrainersView = () => {
 				containerStyle={{
 					backgroundColor: COLORS.GREY3,
 					marginTop: 10,
-					borderRadius: 10
+					borderRadius: 10,
+					paddingBottom: 15,
+					paddingTop: 15
+
 				}}
 				inputStyle={{
 					backgroundColor: COLORS.GREY3,
