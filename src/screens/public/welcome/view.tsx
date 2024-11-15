@@ -68,7 +68,7 @@ const Component2 = () => {
 						Что я получу используя
 					</Text>
 					<View style={{ flexDirection: 'row' }}>
-						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.RED }}>Fit</Text>
+						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.RED2 }}>Fit</Text>
 						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.WHITE }}>Me?</Text>
 					</View>
 				</View>
@@ -104,7 +104,7 @@ const Component3 = () => {
 						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.WHITE }}>
 							Что ещё даст мне{' '}
 						</Text>
-						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.RED }}>Fit</Text>
+						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.RED2 }}>Fit</Text>
 						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.WHITE }}>Me?</Text>
 					</View>
 				</View>
@@ -141,7 +141,7 @@ const Component4 = () => {
 				<View style={{ alignItems: 'center', marginVertical: 10 }}>
 					<View style={{ flexDirection: 'row' }}>
 						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.WHITE }}>Так же </Text>
-						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.RED }}>Fit</Text>
+						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.RED2 }}>Fit</Text>
 						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.WHITE }}>Me?</Text>
 						<Text style={{ fontSize: 25, fontWeight: '600', color: COLORS.WHITE }}> даёт</Text>
 					</View>

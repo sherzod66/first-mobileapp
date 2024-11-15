@@ -31,7 +31,9 @@ const SignInView = () => {
 						onChange={value => setPhone(value)}
 						containerStyle={{
 							backgroundColor: COLORS.GREY,
-							marginVertical: 25
+							marginVertical: 25,
+							paddingBottom: 15,
+							paddingTop: 15
 						}}
 						inputStyle={{
 							backgroundColor: COLORS.GREY,
@@ -61,7 +63,7 @@ const SignInView = () => {
 					/>
 				</View>
 				<View style={styles.footerContainer}>
-					<Text style={styles.textFooter}>{t('login-with')}</Text>
+					{/* <Text style={styles.textFooter}>{t('login-with')}</Text> */}
 					<View style={{ alignItems: 'center' }}>
 						<View style={styles.iconContainer}>
 							{/* <TouchableOpacity activeOpacity={0.7}>
@@ -70,17 +72,17 @@ const SignInView = () => {
               <TouchableOpacity activeOpacity={0.7}>
               <FacebookIcon />
             </TouchableOpacity> */}
-							<TouchableOpacity activeOpacity={0.7}>
+							{/* <TouchableOpacity activeOpacity={0.7}>
 								<Image
 									style={{ width: 49, height: 50 }}
 									source={{
 										uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png'
 									}}
 								/>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 						</View>
 					</View>
-					<Text style={styles.text}>{t('or')}</Text>
+					{/* <Text style={styles.text}>{t('or')}</Text> */}
 					<TouchableOpacity
 						onPress={onRegisterPress}
 						activeOpacity={0.6}

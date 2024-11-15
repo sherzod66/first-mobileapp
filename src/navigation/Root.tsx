@@ -55,7 +55,7 @@ const Root = () => {
 	}, [])
 	const saveTokenToDatabase = async (token: string) => {
 		try {
-			await customRequests.updateMessageToken(token, user._id)
+			if (user) await customRequests.updateMessageToken(token, user._id)
 		} catch (e) {
 			console.log('ee: ', JSON.stringify(e, null, 4))
 		}

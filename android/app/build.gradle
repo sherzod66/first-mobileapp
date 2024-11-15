@@ -97,7 +97,11 @@ android {
         applicationId "com.fitmemobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+<<<<<<< HEAD
         versionCode 7
+=======
+        versionCode 5
+>>>>>>> 766dbd109f6ad833e454c5f22658fc252e346458
         versionName "1.0"
     }
 
