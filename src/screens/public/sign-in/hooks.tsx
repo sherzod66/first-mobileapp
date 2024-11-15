@@ -43,6 +43,11 @@ export const SignInHooks = () => {
 			// }
 
 			setLoading(true)
+			if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(phone)) {
+				showErrToast('Please enter correct email address')
+				setLoading(false)
+				return
+			}
 			// axios.get("http://")
 			await ApiService.post<Response<SignInResponse>>('/auth/signin', {
 				phone
