@@ -48,9 +48,7 @@ export const styles = StyleSheet.create({
 	modalInputCont: {
 		marginTop: 12,
 		borderRadius: 10,
-		backgroundColor: COLORS.GREY12,
-		paddingBottom: 15,
-		paddingTop: 15
+		backgroundColor: COLORS.GREY12
 	},
 	modalInput: {
 		color: COLORS.WHITE,

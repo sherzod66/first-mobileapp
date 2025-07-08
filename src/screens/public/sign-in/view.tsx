@@ -31,9 +31,7 @@ const SignInView = () => {
 						onChange={value => setPhone(value)}
 						containerStyle={{
 							backgroundColor: COLORS.GREY,
-							marginVertical: 25,
-							paddingBottom: 15,
-							paddingTop: 15
+							marginVertical: 25
 						}}
 						inputStyle={{
 							backgroundColor: COLORS.GREY,
