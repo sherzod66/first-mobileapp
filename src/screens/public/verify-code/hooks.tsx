@@ -7,7 +7,6 @@ import { ApiService, AuthService } from '../../../services'
 import { Response, SignInResponse, VerifyResponse } from '../../../types'
 import { useRedux } from '../../../store/hooks'
 import { setTokens } from '../../../store/slices/appSlice'
-import { setOauthRequestInterceptor } from '../../../utils/axios'
 import { getFirebaseMessageToken } from '../../../utils/getFirebaseMessageToken'
 import { useTranslation } from 'react-i18next'
 
@@ -50,13 +49,14 @@ export const VerifyCodeHooks = () => {
 
 	const onSubmit = async () => {
 		try {
-			const token = await getFirebaseMessageToken()
+			//TODO fix bug get token
+			// const token = await getFirebaseMessageToken()
 			const res = await ApiService.post<Response<VerifyResponse>>('/auth/verify', {
 				phone,
 				otp: code,
-				messageToken: token
+				messageToken: "dsafasfadfafadfadgdaferfvs"
 			})
-
+			console.log("response:", res)
 			dispatch(setTokens(res.data))
 			await AuthService.setToken(res.data)
 		} catch (e) {

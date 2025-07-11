@@ -4,7 +4,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { enableScreens } from 'react-native-screens'
 import store from './src/store/configureStore'
 import Root from './src/navigation/Root'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import messaging from '@react-native-firebase/messaging'
 import { PermissionsAndroid, Platform } from 'react-native'
 import PushNotification from 'react-native-push-notification'
@@ -81,7 +81,7 @@ const App = () => {
 			PushNotification.localNotification({
 				channelId: 'fit-me',
 				title: remoteMessage.notification?.title,
-				message: remoteMessage.notification?.body,
+				message: `${remoteMessage.notification?.body}`,
 				playSound: true,
 				soundName: 'default',
 				importance: 'high' // для Android, чтобы показать уведомление сразу

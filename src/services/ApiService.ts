@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { combineUrls, combineConfig } from "../utils/api";
-import store from "../store/configureStore";
 
 // axios.interceptors.request.use((e) => {
 //   const token = store.getState().app.token;
