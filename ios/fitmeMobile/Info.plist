@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>fitmeMobile</string>
+	<string>FIT.ME</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -50,10 +50,20 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Это необходимо для отображения событий в календаре.</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Это необходимо для доступа к вашим фотографиям.</string>
+	
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Это необходимо для определения вашего местоположения во время использования приложения.</string>
+
 </dict>
 </plist>
