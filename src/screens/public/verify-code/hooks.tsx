@@ -49,12 +49,11 @@ export const VerifyCodeHooks = () => {
 
 	const onSubmit = async () => {
 		try {
-			//TODO fix bug get token
-			// const token = await getFirebaseMessageToken()
+			const token = await getFirebaseMessageToken()
 			const res = await ApiService.post<Response<VerifyResponse>>('/auth/verify', {
 				phone,
 				otp: code,
-				messageToken: "dsafasfadfafadfadgdaferfvs"
+				messageToken: token
 			})
 			console.log("response:", res)
 			dispatch(setTokens(res.data))

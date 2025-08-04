@@ -43,7 +43,7 @@ export const SignInHooks = () => {
 			// }
 
 			setLoading(true)
-			if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(phone)) {
+			if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(phone)) {
 				showErrToast('Please enter correct email address')
 				setLoading(false)
 				return
