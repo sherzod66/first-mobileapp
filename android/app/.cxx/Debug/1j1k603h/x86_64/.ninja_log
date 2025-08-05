@@ -1,0 +1,5 @@
+# ninja log v5
+1	27	0	D:/AwesomeProject/android/app/.cxx/Debug/1j1k603h/x86_64/CMakeFiles/cmake.verify_globs	f735ac43c71762bb
+5	3055	7760034455786297	CMakeFiles/appmodules.dir/D_/AwesomeProject/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	a52e150fcfae4992
+1	3302	7760034458205840	CMakeFiles/appmodules.dir/OnLoad.cpp.o	816eabbc81570fdd
+3302	3402	7760034459304536	D:/AwesomeProject/android/app/build/intermediates/cxx/Debug/1j1k603h/obj/x86_64/libappmodules.so	4a1b97b774009a51
