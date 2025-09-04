@@ -2,14 +2,14 @@
   "project_info": {
     "project_number": "309384223462",
     "project_id": "fit-me-f0215",
-    "storage_bucket": "fit-me-f0215.appspot.com"
+    "storage_bucket": "fit-me-f0215.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:309384223462:android:8273e915d4a8ba07bbb927",
+        "mobilesdk_app_id": "1:309384223462:android:ab0e8882b9333855bbb927",
         "android_client_info": {
-          "package_name": "com.fitmemobile"
+          "package_name": "com.fitmemobile_new"
         }
       },
       "oauth_client": [],

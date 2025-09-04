@@ -1,12 +1,6 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  SelectLanguage,
-  Welcome,
-  SignIn,
-  SignUp,
-  VerifyCode,
-} from "../screens/public";
-import { ROUTES } from "./ROUTES";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Welcome, SignIn, SignUp, VerifyCode } from '../screens/public';
+import { ROUTES } from './ROUTES';
 
 export type PublickStackParamList = {
   [ROUTES.PUBLIC.WELCOME]: undefined;
@@ -14,7 +8,7 @@ export type PublickStackParamList = {
   [ROUTES.PUBLIC.SIGN_UP]: undefined;
   [ROUTES.PUBLIC.VERIFY_CODE]: {
     phone: string;
-    from: "signin" | "signup";
+    from: 'signin' | 'signup';
   };
 };
 

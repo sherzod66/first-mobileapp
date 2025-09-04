@@ -5,15 +5,15 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
-import React from "react";
-import Carousel from "react-native-snap-carousel";
-import AdItem from "./ad-item";
-import { styles } from "./styles";
-import { ButtonSecondary, InputPrimary } from "../../../../components/common";
-import { useAdsHook } from "./hooks";
+} from 'react-native';
+import React from 'react';
+import AdItem from './ad-item';
+import { styles } from './styles';
+import { ButtonSecondary, InputPrimary } from '../../../../components/common';
+import { useAdsHook } from './hooks';
+import Carousel from 'react-native-reanimated-carousel';
 
-const sliderWidth = Dimensions.get("window").width;
+const sliderWidth = Dimensions.get('window').width;
 const itemWidth = sliderWidth - 30;
 
 const AdsScreen = () => {
@@ -21,18 +21,19 @@ const AdsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ marginBottom: 500, marginHorizontal: 15 }}>
           <Carousel
             data={ads}
             renderItem={({ ...rest }) => (
               <AdItem {...rest} fetchAds={fetchAds} />
             )}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
+            height={200}
+            autoPlay
+            autoPlayInterval={4000} // вместо autoPlayDelay
+            width={itemWidth}
           />
-        </View>
-        <View style={{ marginHorizontal: 15 }}>
+
           <Text style={[styles.textOne, { marginVertical: 10 }]}>
             Чтобы добавить рекламу, пожалуйста, заполните поля ниже
           </Text>
@@ -43,7 +44,7 @@ const AdsScreen = () => {
             disablePlaceholder
             inputStyle={styles.input}
             containerStyle={styles.inputCont}
-            onChange={onInputChange("imageUrl")}
+            onChange={onInputChange('imageUrl')}
           />
           <Text style={[styles.textOne, { marginVertical: 10 }]}>
             Ссылка на видео
@@ -52,7 +53,7 @@ const AdsScreen = () => {
             disablePlaceholder
             inputStyle={styles.input}
             containerStyle={styles.inputCont}
-            onChange={onInputChange("videoUrl")}
+            onChange={onInputChange('videoUrl')}
           />
           <Text style={[styles.textOne, { marginVertical: 10 }]}>
             Ссылка на сайт
@@ -61,14 +62,14 @@ const AdsScreen = () => {
             disablePlaceholder
             inputStyle={styles.input}
             containerStyle={styles.inputCont}
-            onChange={onInputChange("link")}
+            onChange={onInputChange('link')}
           />
           {loading ? (
             <ActivityIndicator />
           ) : (
             <ButtonSecondary
               containerStyle={{
-                width: "100%",
+                width: '100%',
                 marginVertical: 20,
                 paddingVertical: 15,
               }}

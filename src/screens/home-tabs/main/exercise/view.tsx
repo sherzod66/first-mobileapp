@@ -1,16 +1,16 @@
-import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { styles } from "./style";
-import { Header } from "../../../../components/common";
-import { ExerciseHooks } from "./hooks";
+import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { styles } from './style';
+import { Header } from '../../../../components/common';
+import { ExerciseHooks } from './hooks';
 // import YouTube from "react-native-youtube";
 
-import Youtube from "react-native-youtube-iframe";
+import Youtube from 'react-native-youtube-iframe';
 
 function youtube_parser(url: string | undefined) {
   var regExp =
     /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
   var match = url?.match(regExp);
-  return match ? match[1] : "";
+  return match ? match[1] : '';
 }
 
 const ExerciseView = () => {
@@ -20,7 +20,7 @@ const ExerciseView = () => {
     <View style={styles.container}>
       <SafeAreaView />
       <View style={{ marginHorizontal: 20, marginBottom: 20 }}>
-        <Header title={exercise.title[i18n.language as "ru" | "en" | "uz"]} />
+        <Header title={exercise.title[i18n.language as 'ru' | 'en' | 'uz']} />
       </View>
       <Youtube
         key={exercise.video}
@@ -34,7 +34,7 @@ const ExerciseView = () => {
       />
       <ScrollView contentContainerStyle={{ paddingBottom: 460 }}>
         <Text style={styles.text}>
-          {exercise.description[i18n.language as "ru" | "en" | "uz"]}
+          {exercise.description[i18n.language as 'ru' | 'en' | 'uz']}
         </Text>
         {/* <Text style={styles.text}>{exercise.metadescription}</Text> */}
       </ScrollView>
@@ -42,14 +42,14 @@ const ExerciseView = () => {
   );
 };
 
-const youtubeStyle = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  youtubePlayer: {
-    alignSelf: "stretch",
-    height: 200,
-  },
-});
+// const youtubeStyle = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+//   youtubePlayer: {
+//     alignSelf: 'stretch',
+//     height: 200,
+//   },
+// });
 
 export default ExerciseView;

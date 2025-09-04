@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet, Platform } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainStack from "../screens/home-tabs/main";
-import WorkoutStack from "../screens/home-tabs/workout";
-import NutritionStack from "../screens/home-tabs/nutrition";
-import ProfileStack from "../screens/home-tabs/profile";
-import { TabBarIcon } from "../components";
-import { ROUTES } from "./ROUTES";
-import { COLORS } from "../constants/COLORS";
+import { View, StyleSheet, Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MainStack from '../screens/home-tabs/main';
+import WorkoutStack from '../screens/home-tabs/workout';
+import NutritionStack from '../screens/home-tabs/nutrition';
+import ProfileStack from '../screens/home-tabs/profile';
+import { TabBarIcon } from '../components';
+import { ROUTES } from './ROUTES';
+import { COLORS } from '../constants/COLORS';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,12 +20,14 @@ const HomeStack = () => {
             <TabBarIcon route={route} focused={focused} />
           ),
           tabBarShowLabel: false,
-          tabBarShowIcon: true,
+          tabBarShowIcon: false,
           tabBarStyle: styles.tabBarStyle,
           // tabBarActiveBackgroundColor: "red",
-          
+
           // tabBarStyle: { backgroundColor: "red" },
-          tabBarBackground: () => <View style={{ backgroundColor: "green" }} />,
+          tabBarBackground: () => (
+            <View style={{ backgroundColor: COLORS.GREY7 }} />
+          ),
         })}
       >
         <Tab.Screen name={ROUTES.TABS.MAIN.TAB} component={MainStack} />
@@ -45,14 +47,14 @@ export default HomeStack;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "aquamarine",
+    backgroundColor: 'aquamarine',
   },
   tabBarStyle: {
-    position: "absolute",
-    // bottom: 4,
+    position: 'absolute',
+    bottom: 0,
     backgroundColor: COLORS.GREY7,
-    height: Platform.OS === "ios" ? 80 : 55,
-    paddingTop: Platform.OS === "ios" ? 20 : 0,
-    paddingHorizontal: 25,
+    height: Platform.OS === 'ios' ? 84 : 55,
+    paddingTop: Platform.OS === 'ios' ? 20 : 10,
+    paddingHorizontal: 15,
   },
 });

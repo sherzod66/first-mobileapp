@@ -4,10 +4,10 @@ import {
   FlatList,
   ImageBackground,
   TouchableOpacity,
-} from "react-native";
-import { styles } from "./style";
-import { FC } from "react";
-import { SelectLanguageHooks } from "./hooks";
+} from 'react-native';
+import { styles } from './style';
+import { FC } from 'react';
+import { SelectLanguageHooks } from './hooks';
 
 const SelectLanguageView: FC<{ press: () => void }> = ({ press }) => {
   const { changeLanguage, languageInfo } = SelectLanguageHooks(press);
@@ -15,7 +15,7 @@ const SelectLanguageView: FC<{ press: () => void }> = ({ press }) => {
     <View>
       <ImageBackground
         style={styles.imageBack}
-        source={require("../../../assets/images/BG.png")}
+        source={require('../../../assets/images/BG.png')}
       ></ImageBackground>
       <FlatList
         style={styles.list}
